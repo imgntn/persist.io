@@ -1,0 +1,3 @@
+   twit.search('occupygame OR #occupygame', function(err, data) {
+      console.log(console.dir(data));
+    });
