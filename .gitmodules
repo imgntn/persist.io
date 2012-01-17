@@ -1,0 +1,12 @@
+[submodule "Audiolet"]
+    path = public/javascripts/Audiolet
+    url = git://github.com/oampo/Audiolet.git
+
+[submodule "move.js"]
+    path = public/javascripts/move.js
+    url = git://github.com/visionmedia/move.js.git
+
+[submodule "three.js"]
+    path = public/javascripts/three.js
+    url = git://github.com/mrdoob/three.js.git
+
