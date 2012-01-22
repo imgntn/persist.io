@@ -1,39 +1,38 @@
 !!! 5
-html(lang='en')
-  head
-    title bethere
-    meta(charset='utf-8')
-    meta(name='viewport', content='width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0')
-    style
-      body {
-      background:#000;
-      color:#fff;
-      padding:0;
-      margin:0;
-      font-weight: bold;
-      overflow:hidden;
-      }
-      #info {
-      position: absolute;
-      top: 0px; width: 100%;
-      color: #ffffff;
-      padding: 5px;
-      font-family: Helvetica;
-      font-size: 38px;
-      text-align: center;
-      z-index:100;
-      }
-      a {
-      color:red
-      }
-  body
-    script(src='javascripts/three.js/build/Three.js')
-    script(src='javascripts/three.js/examples/js/Detector.js')
-    script(src='javascripts/three.js/examples/js/RequestAnimationFrame.js')
-    script(src='javascripts/three.js/examples/js/Stats.js')
-    script(src='javascripts/world.js')
-  #info.container_12
-    a(href='/about') about
-    h1(style="cursor:none") be there
-    h2(style="cursor:none") mmxii
+html(lang="en")
+    head
+        title bethere
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0')
+        
+        script(src='vendor/three.js/Three.js')
+        script(src='vendor/three.js/Detector.js')
+        script(src='vendor/three.js/Stats.js')
+        
+        script(src='vendor/threex/THREEx.screenshot.js')
+        script(src='vendor/threex/THREEx.FullScreen.js')
+        script(src='vendor/threex/THREEx.WindowResize.js')
+        script(src='vendor/threex.dragpancontrols.js')
+        
+        script(src='vendor/three.js/ShaderExtras.js')
+        script(src='vendor/three.js/postprocessing/EffectComposer.js')
+        script(src='vendor/three.js/postprocessing/RenderPass.js')
+        script(src='vendor/three.js/postprocessing/BloomPass.js')
+        script(src='vendor/three.js/postprocessing/ShaderPass.js')
+        script(src='vendor/three.js/postprocessing/MaskPass.js')
+
+        link(rel='stylesheet', href='stylesheets/main.css')
+    body
+        #container
+        #info
+            .top
+                a(href='/about') about
+                h1 be there
+                h2 mmxii
+            div#inlineDoc.bottom
+                p - p for screenshot
+
+        script(src='javascripts/main.js')
+
+        
    
