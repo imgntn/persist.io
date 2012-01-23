@@ -7,7 +7,6 @@ if( !init() )	animate();
 
 // init the scene
 function init(){
-
 	if (Detector.webgl) {
 		renderer = new THREE.WebGLRenderer({
 			antialias		: true,	// to get smoother output
@@ -34,7 +33,7 @@ function init(){
 
 	// put a camera in the scene
 	camera	= new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 10000 );
-	camera.position.set(0, 0, 10);
+	camera.position.set(0, 20, 10);
 	scene.add(camera);
 
 	// create a camera contol
@@ -75,8 +74,16 @@ function init(){
 	var geometry	= new THREE.TorusGeometry( 1, 0.42, 16, 16 );
 	var material	= new THREE.MeshLambertMaterial({ambient: 0x808080, color: Math.random() * 0xffffff});
 	var mesh	= new THREE.Mesh( geometry, material ); 
-	scene.add( mesh );
+	mesh.position.y = 20;
+    scene.add( mesh );
+    
+    var geometry = new THREE.PlaneGeometry(1000, 1000, 4, 4);
+    var material = new THREE.MeshLambertMaterial({ambient: 0x808080, color: 0xff0000});
+    var mesh = new THREE.Mesh(geometry, material);
+    mesh.rotation.x = - 90 * Math.PI / 180;
+    scene.add(mesh);
 
+    /*
 	// define the stack of passes for postProcessing
 	composer = new THREE.EffectComposer( renderer );
 	renderer.autoClear = false;
@@ -90,6 +97,7 @@ function init(){
 	var effectScreen= new THREE.ShaderPass( THREE.ShaderExtras[ "screen" ] );
 	effectScreen.renderToScreen = true;
 	composer.addPass( effectScreen );
+    */
 }
 
 // animation loop
@@ -124,6 +132,7 @@ function render() {
 	}
     */
 	// animate DirectionalLight
+    /*
 	scene.lights.forEach(function(light, idx){
 		if( light instanceof THREE.DirectionalLight === false )	return;
 		var ang	= 0.0005 * PIseconds * (idx % 2 ? 1 : -1);
@@ -135,8 +144,10 @@ function render() {
 		var angle	= 0.0005 * PIseconds * (idx % 2 ? 1 : -1) + idx * Math.PI/3;
 		light.position.set(Math.cos(angle)*3, Math.sin(angle*3)*2, Math.cos(angle*2)).normalize().multiplyScalar(2);
 	});
+    */
 
 	// actually render the scene
-	renderer.clear();
-	composer.render();
+	//renderer.clear();
+	//composer.render();
+    renderer.render(scene, camera);
 }
