@@ -1,5 +1,7 @@
 var stats, scene, renderer, composer;
-var camera, cameraControl;
+var camera, /*cameraControls*/ controls;
+
+var clock;
 
 if( !init() )	animate();
 
@@ -16,6 +18,8 @@ function init(){
 		return true;
 	}
     
+    clock = new THREE.Clock();
+    
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.getElementById('container').appendChild(renderer.domElement);
 
@@ -30,11 +34,14 @@ function init(){
 
 	// put a camera in the scene
 	camera	= new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 10000 );
-	camera.position.set(0, 0, 5);
+	camera.position.set(0, 0, 10);
 	scene.add(camera);
 
 	// create a camera contol
-	cameraControls	= new THREEx.DragPanControls(camera)
+	//cameraControls	= new THREEx.DragPanControls(camera
+    controls = new THREE.FirstPersonControls(camera);
+	controls.movementSpeed = 80;
+	controls.lookSpeed = 0.1;
 
 	// transparently support window resize
 	THREEx.WindowResize.bind(renderer, camera);
@@ -106,13 +113,16 @@ function render() {
 	var PIseconds	= Date.now() * Math.PI;
 
 	// update camera controls
-	cameraControls.update();
+	//cameraControls.update();
+    controls.update(clock.getDelta());
 
 	// animation of all objects
+    /*
 	for( var i = 0; i < scene.objects.length; i ++ ){
 		scene.objects[ i ].rotation.y = PIseconds*0.0003 * (i % 2 ? 1 : -1);
 		scene.objects[ i ].rotation.x = PIseconds*0.0002 * (i % 2 ? 1 : -1);
 	}
+    */
 	// animate DirectionalLight
 	scene.lights.forEach(function(light, idx){
 		if( light instanceof THREE.DirectionalLight === false )	return;
