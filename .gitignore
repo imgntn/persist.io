@@ -3,3 +3,4 @@ dump.rdb
 npm-debug.log
 tmp
 public/assets
+node_modules
