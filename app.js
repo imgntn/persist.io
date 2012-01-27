@@ -19,14 +19,16 @@ ss.client.formatters.add(require('ss-jade'));
 ss.client.formatters.add(require('ss-stylus'));
 
 // Minimise and pack assets if you type SS_ENV=production node app
-//if (ss.env == 'production') ss.client.packAssets();
+if (ss.env == 'production') ss.client.packAssets();
 
 var server = http.Server(ss.http.middleware);
 
-if (ss.env == 'production') {
-    server.listen(80);
-} else {
+var arguments = process.argv.splice(2);
+
+if (arguments[0] == 'cloud9') {
     server.listen(process.env.C9_PORT, "0.0.0.0");
+} else {
+    server.listen(80);
 }
 
 ss.start(server);
