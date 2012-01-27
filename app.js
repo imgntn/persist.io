@@ -22,6 +22,11 @@ ss.client.formatters.add(require('ss-stylus'));
 if (ss.env == 'production') ss.client.packAssets();
 
 var server = http.Server(ss.http.middleware);
-server.listen(80);
+
+if (ss.env == 'production') {
+    server.listen(80);
+} else {
+    server.listen(process.env.C9_PORT, "0.0.0.0");
+}
 
 ss.start(server);
