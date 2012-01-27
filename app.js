@@ -6,7 +6,7 @@ var http = require('http')
 ss.client.define('main', {
   view:   'app.jade',
   css:    ['libs', 'app.styl'],
-  code:   ['libs', 'modules', 'main']
+  code:   ['libs/jquery.min.js', 'modules', 'main']
 });
 
 ss.http.router.on('/', function(req, res) {
