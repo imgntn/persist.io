@@ -19,7 +19,7 @@ ss.client.formatters.add(require('ss-jade'));
 ss.client.formatters.add(require('ss-stylus'));
 
 // Minimise and pack assets if you type SS_ENV=production node app
-if (ss.env == 'production') ss.client.packAssets();
+//if (ss.env == 'production') ss.client.packAssets();
 
 var server = http.Server(ss.http.middleware);
 
