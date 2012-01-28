@@ -10,11 +10,26 @@ exports.init = ->
     return true
   exports.renderer.setSize window.innerWidth, window.innerHeight
   result = $('#container').append exports.renderer.domElement
-  console.log result
+  
+  exports.stats = new Stats()
+  exports.stats.domElement.style.position = 'absolute'
+  exports.stats.domElement.style.bottom = '0px'
+  $('body').append exports.stats.domElement
+  
   exports.scene = new THREE.Scene()
+  
   exports.camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 10000)
   exports.camera.position.set 0, 0, 5
   exports.scene.add exports.camera
+  
+  THREEx.WindowResize.bind exports.renderer, exports.camera
+  
+  THREEx.Screenshot.bindKey exports.renderer
+  
+  if THREEx.FullScreen.available()
+    THREEx.FullScreen.bindKey()
+    $('#inlineDoc').append "- i <i>f</i> for fullscreen"
+  
   light = new THREE.AmbientLight(Math.random() * 0xffffff)
   exports.scene.add light
   light = new THREE.DirectionalLight(Math.random() * 0xffffff)
@@ -40,6 +55,7 @@ exports.init = ->
 exports.animate = ->
   requestAnimationFrame exports.animate
   render()
+  exports.stats.update()
   
 render = ->
   PIseconds = Date.now() * Math.PI
@@ -64,6 +80,6 @@ render = ->
 exports.scene = undefined
 exports.renderer = undefined
 exports.camera = undefined
+exports.stats = undefined
 
-stats = undefined
 composer = undefined
