@@ -1,35 +1,46 @@
 exports.init = ->
+  
+  # detect WebGL
   if Detector.webgl
+    # create renderer
     exports.renderer = new THREE.WebGLRenderer(
       antialias: true
       preserveDrawingBuffer: true
     )
     exports.renderer.setClearColorHex 0xBBBBBB, 1
   else
+    # prompt user to get webgl
     Detector.addGetWebGLMessage()
+    console.log 'could not detect webgl'
     return true
-  exports.renderer.setSize window.innerWidth, window.innerHeight
-  result = $('#container').append exports.renderer.domElement
   
+  # append renderer to container element
+  exports.renderer.setSize window.innerWidth, window.innerHeight
+  $('#container').append exports.renderer.domElement
+  
+  # setup stats
   exports.stats = new Stats()
   exports.stats.domElement.style.position = 'absolute'
   exports.stats.domElement.style.bottom = '0px'
   $('body').append exports.stats.domElement
   
+  # create scene
   exports.scene = new THREE.Scene()
   
+  # create camera and move it back
   exports.camera = new THREE.PerspectiveCamera(35, window.innerWidth / window.innerHeight, 1, 10000)
-  exports.camera.position.set 0, 0, 5
+  exports.camera.position.set 0, 0, 15
   exports.scene.add exports.camera
   
+  # make canvas resize with window
   THREEx.WindowResize.bind exports.renderer, exports.camera
-  
   THREEx.Screenshot.bindKey exports.renderer
-  
   if THREEx.FullScreen.available()
     THREEx.FullScreen.bindKey()
-    $('#inlineDoc').append "- i <i>f</i> for fullscreen"
+    #document.getElementById("inlineDoc").innerHTML += "- <i>f</i> for fullscreen"
+    $("#inlineDoc").append "- <i>f</i> for fullscreen"
   
+  # create lights
   light = new THREE.AmbientLight(Math.random() * 0xffffff)
   exports.scene.add light
   light = new THREE.DirectionalLight(Math.random() * 0xffffff)
@@ -44,23 +55,39 @@ exports.init = ->
   light = new THREE.PointLight(Math.random() * 0xffffff)
   light.position.set(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5).normalize().multiplyScalar 1.2
   exports.scene.add light
-  geometry = new THREE.TorusGeometry(1, 0.42, 16, 16)
+  
+  # create geometry and material for mesh
+  geometry = new THREE.CubeGeometry(1, 1, 1)
   material = new THREE.MeshLambertMaterial(
     ambient: 0x808080
     color: Math.random() * 0xffffff
   )
   mesh = new THREE.Mesh(geometry, material)
-  exports.scene.add mesh
+  exports.scene.add mesh 
+  
+  exports.mesh = mesh
+  
+  # create a gui
+  exports.gui = new dat.GUI()
+  
+  
+  
+  # return false
+  false
   
 exports.animate = ->
+  # animation loop
   requestAnimationFrame exports.animate
   render()
+  
+  #update stats
   exports.stats.update()
   
 render = ->
   PIseconds = Date.now() * Math.PI
   i = 0
 
+  # animate lights and cube
   while i < exports.scene.objects.length
     exports.scene.objects[i].rotation.y = PIseconds * 0.0003 * (if i % 2 then 1 else -1)
     exports.scene.objects[i].rotation.x = PIseconds * 0.0002 * (if i % 2 then 1 else -1)
@@ -76,10 +103,3 @@ render = ->
     light.position.set(Math.cos(angle) * 3, Math.sin(angle * 3) * 2, Math.cos(angle * 2)).normalize().multiplyScalar 2
 
   exports.renderer.render exports.scene, exports.camera
-  
-exports.scene = undefined
-exports.renderer = undefined
-exports.camera = undefined
-exports.stats = undefined
-
-composer = undefined
