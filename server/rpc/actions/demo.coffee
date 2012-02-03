@@ -14,3 +14,10 @@ exports.actions = (req, res, ss) ->
       res(true)                                 # Confirm it was sent to the originating client
     else
       res(false)
+      
+  sendscale: (scale) ->
+    if scale?
+      ss.publish.all('newScale', scale)
+      res(true)
+    else
+      res(false)

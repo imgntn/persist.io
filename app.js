@@ -1,12 +1,12 @@
 // My SocketStream app
 
-var http = require('http')
-  , ss = require('socketstream');
+var http = require('http'), 
+    ss = require('socketstream');
 
 ss.client.define('main', {
   view:   'app.jade',
-  css:    ['libs', 'app.styl'],
-  code:   ['libs', 'modules', 'main']
+  css:    ['three.styl'],
+  code:   ['libs', 'modules', 'main/demo.coffee']
 });
 
 ss.http.router.on('/', function(req, res) {
@@ -23,9 +23,9 @@ if (ss.env == 'production') ss.client.packAssets();
 
 var server = http.Server(ss.http.middleware);
 
-var arguments = process.argv.splice(2);
+var args = process.argv.splice(2);
 
-if (arguments[0] == 'cloud9') {
+if (args[0] == 'cloud9') {
     server.listen(process.env.C9_PORT, "0.0.0.0");
 } else {
     server.listen(80);

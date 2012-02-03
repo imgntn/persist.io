@@ -1,26 +1,39 @@
-### QUICK CHAT DEMO ####
+anim = require 'anim'
+updatemesh = require 'updatemesh'
 
-# Delete this file once you've seen how the demo works
+gScale = null
+reset = false
 
-# Listen for incoming messages and append them to the screen
-ss.event.on 'newMessage', (message) ->
-  $("<p>#{message}</p>").hide().appendTo('#chatlog').slideDown()
+ss.event.on 'newScale', (scale) ->
+  if not gScale?
+    anim.mesh.scale.x = scale.x
+    anim.mesh.scale.y = scale.y
+    anim.mesh.scale.z = scale.z
+  else if reset
+    reset = false
+    gScale = null
 
-# Example of using a module
-message = require('message')
-
-# Wait for connection to the server
 SocketStream.event.on 'ready', ->
+  if not anim.init()
+    initGUI(anim.gui, anim.mesh.scale)
+    anim.animate()
+  else
+    console.log 'init failed'
+    
+initGUI = (gui, scale) ->
+  updateScale = ->
+    gScale = scale
+    updatemesh.send scale, (success) ->
+      if not success
+        gScale = null
+        console.log 'message could not be sent'
   
-  # Show the chat form and bind to the submit action
-  $('#demo').on 'submit', ->
-
-    # Grab the message from the text box
-    text = $('#myMessage').val()
-
-    # Use the module to ensure it's valid before sending to the server
-    message.send text, (success) ->
-      if success
-        $('#myMessage').val('') # clear text box
-      else
-        alert('Oops! Unable to send message')
+  gui.add(scale, 'x').min(0.1).max(10).step(0.1).listen().onChange(updateScale).onFinishChange ->
+    reset = true
+        
+  gui.add(scale, 'y').min(0.1).max(10).step(0.1).listen().onChange(updateScale).onFinishChange ->
+    reset = true
+  
+  gui.add(scale, 'z').min(0.1).max(10).step(0.1).listen().onChange(updateScale).onFinishChange ->
+    reset = true
+        
