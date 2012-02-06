@@ -6,18 +6,18 @@ html
     meta(name='viewport', content='width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0')
     != SocketStream
   body
-    //
-      three.js container 
-    #container
-    //
-      info on screen display 
-    #info
-      .top
-        a(href='http://learningthreejs.com/blog/2011/12/20/boilerplate-for-three-js/', target='_blank') LearningThree.js
-        |  boiler plate for
-        a(href='https://github.com/mrdoob/three.js/', target='_blank') three.js
-      #inlineDoc.bottom
-        
-          | -
-          i p
-          |  for screenshot
+    #main.hidden
+      // three.js container 
+      #container
+      // info on screen display 
+      #info
+        .top
+          | Multiplayer Example
+        #inlineDoc.bottom
+          
+            | -
+            i p
+            |  for screenshot
+    form(onsubmit: 'return false')#signIn.hidden
+      h1 Please enter a username to begin:
+      input(type='text')

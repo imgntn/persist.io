@@ -51,7 +51,7 @@ exports.init = ->
   exports.stats = stats
   
   # return false
-  return false
+  false
   
 exports.animate = ->
   # animation loop

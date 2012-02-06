@@ -5,7 +5,7 @@ var http = require('http'),
 
 ss.client.define('main', {
   view:   'app.jade',
-  css:    ['three.styl'],
+  css:    ['libs', 'app.styl'],
   code:   ['libs', 'modules', 'main']
 });
 
