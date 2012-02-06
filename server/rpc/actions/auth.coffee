@@ -10,7 +10,8 @@ exports.actions = (req, res, ss) ->
   init: ->    
     if req.session.userId?
       client = redis.createClient 6379, "50.18.154.76"
-      client.get "ss:session:#{ req.session._store.id }", (err, data) ->
+      client.select 1
+      client.get "user:#{ req.session.userId }", (err, data) ->
         if data
           res data
         else
@@ -21,23 +22,27 @@ exports.actions = (req, res, ss) ->
         
   signIn: (username) ->
     client = redis.createClient 6379, "50.18.154.76"
-    client.get "ss:session:#{ username }", (err, data) =>
+    client.select 1
+    client.get "user:#{ username }", (err, data) =>
       if data
+        console.log "already logged in"
         res 
           error: true
-          errror_msg: "Username already in use"
+          error_msg: "Username already in use"
       else
-        
-        # TODO: make geometry
+        console.log "not logged in"
         cube =
           x: 0
           y: 0
           z: 0
         
-        client.set "ss:session:#{ username }", JSON.stringify(cube), (err, data) =>
-          client.expire "ss:session:#{ username }", 300
+        client.set "user:#{ username }", JSON.stringify(cube), (err, data) =>
+          client.expire "user:#{ username }", 300
           if data
-            false
             # TODO: publish all cubes
+            console.log 
+            req.session.setUserId username
+            res cube
+            ss.publish.user username, 'initCube', cube
           client.quit()
     

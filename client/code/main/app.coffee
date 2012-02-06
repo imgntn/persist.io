@@ -4,7 +4,8 @@ scene = require 'scene'
 
 ss.event.on 'initCube', (cube) ->
   # initialize cube
-  false
+  console.log 'initializing cube'
+  
 
 initialized = false
 
@@ -21,9 +22,13 @@ displaySignIn = ->
   $('#signIn').show().submit ->
     console.log "submitting username"
     ss.rpc "auth.signIn", $('#signIn').find('input').val(), (response) ->
-      console.log "sign in successful"
-      $('signIn').fadeOut(230)
-      displayScene()
+      if response.error
+        console.log "response error"
+        $('#signIn').find('input').val('')
+        $('#signIn').append("<p id='signInError'>" + response.error_msg + "</p>")
+      else
+        $('#signIn').fadeOut(230)
+        displayScene()
     false
     
 displayScene = ->
