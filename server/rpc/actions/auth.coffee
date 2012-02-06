@@ -1,6 +1,7 @@
 # Server-side Authentication Code
 
-redis = require "redis"
+redis = require 'redis'
+uuid = require 'node-uuid'
 
 exports.before = (m) ->
   [m.loadSession()]
@@ -35,6 +36,8 @@ exports.actions = (req, res, ss) ->
           x: 0
           y: 0
           z: 0
+          name: username
+          id: uuid.v4()
         
         client.set "user:#{ username }", JSON.stringify(cube), (err, data) =>
           client.expire "user:#{ username }", 300
