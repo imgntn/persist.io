@@ -8,24 +8,31 @@ exports.before = (m) ->
 
 exports.actions = (req, res, ss) ->
   
+  broadCastUserCube = (data, local) ->
+    req.session.setUserId data.name
+    
+    res data                                # must respond with cube first so scene is created
+    ss.publish.all 'initCube', data, local  # then send cube
+    
+  
   # check to see if user is logged in
   init: ->    
     if req.session.userId?
       client = redis.createClient 6379, "50.18.154.76"
       client.select 1
       
-      # check database for user:userId
-      client.get "user:#{ req.session.userId }", (err, data) ->
+      # check database for user:userId key
+      client.get "user:#{ req.session.userId }", (err, data) =>
         # user is logged in
         if data
-          res data
-          
-        # user is not logged in
+          cube = JSON.parse data
+          broadCastUserCube cube, true
+        # no cube in database
         else
           res false
         client.quit()
         
-    # user is not logged in
+    # no userId in session
     else
       res false
         
@@ -35,16 +42,14 @@ exports.actions = (req, res, ss) ->
     client.select 1
     
     # check for user in database
-    client.get "user:#{ username }", (err, data) =>
+    client.get "user:#{ username }", (err, data) ->
       # user already exists
       # return with error
       if data
-        console.log "already logged in"
         res 
           error: true
           error_msg: "Username already in use"
       else
-        console.log "not logged in"
         cube =
           x: 0
           y: 0
@@ -53,19 +58,17 @@ exports.actions = (req, res, ss) ->
           id: uuid.v4()      # generate UUID using random numbers
         
         # add user to database
-        client.set "user:#{ username }", JSON.stringify(cube), (err, data) =>
-          # expire user data in database after 10 minutes of inactivity
-          client.expire "user:#{ username }", 300
+        client.set "user:#{ username }", JSON.stringify(cube), (err, data) ->
+          # expire user data in database after 2 minutes of inactivity
+          client.expire "user:#{ username }", 120
           if data
-            
             # store userId in session
-            req.session.setUserId username
+            broadCastUserCube cube, true
             
-            res data
-            
-            # push clients cube and all other cubes to client
-            # TODO: publish all cubes
-            ss.publish.user username, 'initCube', data
+            # TODO: send other cubes to user
             
           client.quit()
+          
+  
+  
     

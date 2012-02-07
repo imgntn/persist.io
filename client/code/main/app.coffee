@@ -1,6 +1,6 @@
 # Client Side code
 
-scene = require 'scene'
+world = require 'world'
 
 window.sc =
   user: null
@@ -8,31 +8,29 @@ window.sc =
   cubes: {}
 
 # wait for server to send us a cube
-ss.event.on 'initCube', (cube) ->
-  console.log 'recieved cube'
-  
+ss.event.on 'initCube', (cube, local) ->
   # getting clients cubes
-  if cube.name == sc.user
+  if local
     console.log 'my cube'
-    initCube(cube)
+    sc.myCube = initCube(cube, true)
   # getting others cubes
   else
     console.log 'their cube'
-    sc.cubes[cube.name] = initCar(car)
+    sc.cubes[cube.name] = initCube(cube, false)
     
 # return existing cube or
 # create a new cube and add it to the scene
-initCube = (cube) ->
+initCube = (cube, local) ->
   console.log 'initializing cube'
-  # TODO create cube or grab existing cube
-  ###
+  
   for tc in sc.cubes
     if tc.id is cube.id
       return tc
-      
+  
   if sc.myCube? and sc.myCube.id is cube.id
     return sc.myCube
-  ###
+    
+  return world.newCube cube, local
       
 # show the login page
 displaySignIn = ->
@@ -69,11 +67,10 @@ displayScene = ->
   
 setupCanvas = ->
   console.log "setting up canvas"
-  console.log "initializing"
-  if not scene.init()
-    scene.animate()
+  if not world.init()
+    world.animate()
   else
-    console.log "did not init"
+    console.log "did not init WebGL"
   
   
 initialized = false
