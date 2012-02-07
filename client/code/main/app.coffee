@@ -93,6 +93,11 @@ init = ->
 SocketStream.event.on 'ready', ->
   console.log "socket stream ready"
   init()
+  
+SocketStream.event.on 'disconnect', ->
+  console.log "triggered"
+  ss.rpc "auth.logout", (response) ->
+    console.log "responded"
 
 init() unless initialized
 

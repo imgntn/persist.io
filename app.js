@@ -22,7 +22,7 @@ ss.client.formatters.add(require('ss-stylus'));
 ss.session.store.use('redis', {redis: {host: '50.18.154.76', port: 6379}});
 
 // not supported on cloud9 ide
-//ss.publish.transport.use('redis', {redis: {host: '50.18.154.76', port: 6379}});
+ss.publish.transport.use('redis', {redis: {host: '50.18.154.76', port: 6379}});
 
 // Minimise and pack assets if you type SS_ENV=production node app
 if (ss.env == 'production') ss.client.packAssets();

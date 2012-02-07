@@ -7,12 +7,28 @@ exports.before = (m) ->
   [m.loadSession()]
 
 exports.actions = (req, res, ss) ->
+  console.log window
+  ###
+  console.log 'this just happened'
+  client = redis.createClient 6379, "50.18.154.76"
+  client.select 0
+  client.keys "*", (err, replies) ->
+    replies.forEach (reply, i) ->
+      console.log "reply: " + reply
+      client.get reply, redis.print
+    client.quit()
+  ###
   
   broadCastUserCube = (data, local) ->
     req.session.setUserId data.name
     
-    res data                                # must respond with cube first so scene is created
+    res data                                # must respond first (with the cube) so the scene is created
     ss.publish.all 'initCube', data, local  # then send cube
+    
+  getUsersOnline = ->
+    # TODO: get all logged in users
+    
+    false
     
   
   # check to see if user is logged in
@@ -65,9 +81,22 @@ exports.actions = (req, res, ss) ->
             # store userId in session
             broadCastUserCube cube, true
             
-            # TODO: send other cubes to user
+            console.log ss
+            console.log req
+            console.log "list: " + req.session.channel.list()
             
-          client.quit()
+            client.quit()
+            ###
+            client.select 0
+            client.keys "*", (err, replies) ->
+              replies.forEach (reply, i) ->
+                console.log "reply: " + reply
+                client.get reply, redis.print
+              client.quit()
+            ###
+            # TODO: send other cubes to user
+  logout: ->
+    console.log 'logged out'
           
   
   
