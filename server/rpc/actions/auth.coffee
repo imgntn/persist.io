@@ -7,7 +7,6 @@ exports.before = (m) ->
   [m.loadSession()]
 
 exports.actions = (req, res, ss) ->
-  console.log window
   ###
   console.log 'this just happened'
   client = redis.createClient 6379, "50.18.154.76"
