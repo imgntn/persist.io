@@ -61,18 +61,16 @@ exports.animate = ->
   #update stats
   exports.stats.update()
   
-exports.newCube = (cube, local) ->
+exports.newCube = (cube, myCube) ->
   geometry = new THREE.CubeGeometry(3, 3, 3)
   
-  if local
-    c = 0x00ff00
-  else
-    c = 0x0000ff
+  c = if myCube then 0x00ff00 else 0x0000ff
     
   material = new THREE.MeshLambertMaterial(
     ambient: 0x080808
     color: c
   )
+  
   mesh = new THREE.Mesh(geometry, material)
   mesh.position.set cube.x, cube.y, cube.z
   
@@ -86,13 +84,25 @@ render = ->
   
   keyboard = exports.keyboard
   
-  if keyboard.pressed 'left'
-    sc.myCube.position.x -= SPEED * delta
-  if keyboard.pressed 'right'
-    sc.myCube.position.x += SPEED * delta
-  if keyboard.pressed 'up'
-    sc.myCube.position.y += SPEED * delta
-  if keyboard.pressed 'down'
-    sc.myCube.position.y -= SPEED * delta
+  # TODO: find a way to remove keyboard logic from module
+  # so that server interaction does not happen in this module
+  myMesh = sc.meshes[sc.user]
+  if myMesh?
+    if keyboard.pressed 'left'
+      myMesh.position.x -= SPEED * delta
+    if keyboard.pressed 'right'
+      myMesh.position.x += SPEED * delta
+    if keyboard.pressed 'up'
+      myMesh.position.y += SPEED * delta
+    if keyboard.pressed 'down'
+      myMesh.position.y -= SPEED * delta
       
   exports.renderer.render exports.scene, exports.camera
+  
+updateCube = (mesh, cube) ->
+  cube.x = mesh.position.x
+  cube.y = mesh.position.y
+  cube.z = mesh.position.z
+  
+  # ss.rpc 'updateCube', cube, (response) ->
+    

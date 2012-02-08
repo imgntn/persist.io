@@ -18,14 +18,16 @@ exports.actions = (req, res, ss) ->
     client.quit()
   ###
   
+  # publish to everyone the new cube
   broadCastUserCube = (data) ->
     req.session.setUserId data.name
     
-    res data                                # must respond first (with the cube) so the scene is created
+                                   # must respond first (with the cube) so the scene is created
     
     console.log "broadcasting '#{ data.name }' cube"
     ss.publish.all 'initCube', data         # then send cube
     
+  # get a list of all cubes from redis
   getUsersOnline = (cb) ->
     client = redis.createClient 6379, "50.18.154.76"
     client.select 1
@@ -33,9 +35,16 @@ exports.actions = (req, res, ss) ->
       client.mget keys, (err, values) ->
         client.quit()
         cb values.map (user) -> JSON.parse user
+      
+  # publish users cube to everyone and
+  # publish everyones cubes to user
+  publishUser = (cube) ->
+    broadCastUserCube cube
+    getUsersOnline (cubes) =>
+      for onlineCube in cubes
+        console.log "publishing '#{ onlineCube.name }' cube"
+        ss.publish.user cube.name, 'initCube', onlineCube
         
-    
-  
   # check to see if user is logged in
   init: ->    
     if req.session.userId?
@@ -44,14 +53,16 @@ exports.actions = (req, res, ss) ->
       
       # check database for user:userId key
       client.get "user:#{ req.session.userId }", (err, data) =>
+        client.quit()
         # user is logged in
         if data
           cube = JSON.parse data
-          broadCastUserCube cube
+          res cube 
+          publishUser cube
         # no cube in database
         else
           res false
-        client.quit()
+        
         
     # no userId in session
     else
@@ -85,22 +96,9 @@ exports.actions = (req, res, ss) ->
           client.quit()
           
           if data
-            # store userId in session
-            broadCastUserCube cube, true
-            getUsersOnline (cubes) =>
-              for onlineCube in cubes
-                console.log "publishing '#{ onlineCube.name }' cube"
-                ss.publish.all 'initCube', onlineCube
+            res cube
+            publishUser cube
             
-            ###
-            client.select 0
-            client.keys "*", (err, replies) ->
-              replies.forEach (reply, i) ->
-                console.log "reply: " + reply
-                client.get reply, redis.print
-              client.quit()
-            ###
-            # TODO: send other cubes to user
   logout: ->
     console.log 'logged out'
           

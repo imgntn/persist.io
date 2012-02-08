@@ -4,41 +4,31 @@ world = require 'world'
 
 window.sc =
   user: null
-  myCube: null
-  cubes: {}
+  cubes: []
+  meshes: []
 
 # wait for server to send us a cube
 ss.event.on 'initCube', (cube) ->
-  console.log sc.user
+  console.log 'to: ' + sc.user
+  console.log 'from: ' + cube.name
   console.log cube
   initCube(cube)
-  ###
-  # getting clients cubes
-  if local
-    console.log 'my cube'
-    sc.myCube = initCube(cube, true)
-  # getting others cubes
-  else
-    console.log 'their cube'
-    sc.cubes[cube.name] = initCube(cube, false)
-  ###
     
 # return existing cube or
 # create a new cube and add it to the scene
 initCube = (cube) ->
   console.log 'initializing cube'
-  ###
-  console.log 'initializing cube'
   
-  for tc in sc.cubes
-    if tc.id is cube.id
-      return tc
-  
-  if sc.myCube? and sc.myCube.id is cube.id
-    return sc.myCube
-    
-  return world.newCube cube, local
-  ###
+  length = sc.cubes.length
+  for user, c of sc.cubes
+    if c.id is cube.id
+      # cube with id already exists in my list
+      return
+      
+  myCube = sc.user is cube.name
+      
+  sc.cubes[cube.name] = cube
+  sc.meshes[cube.name] = world.newCube cube, myCube
       
 # show the login page
 displaySignIn = ->
