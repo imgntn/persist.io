@@ -41,7 +41,7 @@ exports.actions = (req, res, ss) ->
       
       # check database for user:userId key
       key = "user:#{ req.session.userId }"
-      client.get key, (err, data) =>
+      client.get key, (err, data) ->
         client.quit()
         # user is logged in
         if data
@@ -81,7 +81,7 @@ exports.actions = (req, res, ss) ->
         key = "user:#{ username }"
         client.set key, JSON.stringify(cube), (err, data) ->
           # expire user data in database after 2 minutes of inactivity
-          client.expire key, 120
+          client.expire key, 300
           client.quit()
           
           if data

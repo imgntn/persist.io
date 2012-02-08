@@ -18,7 +18,7 @@ exports.actions = (req, res, ss) ->
     key = "user:#{ cube.name }"
     val = JSON.stringify cube
     client.set key, val, (err, data) ->
-      client.expire key, 120
+      client.expire key, 300
       client.quit()
       
     # publish cube to all users
