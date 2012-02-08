@@ -8,7 +8,11 @@ window.sc =
   cubes: {}
 
 # wait for server to send us a cube
-ss.event.on 'initCube', (cube, local) ->
+ss.event.on 'initCube', (cube) ->
+  console.log sc.user
+  console.log cube
+  initCube(cube)
+  ###
   # getting clients cubes
   if local
     console.log 'my cube'
@@ -17,10 +21,13 @@ ss.event.on 'initCube', (cube, local) ->
   else
     console.log 'their cube'
     sc.cubes[cube.name] = initCube(cube, false)
+  ###
     
 # return existing cube or
 # create a new cube and add it to the scene
-initCube = (cube, local) ->
+initCube = (cube) ->
+  console.log 'initializing cube'
+  ###
   console.log 'initializing cube'
   
   for tc in sc.cubes
@@ -31,6 +38,7 @@ initCube = (cube, local) ->
     return sc.myCube
     
   return world.newCube cube, local
+  ###
       
 # show the login page
 displaySignIn = ->
@@ -81,6 +89,7 @@ init = ->
   ss.rpc "auth.init", (user) ->
     # logged in
     if user
+      sc.user = user.name
       console.log "signed in"
       displayScene() 
       

@@ -18,16 +18,22 @@ exports.actions = (req, res, ss) ->
     client.quit()
   ###
   
-  broadCastUserCube = (data, local) ->
+  broadCastUserCube = (data) ->
     req.session.setUserId data.name
     
     res data                                # must respond first (with the cube) so the scene is created
-    ss.publish.all 'initCube', data, local  # then send cube
     
-  getUsersOnline = ->
-    # TODO: get all logged in users
+    console.log "broadcasting '#{ data.name }' cube"
+    ss.publish.all 'initCube', data         # then send cube
     
-    false
+  getUsersOnline = (cb) ->
+    client = redis.createClient 6379, "50.18.154.76"
+    client.select 1
+    client.keys "user:*", (err, keys) ->
+      client.mget keys, (err, values) ->
+        client.quit()
+        cb values.map (user) -> JSON.parse user
+        
     
   
   # check to see if user is logged in
@@ -41,7 +47,7 @@ exports.actions = (req, res, ss) ->
         # user is logged in
         if data
           cube = JSON.parse data
-          broadCastUserCube cube, true
+          broadCastUserCube cube
         # no cube in database
         else
           res false
@@ -76,15 +82,16 @@ exports.actions = (req, res, ss) ->
         client.set "user:#{ username }", JSON.stringify(cube), (err, data) ->
           # expire user data in database after 2 minutes of inactivity
           client.expire "user:#{ username }", 120
+          client.quit()
+          
           if data
             # store userId in session
             broadCastUserCube cube, true
+            getUsersOnline (cubes) =>
+              for onlineCube in cubes
+                console.log "publishing '#{ onlineCube.name }' cube"
+                ss.publish.all 'initCube', onlineCube
             
-            console.log ss
-            console.log req
-            console.log "list: " + req.session.channel.list()
-            
-            client.quit()
             ###
             client.select 0
             client.keys "*", (err, replies) ->
