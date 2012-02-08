@@ -7,22 +7,10 @@ exports.before = (m) ->
   [m.loadSession()]
 
 exports.actions = (req, res, ss) ->
-  ###
-  console.log 'this just happened'
-  client = redis.createClient 6379, "50.18.154.76"
-  client.select 0
-  client.keys "*", (err, replies) ->
-    replies.forEach (reply, i) ->
-      console.log "reply: " + reply
-      client.get reply, redis.print
-    client.quit()
-  ###
   
   # publish to everyone the new cube
   broadCastUserCube = (data) ->
     req.session.setUserId data.name
-    
-                                   # must respond first (with the cube) so the scene is created
     
     console.log "broadcasting '#{ data.name }' cube"
     ss.publish.all 'initCube', data         # then send cube
@@ -52,7 +40,8 @@ exports.actions = (req, res, ss) ->
       client.select 1
       
       # check database for user:userId key
-      client.get "user:#{ req.session.userId }", (err, data) =>
+      key = "user:#{ req.session.userId }"
+      client.get key, (err, data) =>
         client.quit()
         # user is logged in
         if data
@@ -62,8 +51,7 @@ exports.actions = (req, res, ss) ->
         # no cube in database
         else
           res false
-        
-        
+          
     # no userId in session
     else
       res false
@@ -90,9 +78,10 @@ exports.actions = (req, res, ss) ->
           id: uuid.v4()      # generate UUID using random numbers
         
         # add user to database
-        client.set "user:#{ username }", JSON.stringify(cube), (err, data) ->
+        key = "user:#{ username }"
+        client.set key, JSON.stringify(cube), (err, data) ->
           # expire user data in database after 2 minutes of inactivity
-          client.expire "user:#{ username }", 120
+          client.expire key, 120
           client.quit()
           
           if data

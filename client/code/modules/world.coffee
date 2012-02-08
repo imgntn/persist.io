@@ -78,6 +78,13 @@ exports.newCube = (cube, myCube) ->
   
   return mesh
   
+updateCube = (mesh, cube) ->
+  cube.x = mesh.position.x
+  cube.y = mesh.position.y
+  cube.z = mesh.position.z
+  
+  ss.rpc 'core.updateCube', cube
+  
 render = ->
   SPEED = 15
   delta = exports.clock.getDelta()
@@ -87,22 +94,20 @@ render = ->
   # TODO: find a way to remove keyboard logic from module
   # so that server interaction does not happen in this module
   myMesh = sc.meshes[sc.user]
+  myCube = sc.cubes[sc.user]
   if myMesh?
     if keyboard.pressed 'left'
       myMesh.position.x -= SPEED * delta
+      updateCube myMesh, myCube
     if keyboard.pressed 'right'
       myMesh.position.x += SPEED * delta
+      updateCube myMesh, myCube
     if keyboard.pressed 'up'
       myMesh.position.y += SPEED * delta
+      updateCube myMesh, myCube
     if keyboard.pressed 'down'
       myMesh.position.y -= SPEED * delta
+      updateCube myMesh, myCube
       
   exports.renderer.render exports.scene, exports.camera
-  
-updateCube = (mesh, cube) ->
-  cube.x = mesh.position.x
-  cube.y = mesh.position.y
-  cube.z = mesh.position.z
-  
-  # ss.rpc 'updateCube', cube, (response) ->
     

@@ -11,8 +11,26 @@ window.sc =
 ss.event.on 'initCube', (cube) ->
   console.log 'to: ' + sc.user
   console.log 'from: ' + cube.name
-  console.log cube
   initCube(cube)
+  
+ss.event.on 'updateCube', (cube) ->
+  if cube.name is sc.user
+    return
+    
+  # update if not our cube
+  else if sc.cubes[cube.name]
+    for k, v of cube
+      sc.cubes[cube.name][k] = v
+    mesh = sc.meshes[cube.name]
+    mesh.position.x = cube.x
+    mesh.position.y = cube.y
+    mesh.position.z = cube.z
+  
+  # cube couldnt be found
+  else
+    console.log "this cube doesn't exisit"
+    throw "could find cube to update"
+    
     
 # return existing cube or
 # create a new cube and add it to the scene
