@@ -28,7 +28,7 @@ exports.actions = (req, res, ss) ->
   # publish everyones cubes to user
   publishUser = (cube) ->
     broadCastUserCube cube
-    getUsersOnline (cubes) =>
+    getUsersOnline (cubes) ->
       for onlineCube in cubes
         console.log "publishing '#{ onlineCube.name }' cube"
         ss.publish.user cube.name, 'initCube', onlineCube
@@ -46,7 +46,7 @@ exports.actions = (req, res, ss) ->
         # user is logged in
         if data
           cube = JSON.parse data
-          res cube 
+          res cube # respond first
           publishUser cube
         # no cube in database
         else
