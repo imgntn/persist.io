@@ -1,0 +1,23 @@
+!!! 5
+html
+  head
+    title SocketCube
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0')
+    != SocketStream
+  body
+    #main.hidden
+      // three.js container 
+      #container
+      // info on screen display 
+      #info
+        .top
+          | Multiplayer Example
+        #inlineDoc.bottom
+          
+            | -
+            i p
+            |  for screenshot
+    form(onsubmit: 'return false')#signIn.hidden
+      h1 Please enter a username to begin:
+      input(type='text')
