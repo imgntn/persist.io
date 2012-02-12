@@ -3,10 +3,9 @@
 redis = require 'redis'
 uuid = require 'node-uuid'
 
-exports.before = (m) ->
-  [m.loadSession()]
-
 exports.actions = (req, res, ss) ->
+  
+  req.use 'session'
   
   # publish to everyone the new cube
   broadCastUserCube = (data) ->
