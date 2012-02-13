@@ -6,6 +6,7 @@ uuid = require 'node-uuid'
 exports.actions = (req, res, ss) ->
   
   req.use 'session'
+  req.use 'debug', 'cyan'
   
   # publish to everyone the new cube
   broadCastUserCube = (data) ->

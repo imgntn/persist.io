@@ -63,7 +63,7 @@ displaySignIn = ->
       
       # error if user already exists
       if response.error
-        console.log "response error"
+        console.log "username already exists"
         $('#signIn').find('input').val('')
         $('#signIn').append("<p id='signInError'>" + response.error_msg + "</p>")
         
@@ -95,6 +95,7 @@ init = ->
   initialized = true
   # ask server if I am logged in
   ss.rpc "auth.init", (user) ->
+    console.log 'got here'
     # logged in
     if user
       sc.user = user.name
@@ -111,13 +112,37 @@ SocketStream.event.on 'ready', ->
   console.log "socket stream ready"
   init()
 
+init() unless initialized
+
 ###
-SocketStream.event.on 'disconnect', ->
-  console.log "triggered"
-  ss.rpc "auth.logout", (response) ->
-    console.log "responded"
+initialized = false
+
+init = ->
+  console.log 'initializing client'
+  initialized = true
+  # ask server if I am logged in
+  ss.rpc "auth.init", (user) ->
+    console.log 'server responded to inti call'
+    # logged in
+    if user
+      console.log 'I am logged in'
+      #sc.user = user.name
+      #console.log "signed in"
+      #displayScene() 
+      
+    # not logged in
+    else 
+      console.log 'I am not signed in'
+      #displaySignIn()
+
+SocketStream.event.on 'ready', ->
+  console.log 'socket stream ready event'
+  init()
+
+if not initialized
+  console.log 'socketstream is already connected'
+  init()
 ###
 
-init() unless initialized
 
 

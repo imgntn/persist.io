@@ -23,7 +23,7 @@ ss.session.store.use('redis', {host: '50.18.154.76', port: 6379});
 ss.publish.transport.use('redis', {host: '50.18.154.76', port: 6379});
 
 // Use server-side compiled Hogan (Mustache) templates. Others engines available
-ss.client.templateEngine.use(require('ss-hogan'));
+//ss.client.templateEngine.use(require('ss-hogan'));
 
 // Minimise and pack assets if you type  SS_ENV=production node app.js
 if (ss.env == 'production') ss.client.packAssets();
