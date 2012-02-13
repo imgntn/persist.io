@@ -37,7 +37,6 @@ ss.event.on 'updateCube', (cube) ->
 initCube = (cube) ->
   console.log 'initializing cube'
   
-  length = sc.cubes.length
   for user, c of sc.cubes
     if c.id is cube.id
       # cube with id already exists in my list
@@ -112,37 +111,11 @@ SocketStream.event.on 'ready', ->
   console.log "socket stream ready"
   init()
 
-init() unless initialized
-
+# Seems to create double init problems
 ###
-initialized = false
-
-init = ->
-  console.log 'initializing client'
-  initialized = true
-  # ask server if I am logged in
-  ss.rpc "auth.init", (user) ->
-    console.log 'server responded to inti call'
-    # logged in
-    if user
-      console.log 'I am logged in'
-      #sc.user = user.name
-      #console.log "signed in"
-      #displayScene() 
-      
-    # not logged in
-    else 
-      console.log 'I am not signed in'
-      #displaySignIn()
-
-SocketStream.event.on 'ready', ->
-  console.log 'socket stream ready event'
-  init()
-
 if not initialized
-  console.log 'socketstream is already connected'
+  console.log 'already initialized'
   init()
 ###
-
 
 
