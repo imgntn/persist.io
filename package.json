@@ -14,6 +14,6 @@
     "hiredis": "0.1.x",
     "node-uuid": "1.3.x",
     "redis": "0.7.x",
-    "socketstream", "0.3.x"
+    "socketstream": "0.3.x"
   }
 }
