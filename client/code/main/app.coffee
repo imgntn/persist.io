@@ -112,10 +112,10 @@ SocketStream.event.on 'ready', ->
   init()
 
 # Seems to create double init problems
-###
+
 if not initialized
   console.log 'already initialized'
   init()
-###
+
 
 
