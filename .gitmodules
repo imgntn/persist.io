@@ -1,0 +1,3 @@
+[submodule "socketstream"]
+	path = socketstream
+	url = git://github.com/socketstream/socketstream.git
