@@ -4,17 +4,14 @@ with: -- kevin meggs -- tylor reynolds -- adam wardell
 
 ### Installation Steps (Collaborators):
 
-    git clone --recursive git@github.com:imgntn/bethere_practice.git
+    git clone git@github.com:imgntn/bethere_practice.git
 
+Install the submodules:
 
-If you forget the --recursive part you can:
-
-    cd bethere_practice
     git submodule init
     git submodule update
 
-Now install the dependencies
-
+Now install the dependencies:
 
     cd bethere_practice
     npm install ./socketstream
