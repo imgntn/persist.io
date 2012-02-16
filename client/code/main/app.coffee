@@ -10,8 +10,7 @@ window.sc =
 
 # wait for server to send us a cube
 ss.event.on 'initCube', (cube) ->
-  #console.log 'to: ' + sc.user
-  #console.log 'from: ' + cube.name
+  console.log cube
   initCube(cube)
   
 ss.event.on 'updateCube', (cube) ->
@@ -76,7 +75,7 @@ displaySignIn = ->
     
 # initialize the canvas and scene and show main view
 displayScene = ->
-  # heartbeat.start()
+  heartbeat.start()
   console.log "displaying scene"
   setupCanvas()
   $('#main').show()
@@ -108,15 +107,19 @@ init = ->
 
 
 SocketStream.event.on 'ready', ->
-  console.log "socket stream ready"
+  console.log "socketstream ready event"
   init()
 
 # Seems to create double init problems
 
+#init()
 
-if not initialized
-  console.log 'already initialized'
-  init()
+window.alreadyConnect = ->
+  if not initialized
+    init()
+    
+setTimeout "alreadyConnect()", 300
+
 
 
 

@@ -19,13 +19,32 @@ exports.actions = (req, res, ss) ->
     
     # update cube in redis
     key = "user:#{ cube.name }"
-    #val = JSON.stringify cube
-    client.hmset key, cube
+    val = JSON.stringify cube
+    client.set key, val
       
     # publish cube to all users
     ss.publish.all 'updateCube', cube
   
   heartBeat: ->
     key = "user:#{ req.session.userId }"
-    client.hset key, "lastBeat", new Date()
-    console.log "beating"
+    
+    # get old cube data
+    client.get key, (err, data) ->
+      console.log err if err
+      
+      # get new time
+      now = new Date()
+      time = now.getTime()
+      
+      # parse data
+      cube = JSON.parse data
+      
+      # update time
+      cube.lastBeat = time
+      
+      # re-stringify
+      val = JSON.stringify cube
+      
+      # resubmit to database
+      client.set key, val
+      

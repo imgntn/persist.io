@@ -13,48 +13,38 @@ exports.actions = (req, res, ss) ->
   
   # publish to everyone the new cube
   broadCastUserCube = (data) ->
+    # associate user name with session
     req.session.setUserId data.name
     
-    ss.publish.all 'initCube', data         # then send cube
+    #publish cube to everyone
+    ss.publish.all 'initCube', data
     
   # get a list of all cubes from redis
   getUsersOnline = (cb) ->
-    # get all of the kesy
+    
+    # get all keys
     client.keys "user:*", (err, keys) ->
       
-      # check if there are kesy
-      if keys.length > 0
-      
-        # create a batch call
-        multi = client.multi()
-        
-        # add each cube get to multi call
-        for key in keys
-          multi.hgetall key
-          
-        # exec multi
-        multi.exec (err, replies) ->
-          console.log "all cubes:\n", replies 
-          result = []
-          
-          # check lastBeat
-          for cube in replies
-            now = new Date()
-            time = now.getTime()
-            elapsed = time - cube.lastBeat
-            console.log "elapsed:", elapsed
-            if elapsed <= 60000
-              result.push cube
-              
-          # return list of cubes
-          cb result
-      else
-        cb []
-    ###
-    client.keys "user:*", (err, keys) ->
+      # get values associated with keys
       client.mget keys, (err, values) ->
-        cb values.map (user) -> JSON.parse user
-    ###
+        
+        # parse all of the cubes
+        cubes = values.map (json) -> JSON.parse json
+        
+        result = []
+        
+        # get current time
+        now = new Date()
+        time = now.getTime()
+        
+        # add cubes to result only if still alive
+        for cube in cubes
+          elapsed = time - cube.lastBeat
+          
+          if elapsed <= 60000
+            result.push cube
+        
+        cb result
       
   # publish users cube to everyone and
   # publish everyones cubes to user
@@ -67,59 +57,65 @@ exports.actions = (req, res, ss) ->
         
   # check to see if user is logged in
   init: ->    
+    
+    # check for session
     if req.session.userId?
-      console.log 'has userId'
-      # check database for user:userId key
+    
       key = "user:#{ req.session.userId }"
-      client.hgetall key, (err, cube) ->
-        # user is logged in
-        if cube
-          console.log '\thas user data'
+      
+      # check for data
+      client.get key, (err, data) ->
+        
+        # respond with data
+        if data
+          cube = JSON.parse data
           res cube # respond first
           publishUser cube
-        # no cube in database
+          
+        # respond with false
         else
-          console.log '\tdoes not have user data'
           res false
           
     # no userId in session
     else
-      console.log 'does not have userId'
       res false
         
   # sign a user in
   signIn: (username) ->
-    # check for user in database
     key = "user:#{ username }"
-    client.hgetall key, (err, data) ->
+    
+    # check database
+    client.get key, (err, data) ->
       if err
         console.log "sign in error", err
+        
       # return their cube
       if data and data.username
-        res data
-        publishUser data
-        ###
-        res 
-          error: true
-          error_msg: "Username already in use"
-        ###
+        cube = JSON.parse data
+        res cube
+        publishUser cube
         
       # make them a new cube
       else
+        
+        # get current time
         now = new Date()
+        time = now.getTime()
+        
+        # make the cube
         cube =
           x: 0
           y: 0
           z: 0
-          name: username     # store username
+          name: username
           id: uuid.v4()      # generate UUID using random numbers
-          lastBeat: now.getTime()
+          lastBeat: time
         
         # add user to database
-        client.hmset key, cube, (err, data) ->
-          # expire user data in database after 2 minutes of inactivity
-          #client.expire key, 300
+        val = JSON.stringify cube
+        client.set key, val, (err, data) ->
           
+          # respond with cube
           if data
             res cube
             publishUser cube
