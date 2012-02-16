@@ -76,7 +76,7 @@ displaySignIn = ->
     
 # initialize the canvas and scene and show main view
 displayScene = ->
-  heartbeat.start()
+  # heartbeat.start()
   console.log "displaying scene"
   setupCanvas()
   $('#main').show()
@@ -112,6 +112,7 @@ SocketStream.event.on 'ready', ->
   init()
 
 # Seems to create double init problems
+
 
 if not initialized
   console.log 'already initialized'

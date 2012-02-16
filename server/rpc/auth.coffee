@@ -36,13 +36,12 @@ exports.actions = (req, res, ss) ->
         multi.exec (err, replies) ->
           console.log "all cubes:\n", replies 
           result = []
-          now = new Date()
           
           # check lastBeat
           for cube in replies
-            console.log "now", now
-            console.log "cube", cube.lastBeat
-            elapsed = now - cube.lastBeat
+            now = new Date()
+            time = now.getTime()
+            elapsed = time - cube.lastBeat
             console.log "elapsed:", elapsed
             if elapsed <= 60000
               result.push cube
@@ -69,19 +68,23 @@ exports.actions = (req, res, ss) ->
   # check to see if user is logged in
   init: ->    
     if req.session.userId?
+      console.log 'has userId'
       # check database for user:userId key
       key = "user:#{ req.session.userId }"
       client.hgetall key, (err, cube) ->
         # user is logged in
         if cube
+          console.log '\thas user data'
           res cube # respond first
           publishUser cube
         # no cube in database
         else
+          console.log '\tdoes not have user data'
           res false
           
     # no userId in session
     else
+      console.log 'does not have userId'
       res false
         
   # sign a user in
@@ -110,7 +113,7 @@ exports.actions = (req, res, ss) ->
           z: 0
           name: username     # store username
           id: uuid.v4()      # generate UUID using random numbers
-          lastBeat: now
+          lastBeat: now.getTime()
         
         # add user to database
         client.hmset key, cube, (err, data) ->
