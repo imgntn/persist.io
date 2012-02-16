@@ -1,6 +1,7 @@
 # Client Side code
 
 world = require 'world'
+heartbeat = require 'heartbeat'
 
 window.sc =
   user: null
@@ -9,8 +10,8 @@ window.sc =
 
 # wait for server to send us a cube
 ss.event.on 'initCube', (cube) ->
-  console.log 'to: ' + sc.user
-  console.log 'from: ' + cube.name
+  #console.log 'to: ' + sc.user
+  #console.log 'from: ' + cube.name
   initCube(cube)
   
 ss.event.on 'updateCube', (cube) ->
@@ -28,14 +29,13 @@ ss.event.on 'updateCube', (cube) ->
   
   # cube couldnt be found
   else
-    console.log "this cube doesn't exisit"
     throw "could find cube to update"
     
     
 # return existing cube or
 # create a new cube and add it to the scene
 initCube = (cube) ->
-  console.log 'initializing cube'
+  #console.log 'initializing cube'
   
   for user, c of sc.cubes
     if c.id is cube.id
@@ -52,7 +52,7 @@ displaySignIn = ->
   
   # sign in submition
   $('#signIn').show().submit ->
-    console.log "submitting username"
+    #console.log "submitting username"
     
     #store username globablly
     sc.user = $('#signIn').find('input').val()
@@ -62,7 +62,7 @@ displaySignIn = ->
       
       # error if user already exists
       if response.error
-        console.log "username already exists"
+        #console.log "username already exists"
         $('#signIn').find('input').val('')
         $('#signIn').append("<p id='signInError'>" + response.error_msg + "</p>")
         
@@ -76,12 +76,13 @@ displaySignIn = ->
     
 # initialize the canvas and scene and show main view
 displayScene = ->
+  heartbeat.start()
   console.log "displaying scene"
   setupCanvas()
   $('#main').show()
   
 setupCanvas = ->
-  console.log "setting up canvas"
+  #console.log "setting up canvas"
   if not world.init()
     world.animate()
   else
@@ -94,16 +95,15 @@ init = ->
   initialized = true
   # ask server if I am logged in
   ss.rpc "auth.init", (user) ->
-    console.log 'got here'
     # logged in
     if user
       sc.user = user.name
-      console.log "signed in"
+      #console.log "signed in"
       displayScene() 
       
     # not logged in
     else 
-      console.log "not signed in"
+      #console.log "not signed in"
       displaySignIn()
 
 
