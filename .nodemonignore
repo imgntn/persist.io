@@ -1,2 +1,3 @@
 /client/static/assets/*
 .settings.xml
+./.git/*
