@@ -3,6 +3,9 @@
 redis = require 'redis'
 uuid = require 'node-uuid'
 
+client = redis.createClient 6379, "50.18.154.76"
+client.select 1
+
 exports.actions = (req, res, ss) ->
   
   req.use 'session'
@@ -12,40 +15,65 @@ exports.actions = (req, res, ss) ->
   broadCastUserCube = (data) ->
     req.session.setUserId data.name
     
-    console.log "broadcasting '#{ data.name }' cube"
     ss.publish.all 'initCube', data         # then send cube
     
   # get a list of all cubes from redis
   getUsersOnline = (cb) ->
-    client = redis.createClient 6379, "50.18.154.76"
-    client.select 1
+    # get all of the kesy
+    client.keys "user:*", (err, keys) ->
+      
+      # check if there are kesy
+      if keys.length > 0
+      
+        # create a batch call
+        multi = client.multi()
+        
+        # add each cube get to multi call
+        for key in keys
+          multi.hgetall key
+          
+        # exec multi
+        multi.exec (err, replies) ->
+          console.log "all cubes:\n", replies 
+          result = []
+          now = new Date()
+          
+          # check lastBeat
+          for cube in replies
+            console.log "now", now
+            console.log "cube", cube.lastBeat
+            elapsed = now - cube.lastBeat
+            console.log "elapsed:", elapsed
+            if elapsed <= 60000
+              result.push cube
+              
+          # return list of cubes
+          cb result
+      else
+        cb []
+    ###
     client.keys "user:*", (err, keys) ->
       client.mget keys, (err, values) ->
-        client.quit()
         cb values.map (user) -> JSON.parse user
+    ###
       
   # publish users cube to everyone and
   # publish everyones cubes to user
   publishUser = (cube) ->
     broadCastUserCube cube
     getUsersOnline (cubes) ->
+      #console.log "online cubes:\n", cubes
       for onlineCube in cubes
-        console.log "publishing '#{ onlineCube.name }' cube"
         ss.publish.user cube.name, 'initCube', onlineCube
         
   # check to see if user is logged in
   init: ->    
     if req.session.userId?
-      client = redis.createClient 6379, "50.18.154.76"
-      client.select 1
-      
       # check database for user:userId key
       key = "user:#{ req.session.userId }"
-      client.get key, (err, data) ->
-        client.quit()
+      client.hgetall key, (err, cube) ->
         # user is logged in
-        if data
-          cube = JSON.parse data
+        if cube
           res cube # respond first
           publishUser cube
         # no cube in database
@@ -58,38 +86,40 @@ exports.actions = (req, res, ss) ->
         
   # sign a user in
   signIn: (username) ->
-    client = redis.createClient 6379, "50.18.154.76"
-    client.select 1
-    
     # check for user in database
-    client.get "user:#{ username }", (err, data) ->
-      # user already exists
-      # return with error
-      if data
+    key = "user:#{ username }"
+    client.hgetall key, (err, data) ->
+      if err
+        console.log "sign in error", err
+      # return their cube
+      if data and data.username
+        res data
+        publishUser data
+        ###
         res 
           error: true
           error_msg: "Username already in use"
+        ###
+        
+      # make them a new cube
       else
+        now = new Date()
         cube =
           x: 0
           y: 0
           z: 0
           name: username     # store username
           id: uuid.v4()      # generate UUID using random numbers
+          lastBeat: now
         
         # add user to database
-        key = "user:#{ username }"
-        client.set key, JSON.stringify(cube), (err, data) ->
+        client.hmset key, cube, (err, data) ->
           # expire user data in database after 2 minutes of inactivity
-          client.expire key, 300
-          client.quit()
+          #client.expire key, 300
           
           if data
             res cube
             publishUser cube
-            
-  logout: ->
-    console.log 'logged out'
           
   
   
