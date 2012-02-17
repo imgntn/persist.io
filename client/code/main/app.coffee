@@ -28,7 +28,7 @@ ss.event.on 'updateCube', (cube) ->
   
   # cube couldnt be found
   else
-    throw "could find cube to update"
+    initCube cube
     
     
 # return existing cube or
