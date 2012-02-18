@@ -4,6 +4,9 @@ redis = require 'redis'
 uuid = require 'node-uuid'
 
 client = redis.createClient 6379, "50.18.154.76"
+
+client.on "error", (err) -> console.log "Error #{ err }"
+
 client.select 1
 
 exports.actions = (req, res, ss) ->
@@ -21,7 +24,6 @@ exports.actions = (req, res, ss) ->
     
   # get a list of all cubes from redis
   getUsersOnline = (cb) ->
-    
     # get all keys
     client.keys "user:*", (err, keys) ->
       
@@ -31,25 +33,14 @@ exports.actions = (req, res, ss) ->
         # parse all of the cubes
         cubes = values.map (json) -> JSON.parse json
         
-        result = []
-        
-        # get current time
-        now = new Date()
-        time = now.getTime()
-        
-        # add cubes to result only if still alive
-        for cube in cubes
-          elapsed = time - cube.lastBeat
-          
-          if elapsed <= 60000
-            result.push cube
-        
-        cb result
+        # callback with list of online cubes
+        cb cubes
       
   # publish users cube to everyone and
   # publish everyones cubes to user
   publishUser = (cube) ->
     broadCastUserCube cube
+    
     getUsersOnline (cubes) ->
       #console.log "online cubes:\n", cubes
       for onlineCube in cubes
@@ -96,12 +87,7 @@ exports.actions = (req, res, ss) ->
         publishUser cube
         
       # make them a new cube
-      else
-        
-        # get current time
-        now = new Date()
-        time = now.getTime()
-        
+      else        
         # make the cube
         cube =
           x: 0
@@ -109,7 +95,6 @@ exports.actions = (req, res, ss) ->
           z: 0
           name: username
           id: uuid.v4()      # generate UUID using random numbers
-          lastBeat: time
         
         # add user to database
         val = JSON.stringify cube
@@ -119,6 +104,9 @@ exports.actions = (req, res, ss) ->
           if data
             res cube
             publishUser cube
+            
+        onlineKey = "online:#{ username }"
+        client.setex onlineKey, 60000, "#{ username }"
           
   
   
