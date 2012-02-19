@@ -26,13 +26,15 @@ exports.actions = (req, res, ss) ->
     ss.publish.all 'updateCube', cube
   
   heartBeat: ->
-    key = "online:#{ req.session.userId }"
-    client.expire key, 30000
+    username = req.session.userId
+    onlineKey = "online:#{ username }"
+    client.setex onlineKey, 60, "#{ username }"
     
+    ###
     getUsersOnline (cubes) ->
       #console.log "online cubes:\n", cubes
       res cubes
-    
+    ###
     ###
     # get old cube data
     client.get key, (err, data) ->

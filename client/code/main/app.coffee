@@ -1,12 +1,13 @@
 # Client Side code
 
 world = require 'world'
-heartbeat = require 'heartbeat'
+
+BEAT_INTERVAL = 30000
 
 window.sc =
   user: null
-  cubes: []
-  meshes: []
+  cubes: {}
+  meshes: {}
 
 # wait for server to send us a cube
 ss.event.on 'initCube', (cube) ->
@@ -75,17 +76,30 @@ displaySignIn = ->
     
 # initialize the canvas and scene and show main view
 displayScene = ->
-  heartbeat.start()
+  startBeating()
   console.log "displaying scene"
   setupCanvas()
   $('#main').show()
   
 setupCanvas = ->
-  #console.log "setting up canvas"
+  # console.log "setting up canvas"
   if not world.init()
     world.animate()
   else
     console.log "did not init WebGL"
+    
+# start the heart beating cycle
+startBeating = ->
+  # beat right away
+  heartBeat()
+  
+  # beat every interval
+  setInterval "heartBeat()", BEAT_INTERVAL
+  
+# send a hearbeat to server
+window.heartBeat = ->
+  ss.rpc 'core.heartBeat', (cubes) ->
+    # TODO: update cubes list with online cubes
   
   
 initialized = false

@@ -2,6 +2,7 @@
 
 redis = require 'redis'
 uuid = require 'node-uuid'
+util = require 'util'
 
 client = redis.createClient 6379, "50.18.154.76"
 
@@ -25,16 +26,23 @@ exports.actions = (req, res, ss) ->
   # get a list of all cubes from redis
   getUsersOnline = (cb) ->
     # get all keys
-    client.keys "user:*", (err, keys) ->
+    client.keys "online:*", (err, keys) ->
       
-      # get values associated with keys
-      client.mget keys, (err, values) ->
-        
-        # parse all of the cubes
-        cubes = values.map (json) -> JSON.parse json
-        
-        # callback with list of online cubes
-        cb cubes
+      # get online user names
+      client.mget keys, (err, onlineUsers) ->
+      
+        if onlineUsers
+          # convert to user:name format
+          users = onlineUsers.map (name) -> "user:#{ name }"
+          
+          # get cubes associated with users
+          client.mget users, (err, values) ->
+          
+            # parse all of the cubes
+            cubes = values.map (json) -> JSON.parse json
+            
+            # callback with list of online cubes
+            cb cubes
       
   # publish users cube to everyone and
   # publish everyones cubes to user
@@ -75,19 +83,24 @@ exports.actions = (req, res, ss) ->
   signIn: (username) ->
     key = "user:#{ username }"
     
+    console.log "key:", key
+    client.keys "*", redis.print
+    
     # check database
     client.get key, (err, data) ->
-      if err
-        console.log "sign in error", err
-        
+    
+      cube = JSON.parse data
+      
       # return their cube
-      if data and data.username
-        cube = JSON.parse data
+      if cube and cube.name
+      
+        console.log "found old cube"
         res cube
         publishUser cube
         
       # make them a new cube
       else        
+        console.log "let's build them a cube"
         # make the cube
         cube =
           x: 0
@@ -104,9 +117,6 @@ exports.actions = (req, res, ss) ->
           if data
             res cube
             publishUser cube
-            
-        onlineKey = "online:#{ username }"
-        client.setex onlineKey, 60000, "#{ username }"
           
   
   
