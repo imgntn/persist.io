@@ -2,7 +2,7 @@
 
 world = require 'world'
 
-BEAT_INTERVAL = 30000
+BEAT_INTERVAL = 15000
 
 window.sc =
   user: null
@@ -30,12 +30,22 @@ ss.event.on 'updateCube', (cube) ->
   else
     initCube cube
     
+ss.event.on 'logout', (username) ->
+  
+  # remove mesh from scene
+  mesh = sc.meshes[username]
+  world.removeCube mesh 
+  
+  # delete user from cube and mesh list
+  delete sc.cubes[username]
+  delete sc.meshes[username]
+    
     
 # return existing cube or
 # create a new cube and add it to the scene
 initCube = (cube) ->
   
-  for user, c of sc.cubes
+  for own user, c of sc.cubes
     if c.id is cube.id
       # cube with id already exists in my list
       return
@@ -94,8 +104,23 @@ startBeating = ->
 window.heartBeat = ->
   console.log "beat..."
   ss.rpc 'core.heartBeat', (cubes) ->
-    console.log "online cube list:", cubes
-    # TODO: update cubes list with online cubes
+    
+    # get names from online cubes
+    onlineUsers = (cube.name for cube in cubes)
+    
+    # loop through registered names and find the ones that aren't in the online list
+    offlineUsers = (name for own name, cube of sc.cubes when onlineUsers.indexOf(name) < 0)
+    
+    # send message to server telling them to logout user
+    offline name for name in offlineUsers
+    console.log "offline:", offlineUsers
+    
+# tells server to logout specific user
+offline = (name) ->
+  console.log "log out:", name
+  
+  # logout
+  ss.rpc 'core.logout', name
   
   
 initialized = false

@@ -8,13 +8,17 @@ exports.getOnline = (client, cb) ->
     
       if onlineUsers
         # convert to user:name format
-        users = onlineUsers.map (name) -> "user:#{ name }"
+        # users = onlineUsers.map (name) -> "user:#{ name }"
+        users = ("user:#{ name }" for name in onlineUsers)
+          
         
         # get cubes associated with users
         client.mget users, (err, values) ->
         
           # parse all of the cubes
-          cubes = values.map (json) -> JSON.parse json
+          # cubes = values.map (json) -> JSON.parse json
+          cubes = (JSON.parse json for json in values)
+            
           
           # callback with list of online cubes
           cb cubes

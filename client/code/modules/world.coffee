@@ -78,6 +78,9 @@ exports.newCube = (cube, myCube) ->
   
   return mesh
   
+exports.removeCube = (mesh) ->
+  exports.scene.remove mesh
+  
 updateCube = (mesh, cube) ->
   cube.x = mesh.position.x
   cube.y = mesh.position.y

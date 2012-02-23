@@ -24,10 +24,20 @@ exports.actions = (req, res, ss) ->
     ss.publish.all 'updateCube', cube
   
   heartBeat: ->
+    # username
     username = req.session.userId
-    onlineKey = "online:#{ username }"
-    client.setex onlineKey, 60, "#{ username }"
     
+    # key
+    onlineKey = "online:#{ username }"
+    
+    # set key online:user equal to user
+    client.setex onlineKey, 20, "#{ username }"
+    
+    # get online users and return them to client
     user.getOnline client, (cubes) ->
-      console.log cubes
+      # console.log cubes
       res cubes
+      
+  logout: (username) ->
+    # send message to all clients to logout specific user
+    ss.publish.all 'logout', username
