@@ -6,3 +6,4 @@ exports.start = ->
   
 window.heartBeat = ->
   ss.rpc 'core.heartBeat', (cubes) ->
+    console.log cubes
