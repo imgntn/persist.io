@@ -3,9 +3,9 @@
 redis = require 'redis'
 uuid = require 'node-uuid'
 util = require 'util'
+user = require './user'
 
 client = redis.createClient 6379, "50.18.154.76"
-
 client.on "error", (err) -> console.log "Error #{ err }"
 
 client.select 1
@@ -13,7 +13,7 @@ client.select 1
 exports.actions = (req, res, ss) ->
   
   req.use 'session'
-  #req.use 'debug', 'cyan'
+  # req.use 'debug', 'cyan'
   
   # publish to everyone the new cube
   broadCastUserCube = (data) ->
@@ -22,34 +22,13 @@ exports.actions = (req, res, ss) ->
     
     #publish cube to everyone
     ss.publish.all 'initCube', data
-    
-  # get a list of all cubes from redis
-  getUsersOnline = (cb) ->
-    # get all keys
-    client.keys "online:*", (err, keys) ->
-      
-      # get online user names
-      client.mget keys, (err, onlineUsers) ->
-      
-        if onlineUsers
-          # convert to user:name format
-          users = onlineUsers.map (name) -> "user:#{ name }"
-          
-          # get cubes associated with users
-          client.mget users, (err, values) ->
-          
-            # parse all of the cubes
-            cubes = values.map (json) -> JSON.parse json
-            
-            # callback with list of online cubes
-            cb cubes
       
   # publish users cube to everyone and
   # publish everyones cubes to user
   publishUser = (cube) ->
     broadCastUserCube cube
     
-    getUsersOnline (cubes) ->
+    user.getOnline client, (cubes) ->
       #console.log "online cubes:\n", cubes
       for onlineCube in cubes
         ss.publish.user cube.name, 'initCube', onlineCube
