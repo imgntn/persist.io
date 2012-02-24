@@ -24,11 +24,105 @@ everyauth.twitter
   .consumerKey('7i1XvDQqFSaQrMcjGcQPAg')
   .consumerSecret('zQ14upSmunxpZpkaoPt3vT0yoKBB2HhmMuAG4pCqto')
   .findOrCreateUser( function (session, accessToken, accessTokenSecret, twitterUserMetadata) {  
-    var user, newData, promise;
+    var user, username, promise, twitterData, twitterId;
+    
+    console.log(util.inspect(twitterUserMetadata));
+    
+    var is_empty = function(obj) {
+        var hasOwnProperty = Object.prototype.hasOwnProperty;
+        
+        for (var key in obj) {
+            if (hasOwnProperty.call(obj, key)) return false;
+        }
+        
+        return true
+    };
     
     promise = this.Promise();
     
+    client.hgetall("twitter:" + twitterUserMetadata.id_str, function(err, data) {
+        if (err) {
+            console.log("Error accessing twitter redis data", err);
+            promise.fail(err);
+            return;
+        }
+        
+        if (!data || !is_empty(data)) {
+            // Twitter data exists
+            console.log("Twitter exists:", util.inspect(data));
+            
+            // Get user data associated with twitter account
+            client.get("user:" + data.username, function(err, data) {
+                if (err) {
+                    console.log("Error accessing redis user data using twitter values", err);
+                    promise.fail(err);
+                    return;
+                }
+                
+                if (!data) {
+                    err = "ERROR: Twitter data exists but user data does not";
+                    console.log(err);
+                    promise.fail(err);
+                    return;
+                }
+                
+                user = JSON.parse(data);
+                
+                console.log("User exists:", util.inspect(user));
+                promise.fulfill(user);
+            });
+        } else {
+            // Twitter data does not exist
+            
+            // TODO: create new user (need a way to get a username)
+            username = twitterUserMetadata.screen_name;
+            twitterId = twitterUserMetadata.id;
+            
+            user = {
+                username: username,
+                twitterId: twitterId
+            };
+            
+            data = JSON.stringify(user);
+            
+            client.set("user:" + username, data, function(err, data) {
+                if (err) {
+                    console.log("Error creating new user data", err);
+                    promise.fail(err);
+                    return;
+                }
+                
+                console.log("User created:", util.inspect(user));
+                
+                // TODO: create new twitter data that points to new username
+                twitterData = {
+                    accessToken: accessToken,
+                    accessTokenSecret: accessTokenSecret,
+                    username: username,
+                    id: twitterId
+                };
+                
+                client.hmset("twitter:" + twitterId, twitterData, function(err, data) {
+                    if (err) {
+                        console.log("Error creating new twitter data", err);
+                        promise.fail(err);
+                        return;
+                    }
+                    
+                    console.log("Twitter data created:", util.inspect(twitterData));
+                    
+                    promise.fulfill(user);
+                });
+            });
+        }
+    });
+    
+    return promise;
+                    
+                    
+    
     // Check for preexisting suer
+    /*
     client.get(twitterUserMetadata.id_str, function(err, data) {
       if (err) {
         console.log("Error accessing redis with username", err);
@@ -65,6 +159,7 @@ everyauth.twitter
         });
       }
     });
+    */
     
     return promise;
   })
