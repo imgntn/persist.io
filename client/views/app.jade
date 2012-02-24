@@ -18,6 +18,8 @@ html
             | -
             i p
             |  for screenshot
-    form(onsubmit: 'return false')#signIn.hidden
-      h1 Please enter a username to begin:
-      input(type='text')
+    #signIn.hidden
+      a(href='/auth/twitter') Log in with Twitter
+      form(onsubmit: 'return false')
+        h1 Please enter a username to begin:
+        input(type='text')
