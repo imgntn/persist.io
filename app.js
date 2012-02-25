@@ -233,8 +233,6 @@ var server = http.Server(ss.http.middleware);
 
 var args = process.argv.splice(2);
 
-
-
 if (args[0] == 'cloud9') {
     server.listen(process.env.C9_PORT, "0.0.0.0");
 } else {
