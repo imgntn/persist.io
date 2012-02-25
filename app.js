@@ -29,8 +29,8 @@ ss.publish.transport.use('redis', {host: '50.18.154.76', port: 6379});
 if (ss.env == 'production') ss.client.packAssets();
 
 // Enable optional console server access. Run 'ss-client' to connect
-var consoleServer = require('ss-console').init(ss);
-consoleServer.listen(5000);
+//var consoleServer = require('ss-console').init(ss);
+//consoleServer.listen(5000);
 
 var server = http.Server(ss.http.middleware);
 
@@ -39,6 +39,8 @@ var args = process.argv.splice(2);
 if (args[0] == 'cloud9') {
     server.listen(process.env.C9_PORT, "0.0.0.0");
 } else {
+    var consoleServer = require('ss-console').init(ss);
+    consoleServer.listen(5000);
     server.listen(80);
 }
 
