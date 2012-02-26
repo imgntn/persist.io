@@ -82,7 +82,7 @@ displaySignIn = ->
     
 # initialize the canvas and scene and show main view
 displayScene = ->
-  startBeating()
+  # startBeating()
   setupCanvas()
   $('#main').show()
   
@@ -128,6 +128,7 @@ initialized = false
 init = ->
   initialized = true
   # ask server if I am logged in
+  ###
   ss.rpc "auth.init", (user) ->
     # logged in
     if user
@@ -137,6 +138,8 @@ init = ->
     # not logged in
     else
       displaySignIn()
+  ###
+  displayScene() 
 
 
 SocketStream.event.on 'ready', ->
