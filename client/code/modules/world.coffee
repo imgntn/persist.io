@@ -196,30 +196,30 @@ render = ->
   if keyboard.pressed('space') and exports.start
     exports.finished = false
     exports.start = false
-    exports.windStart = Math.random() * exports.length * 0.5 / maxSpeed
+    exports.windStart = Math.random() * exports.length * 0.75 / maxSpeed
     exports.startTime = clock.getElapsedTime()
+    
     
   # if we have started
   if not exports.finished
   
     now = clock.getElapsedTime()
     
-    # if wind start time has been reached and there isn't currently a wind
+    # check for wind trigger
     if now - exports.startTime >= exports.windStart and not exports.wind
-      console.log "Wind triggered"
       exports.wind = true
       exports.behaviors.add exports.windForce
     
-    # update camera position
+    # update camera position according to player
     camera.position.y = cube.position.y
     
-    # update mouse position
+    # update mouse position according to camera
     mouse.update camera
     
-    # update wind force
-    windTarget.update cube, false
+    # update wind target according to player
+    windTarget.update cube
     
-    # get steering for cube
+    # get steering for cube from all behaviors
     steering = exports.behaviors.getSteering()    
     
     # apply steering
