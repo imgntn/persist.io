@@ -1,3 +1,13 @@
+###
+# Steering Example
+# At random period along line a wind force will push player to the right
+# Player's path is shown when they reach the end of the line
+# Controls:
+#   r     - Reset scene
+#   space - Start moving
+#   mouse - Direct player
+###
+
 exports.init = ->
   # detect WebGL
   if Detector.webgl
