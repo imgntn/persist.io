@@ -13,7 +13,7 @@ var bethereLoader = function(){
  bethereLoader.createIsland = function(scene) {
 
 	var island_loader = new THREE.JSONLoader();
-	island_loader.load( "island1.js", function(island_geometry) {
+	island_loader.load( "bethere.io/three.js/island1.js", function(island_geometry) {
 	var island_material = new THREE.MeshPhongMaterial();
 	island_material.color = new THREE.Color().setRGB(1,1,1);
 	island_material.ambient = new THREE.Color().setRGB(0.0196078431372549,0.0196078431372549,0.0196078431372549);
@@ -34,7 +34,7 @@ var bethereLoader = function(){
 bethereLoader.createBaptistery = function(scene) {
 
 	var baptistery_loader = new THREE.JSONLoader();
-	baptistery_loader.load( "last_baptistery2.js", function(bapstistery_geometry) {
+	baptistery_loader.load( "bethere.io/three.js/last_baptistery2.js", function(bapstistery_geometry) {
 	var baptistery_material = new THREE.MeshPhongMaterial();
 	baptistery_material.color = new THREE.Color().setRGB(1,1,1);
 	baptistery_material.ambient = new THREE.Color().setRGB(0.0196078431372549,0.0196078431372549,0.0196078431372549);
@@ -54,7 +54,7 @@ bethereLoader.createBaptistery = function(scene) {
 
 bethereLoader.createPlant1 = function(scene) {
 	var loader = new THREE.JSONLoader();
-	loader.load( "plant1.js", function(plant1_geometry) {
+	loader.load( "bethere.io/three.js/plant1.js", function(plant1_geometry) {
 	var plant1_material = new THREE.MeshPhongMaterial();
 	plant1_material.color = new THREE.Color().setRGB(1,1,1);
 	plant1_material.ambient = new THREE.Color().setRGB(0.0196078431372549,0.0196078431372549,0.0196078431372549);
