@@ -24,18 +24,6 @@
 	<button class="button request">request fullscreen</button>
   <textarea id="log" readonly></textarea>
 
-		<script id ='utility_fullscreen'>
-/*
-THREEx.FullScreen.bindKey({
-			dblclick	: false,
-			charCode : false
-		});
-
-*/
-
-		
-	</script>
-	
 	
 	<script id="fragmentShader" type="x-shader/x-fragment">
 
@@ -205,7 +193,7 @@ THREEx.FullScreen.bindKey({
 
 	<script id="vertexShader" type="x-shader/x-vertex">
 
-
+//fireball shader
 
 		uniform float time;
 		uniform float scale;
@@ -228,7 +216,7 @@ THREEx.FullScreen.bindKey({
 	</script>
 	
 	<script>
-	//juggernaut  websockets
+	//juggernaut websockets
 	
 	var logElement = document.getElementById("log");
     logElement.value = "";
@@ -253,6 +241,15 @@ THREEx.FullScreen.bindKey({
     });
 
 //fullscreen
+
+/*
+THREEx.FullScreen.bindKey({
+			dblclick	: false,
+			charCode : false
+		});
+
+*/
+
 	document.querySelector(".button.request").addEventListener('click', function(){
 		THREEx.FullScreen.request();
 	}, false);
