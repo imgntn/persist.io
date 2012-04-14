@@ -33,9 +33,7 @@ THREEx.FullScreen.bindKey({
 
 */
 
-			document.querySelector(".button.request").addEventListener('click', function(){
-				THREEx.FullScreen.request();
-			}, false);
+		
 	</script>
 	
 	
@@ -207,6 +205,8 @@ THREEx.FullScreen.bindKey({
 
 	<script id="vertexShader" type="x-shader/x-vertex">
 
+
+
 		uniform float time;
 		uniform float scale;
 
@@ -251,6 +251,12 @@ THREEx.FullScreen.bindKey({
     jug.subscribe("channel1", function(data){
       log("Got data: " + data);
     });
+
+//fullscreen
+	document.querySelector(".button.request").addEventListener('click', function(){
+		THREEx.FullScreen.request();
+	}, false);
+
 
 //loader
 
