@@ -2,7 +2,7 @@
  * @author inear
  * 
  */
-var leafTexture = THREE.ImageUtils.loadTexture( "bethere.io/three.js/leaf.png" );
+var leafTexture = THREE.ImageUtils.loadTexture( "leaf.png" );
 var leafGeometry = new THREE.PlaneGeometry( 15, 15,1, 1 );
 var leafMaterial = new THREE.MeshBasicMaterial( { opacity:0.85, map: leafTexture, blending: THREE.NormalBlending, depthTest: true, transparent : true} );
 
