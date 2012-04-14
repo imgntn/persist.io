@@ -23,29 +23,7 @@
 <body>
 	<button class="button request">request fullscreen</button>
   <textarea id="log" readonly></textarea>
-  <script type="text/javascript" charset="utf-8">
-    var logElement = document.getElementById("log");
-    logElement.value = "";
-    var log = function(data){
-      logElement.value += (data + "\n");
-    };
-    
-    var jug = new Juggernaut({
-      secure: ('https:' == document.location.protocol),
-      host: document.location.hostname,
-      port: document.location.port || 80
-    });
-    
-    jug.on("connect", function(){ log("Connected") });
-    jug.on("disconnect", function(){ log("Disconnected") });
-    jug.on("reconnect", function(){ log("Reconnecting") });
-    
-    log("Subscribing to channel1");
-    
-    jug.subscribe("channel1", function(data){
-      log("Got data: " + data);
-    });
-  </script>
+
 		<script id ='utility_fullscreen'>
 /*
 THREEx.FullScreen.bindKey({
@@ -250,7 +228,35 @@ THREEx.FullScreen.bindKey({
 	</script>
 	
 	<script>
+	//juggernaut  websockets
+	
+	var logElement = document.getElementById("log");
+    logElement.value = "";
+    var log = function(data){
+      logElement.value += (data + "\n");
+    };
+
+    var jug = new Juggernaut({
+      secure: ('https:' == document.location.protocol),
+      host: document.location.hostname,
+      port: document.location.port || 80
+    });
+
+    jug.on("connect", function(){ log("Connected") });
+    jug.on("disconnect", function(){ log("Disconnected") });
+    jug.on("reconnect", function(){ log("Reconnecting") });
+
+    log("Subscribing to channel1");
+
+    jug.subscribe("channel1", function(data){
+      log("Got data: " + data);
+    });
+
+//loader
+
 	bethereLoader();
+
+
 	//chracter controls
 	var keyboard	= new THREEx.KeyboardState();
 
