@@ -320,7 +320,7 @@ scene.fog = new THREE.FogExp2( 0x000000, 0.0005 );
 	//controls
 
 var controls = new THREE.FirstPersonControls(camera);
-	controls.movementSpeed = 100;
+controls.movementSpeed = 100;
 controls.lookSpeed = 0.15;
 
 //lights
@@ -468,6 +468,7 @@ new THREE.JSONLoader().load('bethere.io/three.js/attachmentpoint2.js', function(
 		attachmentF = meshes['attachmentF'];
 		drawTube();
 		drawTube2();
+		drawTube3();
 	});
 
 
@@ -843,6 +844,26 @@ baseCharacter.onLoadComplete = function () {
 			collidersArray.push(tube2);
 						return tube2
 			}
+			
+			var tube3
+				function drawTube3(tube3){
+				var radius3 = 10;
+				var path3;
+						path3 = new THREE.SplineCurve3();
+					      path3.points.push( meshes['attachmentD'].position);
+					      path3.points.push( new THREE.Vector3(-300,600,0));
+					      path3.points.push( meshes['attachmentE'].position);
+
+						 tube3 = new THREE.Mesh(new THREE.TubeGeometry(path3, 100, radius3, 4), new THREE.MeshPhongMaterial({
+					        color: 0x00ff50
+					      }));
+					tube3.castShadow=true;
+					      tube3.receiveShadow = true;
+						 tube3.scale = new THREE.Vector3(1,1,1);
+					      scene.add(tube3);
+					collidersArray.push(tube3);
+								return tube3
+					}
 		
 			var oldIntersectsLength;
 			var ray;
