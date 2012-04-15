@@ -246,7 +246,7 @@ console.log("Got data: " + data);
 	    jug.subscribe("channel1", function(data2){
 	      log("Got data2: " + data2);
 	console.log("Got data2: " + data2);
-	character.root.position = new THREE.Vector3(data2);
+	character.root.position = new THREE.Vector3(data2[0],data2[1],data2[2]);
 
 	    });
 //fullscreen
