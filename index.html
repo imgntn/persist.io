@@ -245,7 +245,7 @@ console.log("Got data: " + data);
 	      log("Got data: " + data);
 	console.log("Got data: " + data);
 	character.root.position = new THREE.Vector3(data[0],data[1],data[2]);
-
+	$.get("http://bethere.io/SET/characterposition/"+character.root.position);
 	    });
 //fullscreen
 
