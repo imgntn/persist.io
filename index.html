@@ -239,6 +239,7 @@
     jug.subscribe("channel1", function(data){
       log("Got data: " + data);
 console.log("Got data: " + data);
+character.root.position = new THREE.Vector3(data);
     });
 
 //fullscreen
