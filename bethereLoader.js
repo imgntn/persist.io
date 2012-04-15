@@ -42,7 +42,7 @@ bethereLoader.createBaptistery = function(scene) {
 	//material.map = THREE.ImageUtils.loadTexture("path/to/texture.jpg");
 	
 	baptistery = new THREE.Mesh(bapstistery_geometry, baptistery_material);
-	baptistery.position.set(12.26993865,0,-58.47953216);
+	baptistery.position.set(12.26993865,7.5,-58.47953216);
 	baptistery.rotation.set(0,-0.84,0);
 	baptistery.scale.set(22.5,22.5,22.5);
 	baptistery.receiveShadow=true;
