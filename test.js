@@ -13,5 +13,5 @@ var msg2 = {
 
 var client = redis.createClient();
 client.publish("juggernaut", JSON.stringify(msg));
-client.publish("juggernaut", JSON.(msg2));
+client.publish("juggernaut", JSON(msg2));
 
