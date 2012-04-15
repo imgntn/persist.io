@@ -286,9 +286,10 @@ else{CharacterControls.jump=false;}
 		
 		
 		//setup
+		width = window.innerWidth,
+		height = window.innerHeight,
 	var container = document.createElement( 'div' ),
-	width = window.innerWidth,
-	height = window.innerHeight,
+	
 	camera,
 	scene,
 	renderer,
@@ -302,7 +303,7 @@ else{CharacterControls.jump=false;}
 
 	scene = new THREE.Scene();
 scene.add(camera);
-scene.fog = new THREE.FogExp2( 0x000000, 0.0005 );
+scene.fog = new THREE.FogExp2( 0x000000, 0.0015 );
 	renderer = new THREE.WebGLRenderer( { clearAlpha: 1, clearColor: 0x000000 } );
 	renderer.setSize( width, height );
 	renderer.shadowCameraNear = 2;
@@ -452,6 +453,7 @@ fireballmesh.scale = new THREE.Vector3(150,150,150);
 
 var domEvent;
 var mouse = { x: 0, y: 0 };
+
 
 var attachmentA, attachmentB, attachmentC, attachmentD, attachmentE, attachmentF;
 
