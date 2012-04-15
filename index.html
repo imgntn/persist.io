@@ -254,11 +254,41 @@ THREEx.FullScreen.bindKey({
 		THREEx.FullScreen.request();
 	}, false);
 
+		
+		//setup
 
-//loader
 
-	bethereLoader();
+	var container = document.createElement( 'div' ),
+	
+	camera,
+	scene,
+	renderer,
+	SHADOW_MAP_WIDTH = 2048,
+	SHADOW_MAP_HEIGHT = 1024;
 
+	container = document.body.appendChild( container );
+
+	camera = new THREE.PerspectiveCamera( 70, width/height, .5, 9500 );
+	camera.updateProjectionMatrix();
+	var width = window.innerWidth;
+	var height = window.innerHeight;
+	scene = new THREE.Scene();
+	scene.add(camera);
+	scene.fog = new THREE.FogExp2( 0x000000, 0.0015 );
+	renderer = new THREE.WebGLRenderer( { clearAlpha: 1, clearColor: 0x000000 } );
+	renderer.setSize( width, height );
+	renderer.shadowCameraNear = 2;
+	renderer.shadowCameraFar = this.camera.far;
+	renderer.shadowCameraFov = 70;
+	renderer.shadowMapBias = 0.0039;
+	renderer.shadowMapDarkness = 0.7;
+	renderer.shadowMapWidth = SHADOW_MAP_WIDTH;
+	renderer.shadowMapHeight = SHADOW_MAP_HEIGHT;
+	renderer.shadowMapEnabled = true;
+	renderer.shadowMapSoft = true;
+	container.appendChild( renderer.domElement );
+	var width = window.innerWidth;
+	var height = window.innerHeight;
 
 	//chracter controls
 	var keyboard	= new THREEx.KeyboardState();
@@ -284,38 +314,10 @@ if (keyboard.pressed(jump)) {CharacterControls.jump = true;}
 else{CharacterControls.jump=false;}
 		}, 250);
 		
-		
-		//setup
-		var width = window.innerWidth;
-		var height = window.innerHeight;
-	var container = document.createElement( 'div' ),
 	
-	camera,
-	scene,
-	renderer,
-	SHADOW_MAP_WIDTH = 2048,
-	SHADOW_MAP_HEIGHT = 1024;
+		//loader
 
-	container = document.body.appendChild( container );
-
-	camera = new THREE.PerspectiveCamera( 70, width/height, .5, 9500 );
-	camera.updateProjectionMatrix();
-
-	scene = new THREE.Scene();
-scene.add(camera);
-scene.fog = new THREE.FogExp2( 0x000000, 0.0015 );
-	renderer = new THREE.WebGLRenderer( { clearAlpha: 1, clearColor: 0x000000 } );
-	renderer.setSize( width, height );
-	renderer.shadowCameraNear = 2;
-	renderer.shadowCameraFar = this.camera.far;
-	renderer.shadowCameraFov = 70;
-	renderer.shadowMapBias = 0.0039;
-	renderer.shadowMapDarkness = 0.7;
-	renderer.shadowMapWidth = SHADOW_MAP_WIDTH;
-	renderer.shadowMapHeight = SHADOW_MAP_HEIGHT;
-	renderer.shadowMapEnabled = true;
-	renderer.shadowMapSoft = true;
-	container.appendChild( renderer.domElement );
+			bethereLoader();
 	
 	
 	//controls
