@@ -8,7 +8,8 @@ var msg = {
 
 var msg2 = {
   "channels": ["channel1"],
-  "data": 400,400,400
+  "data": "400, 400, 400"
+
 };
 
 var client = redis.createClient();
