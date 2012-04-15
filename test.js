@@ -7,8 +7,8 @@ var msg = {
 };
 
 var msg2 = {
-  "channels": ["channel1"],
-  "data2": [400,400,400]
+  "channels": ["channel2"],
+  "data": [400,400,400]
 
 };
 

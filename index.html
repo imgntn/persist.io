@@ -240,11 +240,11 @@
       log("Got data: " + data);
 console.log("Got data: " + data);
     });
-
-	    jug.subscribe("channel1", function(data2){
-	      log("Got data2: " + data2);
-	console.log("Got data2: " + data2);
-	character.root.position = new THREE.Vector3(data2[0],data2[1],data2[2]);
+  log("Subscribing to channel2");
+	    jug.subscribe("channel2", function(data){
+	      log("Got data: " + data);
+	console.log("Got data: " + data);
+	character.root.position = new THREE.Vector3(data[0],data[1],data[2]);
 
 	    });
 //fullscreen
