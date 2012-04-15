@@ -1,22 +1,22 @@
 <html>
 <head>
 	<script src="application.js" type="text/javascript" charset="utf-8" id="juggernaut"></script>
-	<script src="bethere.io/three.js/build/Three.js"></script>
-	<script src="bethere.io/three.js/jquery-1.7.2.js"></script>
-	<script src="bethere.io/three.js/Tween.js"></script>
-	<script src="bethere.io/three.js/Tree.js"></script>
-	<script src='bethere.io/three.js/MD2CharacterComplex.js'></script>
-	<script src='bethere.io/three.js/threex.domevent.js'></script>
-	<script src='bethere.io/three.js/threex.domevent.object3d.js'></script>
-	<script src='bethere.io/threex/THREEx.WindowResize.js'></script>
-	<script src="bethere.io/threex/THREEx.FullScreen.js"></script>
-	<script src="bethere.io/threex/THREEx.KeyboardState.js"></script>
+	<script src="Three.js"></script>
+	<script src="jquery-1.7.2.js"></script>
+	<script src="Tween.js"></script>
+	<script src="Tree.js"></script>
+	<script src='MD2CharacterComplex.js'></script>
+	<script src='threex.domevent.js'></script>
+	<script src='threex.domevent.object3d.js'></script>
+	<script src='THREEx.WindowResize.js'></script>
+	<script src="THREEx.FullScreen.js"></script>
+	<script src="THREEx.KeyboardState.js"></script>
 
-	<script src="bethere.io/three.js/audiolet/audiolet/Audiolet.js"></script>
-	<script src="bethere.io/three.js/audiolet_util.js"></script>
-	<script src="bethere.io/three.js/audiolet_testapp.js"></script>
+	<script src="audiolet/audiolet/Audiolet.js"></script>
+	<script src="audiolet_util.js"></script>
+	<script src="audiolet_testapp.js"></script>
 	<!--This is where we load the island and the objects specific to it-->
-	<script src="bethere.io/three.js/bethereLoader.js"></script>
+	<script src="bethereLoader.js"></script>
 
 
 </head>
@@ -457,7 +457,7 @@ var attachmentA, attachmentB, attachmentC, attachmentD, attachmentE, attachmentF
 
 
 
-new THREE.JSONLoader().load('bethere.io/three.js/attachmentpoint2.js', function(geometry){
+new THREE.JSONLoader().load('attachmentpoint2.js', function(geometry){
 	var	meshes = bethereLoader.createAttachments(scene, geometry);//buildMeshes(geometry);
 		bindEvents(meshes);
 		attachmentA = meshes['attachmentA'];
@@ -683,7 +683,7 @@ var branchTexture, branchMaterial;
 //tree branch texture
 
 
-				branchTexture = THREE.ImageUtils.loadTexture( "bethere.io/three.js/treebark.jpg" );
+				branchTexture = THREE.ImageUtils.loadTexture( "treebark.jpg" );
 				branchTexture.minFilter = THREE.LinearFilter;
 				branchTexture.magFilter = THREE.LinearFilter;
 				branchTexture.wrapS = branchTexture.wrapT = THREE.RepeatWrapping;
@@ -720,7 +720,7 @@ var nCharacters = 0;
 	};
 	var configOgro = {
 
-		baseUrl: "bethere.io/three.js/models/animated/ogro/",
+		baseUrl: "models/animated/ogro/",
 
 		body: "faerie.js",
 		//body: "ogro-light.js",
