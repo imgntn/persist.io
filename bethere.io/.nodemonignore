@@ -1,6 +1,0 @@
-/client/*
-.settings.xml
-./.git/*
-./README.md
-./start.sh
-/socketstream/*
