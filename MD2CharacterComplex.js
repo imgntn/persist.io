@@ -358,6 +358,21 @@ THREE.MD2CharacterComplex = function () {
 			idleAnimation = animations[ "jump" ];
 
 		}
+		
+		
+		if ( controls.death ) {
+
+			moveAnimation = animations[ "death" ];
+			idleAnimation = animations[ "death" ];
+
+		}
+		
+			if ( controls.pain ) {
+
+				moveAnimation = animations[ "pain" ];
+				idleAnimation = animations[ "pain" ];
+
+			}
 
 		if ( controls.attack ) {
 

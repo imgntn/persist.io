@@ -5,7 +5,7 @@
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="http://bethere.io" />
 		<meta property="og:image" content="bethereOG.jpg" />
-			<meta property="og:description" content="an all-javascript virtual environment by james b. pollack" />
+		<meta property="og:description" content="an all-javascript virtual environment by james b. pollack" />
 	<script src="application.js" type="text/javascript" charset="utf-8" id="juggernaut"></script>
 	<script src="build/Three.js"></script>
 	<script src="jquery-1.7.2.js"></script>
@@ -801,7 +801,9 @@ var nCharacters = 0;
 		moveBackward: false,
 		moveLeft: false,
 		moveRight: false,
-		attack:false
+		attack:false,
+		pain:false,
+		death:false
 
 	};
 	var configOgro = {
@@ -823,7 +825,9 @@ var nCharacters = 0;
 			attack: "attack",
 			crouchMove: "crwalk",
 			crouchIdle: "crstand",
-			crouchAttach: "crattack"
+			crouchAttach: "crattack",
+			pain: "pain",
+			death: "death"
 		},
 
 		walkSpeed: 250,
@@ -892,11 +896,12 @@ baseCharacter.onLoadComplete = function () {
 	baseCharacter.loadParts( configOgro );
 
 		
-			//tubes
+//tubes
+var tube;
+
 			function drawTube(tube){
 			var radius = 20 ;
 			var path;
-		var tube
 				path = new THREE.SplineCurve3();
 			      path.points.push( meshes['attachmentA'].position);
 			      path.points.push( new THREE.Vector3(0,300,0));
@@ -912,11 +917,11 @@ baseCharacter.onLoadComplete = function () {
 				collidersArray.push(tube);
 						return tube
 			}
+			var tube2;
 
 			function drawTube2(tube2){
 			var radius2 = 10;
 			var path2;
-	var tube2
 				path2 = new THREE.SplineCurve3();
 			      path2.points.push( meshes['attachmentB'].position);
 			      path2.points.push( new THREE.Vector3(-800,-300,0));
@@ -933,7 +938,7 @@ baseCharacter.onLoadComplete = function () {
 						return tube2
 			}
 			
-			var tube3
+			var tube3;
 				function drawTube3(tube3){
 				var radius3 = 10;
 				var path3;
