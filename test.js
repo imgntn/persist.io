@@ -1,5 +1,4 @@
 var redis   = require("redis");
-
 var msg = {
   "channels": ["channel1"],
   "data": "200"

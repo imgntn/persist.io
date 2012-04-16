@@ -247,16 +247,21 @@
 	$.get("http://bethere.io:7379/LREM/sessionIDs/0/"+jug.sessionID);
 
  });
-    jug.on("reconnect", function(){ log("Reconnecting") });
+    jug.on("reconnect", function(){ 
+	
+	log("Reconnecting") ;
+	$.get("http://bethere.io:7379/LPUSH/sessionIDs/"+jug.sessionID);
+	
+
+});
 
     log("Subscribing to channel1");
-
-    jug.subscribe("channel1", function(data){
+  log("Subscribing to channel2");
+   
+ jug.subscribe("channel1", function(data){
       log("Got data: " + data);
 console.log("Got data: " + data);
     });
-  log("Subscribing to channel2");
-
 
 	    jug.subscribe("channel2", function(data){
 	      log("Got data: " + data);
@@ -265,6 +270,15 @@ console.log("Got data: " + data);
 	$.get("http://bethere.io:7379/SET/characterposition/"+ data);
 	$.get("http://bethere.io:7379/SET/characterposition2/"+ JSON.stringify(character.root.position));
 	    });
+	
+	
+//subscribe to a personal channel
+		 jug.subscribe("channel"+jug.sessionID, function(data){
+		      log("Got data: " + data);
+		console.log("Got data: " + data);
+		    });
+	
+	//closing, refreshing, aborting, error should remove user from connected session id list
 window.onbeforeunload = unloadPage;
 window.onunload = unloadPage;
 window.onerror = unloadPage;
