@@ -758,10 +758,7 @@ var branchTexture, branchMaterial;
 				scene.add(treeContainer);
 	
 				//scale tween update
-						function scaleTweenUpdate( event ) {
-							updateScaleRecursive( tree );
-						}
-
+			
 						//recursivly update all branch childs
 						function updateScaleRecursive( child  ) {
 							for ( var c = 0; c < child.children.length; c++ ) {
@@ -776,7 +773,7 @@ var branchTexture, branchMaterial;
 										.delay(2000)
 										.to({x: 0.95, y: 0.95, z: 0.95}, 2000)
 										.easing(TWEEN.Easing.Sinusoidal.EaseInOut)
-										.onUpdate( scaleTweenUpdate )
+										.onUpdate( 	updateScaleRecursive( tree ); )
 
 									}
 
