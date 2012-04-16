@@ -30,7 +30,8 @@ var bethereLoader = function(){
 	});
 	return island;
 };
-
+		
+	
 bethereLoader.createBaptistery = function(scene) {
 
 	var baptistery_loader = new THREE.JSONLoader();

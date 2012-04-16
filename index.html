@@ -29,7 +29,9 @@
 	<button class="button request">request fullscreen</button>
   <textarea id="log" readonly></textarea>
 
-	
+	<script type="text/javascript">
+	document.documentElement.style.overflow = 'hidden';
+	</script>
 	<script id="fragmentShader" type="x-shader/x-fragment">
 
 		//
@@ -491,6 +493,7 @@ var oldTime = new Date().getTime();
 		scale: 	{ type: "f", value: 1.5 }
 	};
 		var size = 0.75;
+	
 		
 			var fireballmaterial = new THREE.ShaderMaterial( {
 
