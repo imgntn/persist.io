@@ -244,7 +244,7 @@
     jug.on("disconnect", function(){ 
 	
 	log("Disconnected")
-	$.get("http://bethere.io:7379/LPOP/sessionIDs/"+jug.sessionID);
+	$.get("http://bethere.io:7379/LREM/sessionIDs/0/"+jug.sessionID);
 
  });
     jug.on("reconnect", function(){ log("Reconnecting") });
