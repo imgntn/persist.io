@@ -739,7 +739,7 @@ var branchTexture, branchMaterial;
 				branchTexture.minFilter = THREE.LinearFilter;
 				branchTexture.magFilter = THREE.LinearFilter;
 				branchTexture.wrapS = branchTexture.wrapT = THREE.RepeatWrapping;
-				branchMaterial = new THREE.MeshLambertMaterial( { map:branchTexture, shininess: 2, ambient:0xffffff} );
+				branchMaterial = new THREE.MeshLambertMaterial( { map:branchTexture, shininess: 2, ambient:0x998822} );
 				//branchMaterial = new THREE.MeshBasicMaterial( { color:0x0044ff, opacity:1, map: branchTexture } );
 				branchMaterial.shading = THREE.SmoothShading;
 				
@@ -757,6 +757,31 @@ var branchTexture, branchMaterial;
 				treeContainer.add( tree );
 				scene.add(treeContainer);
 	
+				//scale tween update
+						function scaleTweenUpdate( event ) {
+							updateScaleRecursive( tree );
+						}
+
+						//recursivly update all branch childs
+						function updateScaleRecursive( child  ) {
+							for ( var c = 0; c < child.children.length; c++ ) {
+								updateScaleRecursive( child.children[ c ] );
+								child.children[ c ].scale = child.scale;	
+							}
+						}
+						
+						function initTreeAnim() {
+										//scale
+										tweenScale = new TWEEN.Tween( tree.scale )
+										.delay(2000)
+										.to({x: 0.95, y: 0.95, z: 0.95}, 2000)
+										.easing(TWEEN.Easing.Sinusoidal.EaseInOut)
+										.onUpdate( scaleTweenUpdate )
+
+									}
+
+initTreeAnim();
+
 //character
 var characters = [];
 var nCharacters = 0;
