@@ -2,7 +2,7 @@
  * @author inear
  * 
  */
-var leafTexture = THREE.ImageUtils.loadTexture( "leaf.png" );
+var leafTexture = THREE.ImageUtils.loadTexture( "leafTexture.png" );
 var leafGeometry = new THREE.PlaneGeometry( 15, 15,1, 1 );
 var leafMaterial = new THREE.MeshBasicMaterial( { opacity:0.85, map: leafTexture, blending: THREE.NormalBlending, depthTest: true, transparent : true} );
 
@@ -135,7 +135,7 @@ Tree = function ( materials, level, radius, entryPointIndex, maxScale ) {
 					newBranch.position = branchPoint.position.clone();
 					newBranch.rotation = branchPoint.rotation.clone();
 					newBranch.rotation.z += randomTable[ totalBranchesCreated ] * TO_RADIANS;
-					scope.add( newBranch );
+					scope.addChild( newBranch );
 					
 					//add one step in random table
 					totalBranchesCreated++
@@ -164,7 +164,7 @@ Tree = function ( materials, level, radius, entryPointIndex, maxScale ) {
 					mesh.rotation.x = 90 * TO_RADIANS;
 					mesh.rotation.y = Math.random()*90 * TO_RADIANS
 					mesh.rotation.z = Math.random()*90 * TO_RADIANS;
-					scope.add( mesh );
+					scope.addChild( mesh );
 					
 					var tweenTarget = mesh; 
 					var initRotY = mesh.rotation.y
