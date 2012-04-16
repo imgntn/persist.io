@@ -231,9 +231,14 @@
 
     jug.on("connect", function(){ 
 	
+	var sessionIDs = [];
+	
 	log("Connected");
 	$.get("http://bethere.io:7379/INCR/nonuniquevisitors");
 	
+	$.get("http://bethere.io:7379/LPUSH/sessionIDs/"+jug.sessionID);
+	//get sessionsIDs
+	//$.get("http://bethere.io:7379/LRANGE/sessionIDs/0/-1");
 	
 	 });
     jug.on("disconnect", function(){ log("Disconnected") });
