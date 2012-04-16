@@ -241,7 +241,12 @@
 	//$.get("http://bethere.io:7379/LRANGE/sessionIDs/0/-1");
 	
 	 });
-    jug.on("disconnect", function(){ log("Disconnected") });
+    jug.on("disconnect", function(){ 
+	
+	log("Disconnected")
+	$.get("http://bethere.io:7379/LPOP/sessionIDs/"+jug.sessionID);
+
+ });
     jug.on("reconnect", function(){ log("Reconnecting") });
 
     log("Subscribing to channel1");
