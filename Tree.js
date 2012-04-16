@@ -131,7 +131,7 @@ Tree = function ( materials, level, radius, entryPointIndex, maxScale ) {
 				while (  newBranchIndex > 0  )
 				{
 				
-					var newBranch = new Tree( scope.materials, scope.level, scope.radius, scope.entryPointIndex + numCurrentPos-3, scope.maxScale*.9)
+					var newBranch = new Tree( branchMaterial, scope.level, scope.radius, scope.entryPointIndex + numCurrentPos-3, scope.maxScale*.9)
 					newBranch.position = branchPoint.position.clone();
 					newBranch.rotation = branchPoint.rotation.clone();
 					newBranch.rotation.z += randomTable[ totalBranchesCreated ] * TO_RADIANS;
