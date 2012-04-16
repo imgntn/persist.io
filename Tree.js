@@ -39,7 +39,7 @@ Tree = function ( materials, level, radius, entryPointIndex, maxScale ) {
 	this.entryPointIndex = entryPointIndex;
 	this.maxScale = maxScale;
 	this.branchOffset = ( branchMap[level] )? branchMap[level].length - entryPointIndex : 0;
-	
+	this.frustumCulled = false;
 	
 	this.radius = radius*0.95;
 	if( this.radius < 0.5 ) this.radius = .5

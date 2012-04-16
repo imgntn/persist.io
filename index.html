@@ -347,7 +347,7 @@ else{CharacterControls.jump=false;}
 	SHADOW_MAP_HEIGHT = 1024;
 
 	container = document.body.appendChild( container );
-	camera = new THREE.PerspectiveCamera( 70, width/height, .5, 9500 );
+	camera = new THREE.PerspectiveCamera( 70, width/height, 1, 9500 );
 	camera.updateProjectionMatrix();
 
 	scene = new THREE.Scene();
@@ -736,12 +736,12 @@ var branchTexture, branchMaterial;
 
 
 				branchTexture = THREE.ImageUtils.loadTexture( "treebark.jpg" );
-				branchTexture.minFilter = THREE.LinearFilter;
-				branchTexture.magFilter = THREE.LinearFilter;
-				branchTexture.wrapS = branchTexture.wrapT = THREE.RepeatWrapping;
+				//branchTexture.minFilter = 1;
+				//branchTexture.magFilter = 1;
+			//	branchTexture.wrapS = branchTexture.wrapT = THREE.RepeatWrapping;
 				branchMaterial = new THREE.MeshLambertMaterial( { map:branchTexture, shininess: 2, ambient:0x998822} );
 				//branchMaterial = new THREE.MeshBasicMaterial( { color:0x0044ff, opacity:1, map: branchTexture } );
-				branchMaterial.shading = THREE.SmoothShading;
+			//	branchMaterial.shading = THREE.SmoothShading;
 				
 				//create tree, will timeout some milliseconds
 				
@@ -961,8 +961,8 @@ baseCharacter.onLoadComplete = function () {
 					var z2 = intersects[ 0 ].point.z;
 					var distance = Math.sqrt( Math.pow( x1 - x2, 2 ) + Math.pow( y1 - y2, 2 ) + Math.pow( z1 - z2, 2 ) );
 					if(distance <= character.root.boundRadius){
-						intersects[ 0 ].object.material.color.setHex( 0x0000ff );
-						console.log()
+					//	intersects[ 0 ].object.material.color.setHex( 0x0000ff );
+						console.log('hit')
 					}
 				}
 				if(oldIntersectsLength > intersects.length){
@@ -1009,7 +1009,7 @@ scene.add(arrowZMinus);
 var clock = new THREE.Clock();
 
 //collisions
-	var collidersArray  = [tree];
+	var collidersArray  = [];
 
 //animation loop!
 
