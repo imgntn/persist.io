@@ -310,7 +310,6 @@ else{CharacterControls.jump=false;}
 	SHADOW_MAP_HEIGHT = 1024;
 
 	container = document.body.appendChild( container );
-	bethereLoader();
 	camera = new THREE.PerspectiveCamera( 70, width/height, .5, 9500 );
 	camera.updateProjectionMatrix();
 
@@ -329,6 +328,7 @@ scene.add(camera);
 	renderer.shadowMapEnabled = true;
 	renderer.shadowMapSoft = true;
 	container.appendChild( renderer.domElement );
+	bethereLoader();
 	
 	
 	//controls
