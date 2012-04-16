@@ -266,7 +266,7 @@ console.log("Got data: " + data);
 	$.get("http://bethere.io:7379/SET/characterposition2/"+ JSON.stringify(character.root.position));
 	    });
 
-
+window.onunload($.get("http://bethere.io:7379/LREM/sessionIDs/"+jug.sessionID))
 
 //fullscreen
 
