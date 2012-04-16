@@ -373,6 +373,34 @@ THREE.MD2CharacterComplex = function () {
 				idleAnimation = animations[ "pain" ];
 
 			}
+			
+				if ( controls.wave ) {
+
+					moveAnimation = animations[ "wave" ];
+					idleAnimation = animations[ "wave" ];
+
+				}
+				
+					if ( controls.taunt ) {
+
+						moveAnimation = animations[ "taunt" ];
+						idleAnimation = animations[ "taunt" ];
+
+					}
+
+						if ( controls.flip ) {
+
+							moveAnimation = animations[ "flip" ];
+							idleAnimation = animations[ "flip" ];
+
+						}
+								if ( controls.point ) {
+
+									moveAnimation = animations[ "point" ];
+									idleAnimation = animations[ "point" ];
+
+								}
+
 
 		if ( controls.attack ) {
 
