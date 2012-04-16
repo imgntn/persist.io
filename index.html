@@ -229,7 +229,13 @@
       port: document.location.port || 80
     });
 
-    jug.on("connect", function(){ log("Connected") });
+    jug.on("connect", function(){ 
+	
+	log("Connected");
+	$.get("http://bethere.io:7379/INCR/nonuniquevisitors");
+	
+	
+	 });
     jug.on("disconnect", function(){ log("Disconnected") });
     jug.on("reconnect", function(){ log("Reconnecting") });
 
