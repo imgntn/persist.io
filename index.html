@@ -28,11 +28,14 @@
 	position: absolute;
 	top: 0px; width: 100%;
 	color: #ffffff;
-	padding: 10sdapx;
+
 	font-family: Helvetica;
-	font-size: 38px;
 	text-align: center;
 	z-index:100;
+	}
+	body{
+		
+		margin:0px;
 	}
 
 	</style>
@@ -531,8 +534,6 @@ fireballmesh.scale = new THREE.Vector3(350,350,350);
 
 //DOMevents in 3D
 
-var domEvent ;
-var mouse = { x: 0, y: 0 };
 
 
 var attachmentA, attachmentB, attachmentC, attachmentD, attachmentE, attachmentF;
@@ -1102,7 +1103,7 @@ camera3.position = new THREE.Vector3(-300,300,-300);
 
 renderManager.add('ThirdSetup', scene, camera3, function(delta, renderer)
 	{
-		THREE.Object3D._threexDomEvent.camera(this.camera);
+	THREE.Object3D._threexDomEvent.camera(this.camera);
 		
 		funstuff();
 	controls.object = this.camera;
