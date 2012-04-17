@@ -972,28 +972,7 @@ var tube;
 					
 					
 					
-					//dynamic tube
-
-							var dtube;
-								function drawdTube(dtube){
-					
-								var dradius = 5 ;
-								var dpath;
-									dpath = new THREE.SplineCurve3();
-								      dpath.points.push( new THREE.Vector3(300,300,300));
-								      dpath.points.push( new THREE.Vector3(0,300,0));
-								      dpath.points.push( character.root.position);
-
-									 dtube = new THREE.Mesh(new THREE.TubeGeometry(dpath, 100, dradius, 4), new THREE.MeshPhongMaterial({
-								        color: 0xff00ff
-								      }));
-									dtube.castShadow=true;
-								      dtube.receiveShadow = true;
-									 dtube.scale = new THREE.Vector3(1,1,1);
-								      scene.add(dtube);
-									collidersArray.push(dtube);
-											return dtube
-								}
+				
 					
 					//collisions
 		
@@ -1073,15 +1052,15 @@ renderManager.add('FirstSetup', scene, camera, function(delta, renderer)
 
 );
 //scene2 = new THREE.Scene()
-var camera2, controls2;
-camera2 = new THREE.PerspectiveCamera( 20, width/height, 1, 9500 );
+var camera2;
+camera2 = new THREE.PerspectiveCamera( 40, width/height, 1, 9500 );
 camera2.updateProjectionMatrix();
 scene.add(camera2);
-controls2 = new THREE.FirstPersonControls(camera2);
+camera2.position = new THREE.Vector3(0,100,-300)
 
 renderManager.add('SecondSetup', scene, camera2, function(delta, renderer)
 	{
-		
+	
 	renderer.render(this.scene, this.camera);	
 	
 	}
@@ -1094,7 +1073,7 @@ renderManager.add('SecondSetup', scene, camera2, function(delta, renderer)
 
 	function animate() {
 			requestAnimationFrame( animate );
-			collisionDetection()
+			
 		var time = new Date().getTime();
 		var delta = 0.001 * ( time - oldTime );
 		oldTime = time;
@@ -1108,12 +1087,11 @@ renderManager.add('SecondSetup', scene, camera2, function(delta, renderer)
 				}		
 					
 		TWEEN.update();
-	drawdTube();
-		controls.update(clock.getDelta());
+	controls.update(clock.getDelta());
 	//	renderer.render( scene, camera );
 	renderManager.renderCurrent();
 		
-
+collisionDetection()
 // fireballshader turn 
 	uniforms.time.value += 0.275 * delta;
 			fireballmesh.rotation.y += 0.5 * delta;
