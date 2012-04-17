@@ -27,7 +27,10 @@
 <body onbeforeunload="unloadPage()">
 	<button class="button request">request fullscreen</button>
   <textarea id="log" readonly></textarea>
-
+	<button onclick="renderManager.setCurrent('FirstSetup');controls.freeze=false">First Camera</button>
+	<button onclick="renderManager.setCurrent('SecondSetup');controls.freeze=false">Second Camera</button>
+	<button onclick="renderManager.setCurrent('ThirdSetup');controls.freeze=false">Third Camera</button>
+<button onclick="renderManager.setCurrent('SecondScene');controls.freeze=false">SecondScene</button>
 	<script type="text/javascript">
 	document.documentElement.style.overflow = 'hidden';
 	</script>
@@ -310,6 +313,7 @@ THREEx.FullScreen.bindKey({
 	document.querySelector(".button.request").addEventListener('click', function(){
 		THREEx.FullScreen.request();
 	}, false);
+	
 
 
 //loader
