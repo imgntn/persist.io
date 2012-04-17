@@ -30,7 +30,6 @@ scene2camera.position = new THREE.Vector3(0,500,500);
 
 scene2 = new THREE.Scene();
 scene2.add(scene2camera);
-scene2.fog = new THREE.FogExp2( 0x000000, 0.0002 );
 
 //THREE.Object3D._threexDomEvent.camera(scene2camera);
 

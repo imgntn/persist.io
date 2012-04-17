@@ -53,7 +53,7 @@
 		<button onclick="renderManager.setCurrent('FirstSetup');controls.freeze=false;">First Camera</button>
 		<button onclick="renderManager.setCurrent('SecondSetup');controls.freeze=false;">Second Camera</button>
 		<button onclick="renderManager.setCurrent('ThirdSetup');controls.freeze=false;">Third Camera</button>
-	<button onclick="renderManager.setCurrent('SecondScene');controls.freeze=false;">SecondScene</button>
+	<button onclick="renderManager.setCurrent('SecondScene');controls.freeze=false;controls.movementSpeed=300;">SecondScene</button>
 	</div>
 
 	<script id="fragmentShader" type="x-shader/x-fragment">
@@ -302,6 +302,19 @@ console.log("Got data: " + data);
 	$.get("http://bethere.io:7379/SET/characterposition/"+ data);
 	$.get("http://bethere.io:7379/SET/characterposition2/"+ JSON.stringify(character.root.position));
 	    });
+	
+	//scene2
+	var sessionArrayFetch, sessionArrayParse, sessionArrayStaging;
+	var sessionArray =[];
+		 jug.subscribe("scene2trees", function(data){
+		    sessionArrayFetch = $.get("http://bethere.io:7379/SMEMBERS/sessionIDs")
+			sessionArrayParse = JSON.parse(sessionArrayFetch.responseText);
+			sessionArrayStaging = sessionArrayParse.SMEMBERS;
+			sessionArray.push(sessionArrayStaging)
+		
+		    });
+		
+		
 	
 	
 //subscribe to a personal channel
@@ -1248,12 +1261,15 @@ lightSin7=	Math.sin( lightTimer * 0.5 )  * lightF;
 										
 										scene2light1.position.x = lightCos5;
 										scene2light1.position.z= lightSin5;
+										scene2light1.lookAt(scene2tree);
 										
 										scene2light2.position.x = lightSin3;
 										scene2light2.position.z= lightCos7;
+										scene2light2.lookAt(scene2tree);
 										
 										scene2light3.position.x = lightCos3;
 										scene2light3.position.z= lightCos3;
+										scene2light3.lookAt(scene2tree)
 										
 											scene2spot1.position.x = lightSin3;
 											scene2spot1.position.z= lightSin3;
