@@ -16,13 +16,11 @@
 	<script src="THREEx.KeyboardState.js"></script>
 	<script src="Tree.js"></script>
 	<script src='MD2CharacterComplex.js'></script>
-
 	<script src="audiolet/audiolet/Audiolet.js"></script>
 	<script src="audiolet_util.js"></script>
 	<script src="audiolet_testapp.js"></script>
 	<!--This is where we load the island and the objects specific to it-->
 	<script src="bethereLoader.js"></script>
-
 	<script src='threex.domevent.js'></script>
 	<script src='threex.domevent.object3d.js'></script>
 </head>
@@ -374,10 +372,10 @@ scene.add(camera);
 	renderer.shadowMapEnabled = true;
 	renderer.shadowMapSoft = true;
 	container.appendChild( renderer.domElement );
-	
+		bethereLoader();
 	var renderManager = new THREE.Extras.RenderManager(renderer);
 	
-	bethereLoader();
+
 	
 	
 	//controls
@@ -1053,21 +1051,34 @@ renderManager.add('FirstSetup', scene, camera, function(delta, renderer)
 );
 //scene2 = new THREE.Scene()
 var camera2;
-camera2 = new THREE.PerspectiveCamera( 40, width/height, 1, 9500 );
+camera2 = new THREE.PerspectiveCamera( 20, width/height, 1, 9500 );
 camera2.updateProjectionMatrix();
 scene.add(camera2);
-camera2.position = new THREE.Vector3(0,100,-300)
+camera2.position = new THREE.Vector3(-300,300,-300);
 
 renderManager.add('SecondSetup', scene, camera2, function(delta, renderer)
 	{
 	
-	renderer.render(this.scene, this.camera);	
-	
+	renderer.render(this.scene, this.camera);
+	controls.object = this.camera;
 	}
 
 );
 
+var camera3;
+camera3 = new THREE.PerspectiveCamera( 160, width/height, 1, 9500 );
+camera3.updateProjectionMatrix();
+scene.add(camera3);
+camera3.position = new THREE.Vector3(-300,300,-300);
 
+renderManager.add('ThirdSetup', scene, camera3, function(delta, renderer)
+	{
+	
+	renderer.render(this.scene, this.camera);
+	controls.object = this.camera;
+	}
+
+);
 
 //animation loop!
 
@@ -1086,12 +1097,9 @@ renderManager.add('SecondSetup', scene, camera2, function(delta, renderer)
 
 				}		
 					
-		TWEEN.update();
-	controls.update(clock.getDelta());
-	//	renderer.render( scene, camera );
-	renderManager.renderCurrent();
+TWEEN.update();
+controls.update(clock.getDelta());
 		
-collisionDetection()
 // fireballshader turn 
 	uniforms.time.value += 0.275 * delta;
 			fireballmesh.rotation.y += 0.5 * delta;
@@ -1163,7 +1171,8 @@ collisionDetection()
 		
 		//audioooooooooo
 		makeNoise();
-		
+		renderManager.renderCurrent();
+		collisionDetection()
 	}
 
 	animate();
