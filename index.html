@@ -385,7 +385,7 @@ else{CharacterControls.jump=false;}
 
 	scene = new THREE.Scene();
 scene.add(camera);
-	scene.fog = new THREE.FogExp2( 0x000000, 0.0015 );
+	scene.fog = new THREE.FogExp2( 0x000000, 0.0010 );
 	renderer = new THREE.WebGLRenderer( { clearAlpha: 1, clearColor: 0x000000 } );
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.shadowCameraNear = 2;
@@ -1119,10 +1119,9 @@ scene2Loader();
 renderManager.add('SecondScene', scene2, scene2camera, function(delta, renderer)
 	{
 	THREE.Object3D._threexDomEvent.camera(this.camera);
-		
 		funstuff();
-	controls.object = this.camera;
-	renderer.render(this.scene, this.camera);
+		controls.object = this.camera;
+			renderer.render(this.scene, this.camera);
 	//collisionDetection()
 	
 	}
@@ -1250,6 +1249,9 @@ lightSin7=	Math.sin( lightTimer * 0.5 )  * lightF;
 										
 										scene2light3.position.x = lightCos3;
 										scene2light3.position.z= lightCos3;
+										
+											scene2spot1.position.x = lightSin3;
+											scene2spot1.position.z= lightSin3;
 	
 	
 }
