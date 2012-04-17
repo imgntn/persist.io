@@ -1042,9 +1042,16 @@ var clock = new THREE.Clock();
 	var collidersArray  = [];
 
 
+
+//rendermanager add
+
+
 renderManager.add('FirstSetup', scene, camera, function(delta, renderer)
 	{
+		funstuff();
+		controls.object = this.camera;
 	renderer.render(this.scene, this.camera);	
+	collisionDetection()
 	
 	}
 
@@ -1058,8 +1065,11 @@ camera2.position = new THREE.Vector3(-300,300,-300);
 
 renderManager.add('SecondSetup', scene, camera2, function(delta, renderer)
 	{
+		funstuff();
+		
 	controls.object = this.camera;
 	renderer.render(this.scene, this.camera);
+	collisionDetection()
 	
 	}
 
@@ -1073,105 +1083,111 @@ camera3.position = new THREE.Vector3(-300,300,-300);
 
 renderManager.add('ThirdSetup', scene, camera3, function(delta, renderer)
 	{
+		funstuff();
+	
 	controls.object = this.camera;
 	renderer.render(this.scene, this.camera);
+	collisionDetection()
+	
 	}
 
 );
 
 //animation loop!
 
-	function animate() {
-			requestAnimationFrame( animate );
-			
-		var time = new Date().getTime();
-		var delta = 0.001 * ( time - oldTime );
-		oldTime = time;
-		
-			
-			//character
-				for ( var i = 0; i < nCharacters; i ++ ) {
+function funstuff (){
+			var time = new Date().getTime();
+			var delta = 0.001 * ( time - oldTime );
+			oldTime = time;
 
-					characters[ i ].update( delta );
 
-				}		
-					
-TWEEN.update();
-controls.update(clock.getDelta());
-		
-// fireballshader turn 
-	uniforms.time.value += 0.275 * delta;
-			fireballmesh.rotation.y += 0.5 * delta;
-			fireballmesh.rotation.x += 0.5 * delta;
-	
-	//fireball orbit
-	
-	var time = Date.now() / 6000;
+				//character
+					for ( var i = 0; i < nCharacters; i ++ ) {
 
-	fireballmesh.position.x = 4000 * Math.cos( time );
-	fireballmesh.position.z = 4000 * Math.sin( time );
+						characters[ i ].update( delta );
 
-	//particles
-	
-	for ( i = 0; i < scene.children.length; i ++ ) {
+					}		
 
-						var object = scene.children[ i ];
+	TWEEN.update();
+	controls.update(clock.getDelta());
 
-						if ( object instanceof THREE.ParticleSystem ) {
+	// fireballshader turn 
+		uniforms.time.value += 0.275 * delta;
+				fireballmesh.rotation.y += 0.5 * delta;
+				fireballmesh.rotation.x += 0.5 * delta;
 
-							object.rotation.y = (time * ( i < 4 ? i + 1 : - ( i + 1 ))/32 );
+		//fireball orbit
+
+		var time = Date.now() / 6000;
+
+		fireballmesh.position.x = 4000 * Math.cos( time );
+		fireballmesh.position.z = 4000 * Math.sin( time );
+
+		//particles
+
+		for ( i = 0; i < scene.children.length; i ++ ) {
+
+							var object = scene.children[ i ];
+
+							if ( object instanceof THREE.ParticleSystem ) {
+
+								object.rotation.y = (time * ( i < 4 ? i + 1 : - ( i + 1 ))/32 );
+
+							}
 
 						}
 
-					}
+						for ( i = 0; i < materials.length; i ++ ) {
 
-					for ( i = 0; i < materials.length; i ++ ) {
+							color = parameters[i][0];
 
-						color = parameters[i][0];
+							h = ( 360 * ( color[0] + time ) % 360 ) / 360;
+							materials[i].color.setHSV( h, color[1], color[2] );
 
-						h = ( 360 * ( color[0] + time ) % 360 ) / 360;
-						materials[i].color.setHSV( h, color[1], color[2] );
+						}
 
-					}
+		//lights
+		var time = Date.now() * 0.0025;
+						var z = 20, d = 150;
+		light1.position.x = Math.sin( time * 0.7 ) * d;
+						light1.position.z = Math.cos( time * 0.3 ) * d * 5;
+						lightcube1.position = light1.position;
+
+						light2.position.x = Math.cos( time * 0.3 ) * d * 5;
+						light2.position.z = Math.sin( time * 0.7 ) * d * 5;
+							lightcube2.position = light2.position;
+
+
+						light3.position.x = Math.sin( time * 0.7 ) * d * 5;
+						light3.position.z = Math.sin( time * 0.5 ) * d * 5;
+							lightcube3.position = light3.position;
+
+
+						light4.position.x = Math.sin( time * 0.3 ) * d * 5;
+						light4.position.z = Math.sin( time * 0.5 ) * d * 5;
+							lightcube4.position = light4.position;
+
+							light5.position.x = Math.sin( time * 0.3 ) * d * 5;
+							light5.position.z = Math.sin( time * 0.5 ) * d * 5;
+								lightcube5.position = light5.position;
+
+									light6.position = fireballmesh.position
+										lightcube6.position = light6.position;
+										light6.lookAt(0,0,0);
+
+		//audio
+
+			// get the input and update position
+			getInput();
+
+			//audioooooooooo
+			makeNoise();
 	
-	//lights
-	var time = Date.now() * 0.0025;
-					var z = 20, d = 150;
-	light1.position.x = Math.sin( time * 0.7 ) * d;
-					light1.position.z = Math.cos( time * 0.3 ) * d * 5;
-					lightcube1.position = light1.position;
+}
 
-					light2.position.x = Math.cos( time * 0.3 ) * d * 5;
-					light2.position.z = Math.sin( time * 0.7 ) * d * 5;
-						lightcube2.position = light2.position;
-					
-
-					light3.position.x = Math.sin( time * 0.7 ) * d * 5;
-					light3.position.z = Math.sin( time * 0.5 ) * d * 5;
-						lightcube3.position = light3.position;
-					
-
-					light4.position.x = Math.sin( time * 0.3 ) * d * 5;
-					light4.position.z = Math.sin( time * 0.5 ) * d * 5;
-						lightcube4.position = light4.position;
-						
-						light5.position.x = Math.sin( time * 0.3 ) * d * 5;
-						light5.position.z = Math.sin( time * 0.5 ) * d * 5;
-							lightcube5.position = light5.position;
-							
-								light6.position = fireballmesh.position
-									lightcube6.position = light6.position;
-									light6.lookAt(0,0,0);
-	
-	//audio
-	
-		// get the input and update position
-		getInput();
-		
-		//audioooooooooo
-		makeNoise();
+	function animate() {
+			requestAnimationFrame( animate );
 		renderManager.renderCurrent();
-		collisionDetection()
 	}
 
 	animate();
