@@ -372,8 +372,8 @@ scene.add(camera);
 	renderer.shadowMapEnabled = true;
 	renderer.shadowMapSoft = true;
 	container.appendChild( renderer.domElement );
-		bethereLoader();
 	var renderManager = new THREE.Extras.RenderManager(renderer);
+	bethereLoader();
 	
 
 	
@@ -1058,9 +1058,9 @@ camera2.position = new THREE.Vector3(-300,300,-300);
 
 renderManager.add('SecondSetup', scene, camera2, function(delta, renderer)
 	{
-	
-	renderer.render(this.scene, this.camera);
 	controls.object = this.camera;
+	renderer.render(this.scene, this.camera);
+	
 	}
 
 );
@@ -1073,9 +1073,8 @@ camera3.position = new THREE.Vector3(-300,300,-300);
 
 renderManager.add('ThirdSetup', scene, camera3, function(delta, renderer)
 	{
-	
-	renderer.render(this.scene, this.camera);
 	controls.object = this.camera;
+	renderer.render(this.scene, this.camera);
 	}
 
 );
