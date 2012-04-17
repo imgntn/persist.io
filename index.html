@@ -21,6 +21,8 @@
 	<script src="audiolet_testapp.js"></script>
 	<!--This is where we load the island and the objects specific to it-->
 	<script src="bethereLoader.js"></script>
+	<script src="scene2Loader.js"></script>
+	
 	<script src='threex.domevent.js'></script>
 	<script src='threex.domevent.object3d.js'></script>
 	<style>
@@ -367,8 +369,7 @@ else{CharacterControls.jump=false;}
 		
 		
 		//setup
-		var width = window.innerWidth;
-		var height = window.innerHeight;
+
 	var container = document.createElement( 'div' ),
 	
 	camera,
@@ -378,14 +379,15 @@ else{CharacterControls.jump=false;}
 	SHADOW_MAP_HEIGHT = 1024;
 
 	container = document.body.appendChild( container );
-	camera = new THREE.PerspectiveCamera( 70, width/height, 1, 9500 );
+	camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, 1, 9500 );
 	camera.updateProjectionMatrix();
+	THREE.Object3D._threexDomEvent.camera(camera);
 
 	scene = new THREE.Scene();
 scene.add(camera);
 	scene.fog = new THREE.FogExp2( 0x000000, 0.0015 );
 	renderer = new THREE.WebGLRenderer( { clearAlpha: 1, clearColor: 0x000000 } );
-	renderer.setSize( width, height );
+	renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.shadowCameraNear = 2;
 	renderer.shadowCameraFar = this.camera.far;
 	renderer.shadowCameraFov = 70;
@@ -767,12 +769,12 @@ var branchTexture, branchMaterial;
 
 
 				branchTexture = THREE.ImageUtils.loadTexture( "treebark.jpg" );
-				//branchTexture.minFilter = 1;
-				//branchTexture.magFilter = 1;
-			//	branchTexture.wrapS = branchTexture.wrapT = THREE.RepeatWrapping;
-				branchMaterial = new THREE.MeshLambertMaterial( { map:branchTexture, shininess: 2, ambient:0x998822} );
+				branchTexture.minFilter = THREE.LinearFilter;
+				branchTexture.magFilter = THREE.LinearFilter;
+				branchTexture.wrapS = branchTexture.wrapT = THREE.RepeatWrapping;
+				branchMaterial = new THREE.MeshPhongMaterial( { map:branchTexture, shininess: 2, ambient:0x998822} );
 				//branchMaterial = new THREE.MeshBasicMaterial( { color:0x0044ff, opacity:1, map: branchTexture } );
-			//	branchMaterial.shading = THREE.SmoothShading;
+				branchMaterial.shading = THREE.SmoothShading;
 				
 				//create tree, will timeout some milliseconds
 				
@@ -1059,7 +1061,6 @@ scene.add(arrowZMinus);
 			
 
 //rendermanager add
-//THREE.Object3D._threexDomEvent.camera(camera);
 
 renderManager.add('FirstSetup', scene, camera, function(delta, renderer)
 	{
@@ -1074,7 +1075,7 @@ renderManager.add('FirstSetup', scene, camera, function(delta, renderer)
 );
 //scene2 = new THREE.Scene()
 var camera2;
-camera2 = new THREE.PerspectiveCamera( 40, width/height, 1, 9500 );
+camera2 = new THREE.PerspectiveCamera( 40, window.innerWidth/window.innerHeight, 1, 9500 );
 camera2.updateProjectionMatrix();
 scene.add(camera2);
 camera2.position = new THREE.Vector3(-300,300,-300);
@@ -1096,12 +1097,26 @@ renderManager.add('SecondSetup', scene, camera2, function(delta, renderer)
 );
 
 var camera3;
-camera3 = new THREE.PerspectiveCamera( 160, width/height, 1, 9500 );
+camera3 = new THREE.PerspectiveCamera( 160, window.innerWidth/window.innerHeight, 1, 9500 );
 camera3.updateProjectionMatrix();
 scene.add(camera3);
 camera3.position = new THREE.Vector3(-300,300,-300);
 
 renderManager.add('ThirdSetup', scene, camera3, function(delta, renderer)
+	{
+	THREE.Object3D._threexDomEvent.camera(this.camera);
+		
+		funstuff();
+	controls.object = this.camera;
+	renderer.render(this.scene, this.camera);
+	//collisionDetection()
+	
+	}
+
+);
+
+scene2Loader();
+renderManager.add('SecondScene', scene2, scene2camera, function(delta, renderer)
 	{
 	THREE.Object3D._threexDomEvent.camera(this.camera);
 		
@@ -1226,6 +1241,15 @@ lightSin7=	Math.sin( lightTimer * 0.5 )  * lightF;
 
 									light6.position = fireballmesh.position
 										light6.lookAt(0,0,0);
+										
+										scene2light1.position.x = lightCos5;
+										scene2light1.position.z= lightSin5;
+										
+										scene2light2.position.x = lightSin3;
+										scene2light2.position.z= lightCos7;
+										
+										scene2light3.position.x = lightCos3;
+										scene2light3.position.z= lightCos3;
 	
 	
 }
