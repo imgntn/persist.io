@@ -1,21 +1,31 @@
 var scene2camera;
 
+
+//tree vars
 var scene2tree,scene2treeContainer;
 
 var scene2tree2,scene2treeContainer2;
 
+
+//light vars
 var scene2light1,scene2light2,scene2light3,scene2spot1;
 
-var ground, ground_geometry, ground_material
+
+//ground vars
+var ground, ground_geometry, ground_material;
+
+
+//skybox var
+var urlPrefix,urls,textureCube,skyShader,skyUniforms,skyMaterial,skyMesh;
 
 function scene2Loader(){
 
 
 
 
-scene2camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, 1, 9500 );
+scene2camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, 1, 150000 );
 scene2camera.updateProjectionMatrix();
-scene2camera.position = new THREE.Vector3(0,300,300);
+scene2camera.position = new THREE.Vector3(0,500,500);
 
 
 scene2 = new THREE.Scene();
@@ -63,7 +73,7 @@ branchMaterial.shading = THREE.SmoothShading;
 	
 	//ground
 	
-	groundGeometry = new THREE.PlaneGeometry( 15000, 15000 );
+	groundGeometry = new THREE.PlaneGeometry( 10000, 10000 );
 	groundTexture = THREE.ImageUtils.loadTexture("ground2.jpg");
 	groundTexture.minFilter = THREE.LinearFilter;
 	groundTexture.magFilter = THREE.LinearFilter;
@@ -88,7 +98,6 @@ branchMaterial.shading = THREE.SmoothShading;
 	scene2light1.position.set(0,250,0);
 	scene2light1.rotation.set(0,0,0);
 	scene2light1.scale.set(5,5,5);
-	scene2light1.lookAt(scene2tree)
 	scene2.add( scene2light1 );
 	
 	scene2light2 = new THREE.PointLight();
@@ -98,7 +107,6 @@ branchMaterial.shading = THREE.SmoothShading;
 	scene2light2.position.set(0,250,0);
 	scene2light2.rotation.set(0,0,0);
 	scene2light2.scale.set(5,5,5);
-	scene2light2.lookAt(scene2tree);
 	scene2.add( scene2light2 );
 	
 	scene2light3 = new THREE.PointLight();
@@ -108,7 +116,6 @@ branchMaterial.shading = THREE.SmoothShading;
 	scene2light3.position.set(0,250,0);
 	scene2light3.rotation.set(0,0,0);
 	scene2light3.scale.set(5,5,5);
-	scene2light3.lookAt(scene2tree)
 	scene2.add( scene2light3 );
 	
 	scene2spot1 = new THREE.SpotLight();
@@ -119,5 +126,32 @@ branchMaterial.shading = THREE.SmoothShading;
 	scene2spot1.rotation.set(0,0,0);
 	scene2spot1.scale.set(1,1,1);
 	scene2.add( scene2spot1 );
+	
+	//skybox
+
+	// load the cube textures
+		 urlPrefix	= "skybox/";
+		 urls = [ urlPrefix + "posx.jpg", urlPrefix + "negx.jpg",
+				urlPrefix + "posy.jpg", urlPrefix + "negy.jpg",
+				urlPrefix + "posz.jpg", urlPrefix + "negz.jpg" ];
+		 textureCube	= THREE.ImageUtils.loadTextureCube( urls );
+
+		// init the cube shadder
+		 skyShader	= THREE.ShaderUtils.lib["cube"];
+		 skyUniforms	= THREE.UniformsUtils.clone( skyShader.uniforms );
+		skyUniforms['tCube'].texture= textureCube;
+		 skyMaterial = new THREE.ShaderMaterial({
+			fragmentShader	: skyShader.fragmentShader,
+			vertexShader	: skyShader.vertexShader,
+			uniforms	: skyUniforms
+		});
+
+		// build the skybox Mesh
+		skyMesh	= new THREE.Mesh( new THREE.CubeGeometry( 150000, 150000, 150000, 1, 1, 1, null, true ), skyMaterial );
+		skyMesh.doubleSided = true;
+		// add it to the scene
+		scene2.add( skyMesh );
+	
+	
 	
 	}

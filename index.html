@@ -1115,18 +1115,23 @@ renderManager.add('ThirdSetup', scene, camera3, function(delta, renderer)
 
 );
 
+//secondscene
 scene2Loader();
+scene2camera.lookAt(0,0,0);
 renderManager.add('SecondScene', scene2, scene2camera, function(delta, renderer)
 	{
 	THREE.Object3D._threexDomEvent.camera(this.camera);
 		funstuff();
 		controls.object = this.camera;
+		//this.camera.lookAt(new THREE.Vector3(0,0,0));
 			renderer.render(this.scene, this.camera);
 	//collisionDetection()
 	
 	}
 
 );
+
+
 
 
 //prep for animation loop (funstuff)
