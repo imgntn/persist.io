@@ -1065,16 +1065,26 @@ var clock = new THREE.Clock();
 	var collidersArray  = [];
 
 
-
-
-
-
-
 renderManager.add('FirstSetup', scene, camera, function(delta, renderer)
-{
+	{
 	renderer.render(this.scene, this.camera);	
 	
-}
+	}
+
+);
+//scene2 = new THREE.Scene()
+var camera2, controls2;
+camera2 = new THREE.PerspectiveCamera( 20, width/height, 1, 9500 );
+camera2.updateProjectionMatrix();
+scene.add(camera2);
+controls2 = new THREE.FirstPersonControls(camera2);
+
+renderManager.add('SecondSetup', scene, camera2, function(delta, renderer)
+	{
+		
+	renderer.render(this.scene, this.camera);	
+	
+	}
 
 );
 
