@@ -27,10 +27,10 @@
 <body onbeforeunload="unloadPage()">
 	<button class="button request">request fullscreen</button>
   <textarea id="log" readonly></textarea>
-	<button onclick="renderManager.setCurrent('FirstSetup');controls.freeze=false">First Camera</button>
-	<button onclick="renderManager.setCurrent('SecondSetup');controls.freeze=false">Second Camera</button>
-	<button onclick="renderManager.setCurrent('ThirdSetup');controls.freeze=false">Third Camera</button>
-<button onclick="renderManager.setCurrent('SecondScene');controls.freeze=false">SecondScene</button>
+	<button onclick="renderManager.setCurrent('FirstSetup');controls.freeze=false;">First Camera</button>
+	<button onclick="renderManager.setCurrent('SecondSetup');controls.freeze=false;">Second Camera</button>
+	<button onclick="renderManager.setCurrent('ThirdSetup');controls.freeze=false;">Third Camera</button>
+<button onclick="renderManager.setCurrent('SecondScene');controls.freeze=false;">SecondScene</button>
 	<script type="text/javascript">
 	document.documentElement.style.overflow = 'hidden';
 	</script>
@@ -443,8 +443,9 @@ controls.lookSpeed = 0.15;
 	light6.rotation.set(0,0,0);
 	light6.scale.set(250,250,250);
 	scene.add( light6 );
-	
-	
+
+
+
 	var lightcube1_geometry = new THREE.CubeGeometry(200,200,200);
 	lightcube1_material =  new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
 	lightcube1 = new THREE.Mesh( lightcube1_geometry, lightcube1_material );
@@ -470,10 +471,7 @@ controls.lookSpeed = 0.15;
 										lightcube5 = new THREE.Mesh( lightcube5_geometry, lightcube5_material );
 										        scene.add( lightcube5 );
 										
-													var lightcube6_geometry = new THREE.CubeGeometry(1000,1000,1000);
-													lightcube6_material =  new THREE.MeshBasicMaterial( { color: 0xffffff, wireframe: true } );
-													lightcube6 = new THREE.Mesh( lightcube6_geometry, lightcube6_material );
-													        scene.add( lightcube6 );
+												
 	//island 
 var island = bethereLoader.createIsland(scene);
 
@@ -628,7 +626,7 @@ function bindEvents(meshes){
 	meshes['attachmentE'].on('mouseover', cbHelpE).on('mouseout', cbHelpE.off);
 	meshes['attachmentF'].on('mouseover', cbHelpF).on('mouseout', cbHelpF.off);
 }
-THREE.Object3D._threexDomEvent.camera(camera);
+
 
 /*----end callback functions----*/
 
@@ -977,7 +975,8 @@ var tube;
 				
 					
 					//collisions
-		
+					var collidersArray  = [];
+		/*
 			var oldIntersectsLength;
 			var ray;
 			var intersects;
@@ -1004,7 +1003,7 @@ var tube;
 				}
 				oldIntersectsLength = intersects.length;
 			}
-			
+			*/
 			
 //arrows
 			
@@ -1038,14 +1037,8 @@ scene.add(arrowXMinus);
 //scene.add(arrowYMinus);
 scene.add(arrowZMinus);
 			
-		//clock
-		
-var clock = new THREE.Clock();
-
-//collisions
-	var collidersArray  = [];
-
-
+			
+			
 
 //rendermanager add
 
@@ -1054,8 +1047,9 @@ renderManager.add('FirstSetup', scene, camera, function(delta, renderer)
 	{
 		funstuff();
 		controls.object = this.camera;
+		THREE.Object3D._threexDomEvent.camera(this.camera);
 	renderer.render(this.scene, this.camera);	
-	collisionDetection()
+	//collisionDetection()
 	
 	}
 
@@ -1070,10 +1064,11 @@ camera2.position = new THREE.Vector3(-300,300,-300);
 renderManager.add('SecondSetup', scene, camera2, function(delta, renderer)
 	{
 		funstuff();
+		THREE.Object3D._threexDomEvent.camera(this.camera);
 		
 	controls.object = this.camera;
 	renderer.render(this.scene, this.camera);
-	collisionDetection()
+	//collisionDetection()
 	
 	}
 
@@ -1088,14 +1083,24 @@ camera3.position = new THREE.Vector3(-300,300,-300);
 renderManager.add('ThirdSetup', scene, camera3, function(delta, renderer)
 	{
 		funstuff();
+		THREE.Object3D._threexDomEvent.camera(this.camera);
 	
 	controls.object = this.camera;
 	renderer.render(this.scene, this.camera);
-	collisionDetection()
+	//collisionDetection()
 	
 	}
 
 );
+
+
+//prep for animation loop (funstuff)
+
+//clock
+
+var clock = new THREE.Clock();
+
+//other movement timers
 
 var time, delta, spinTimer, lightTimer;
 
@@ -1161,22 +1166,22 @@ function particleMovement(){
 
 						}
 }
-var lightCos3, lightCos5, lightCos7, lightSin3, lightSin5, lightSin7;
 
+var lightCos3, lightCos5, lightCos7, lightSin3, lightSin5, lightSin7;
+var lightZ = 20, lightD = 150, lightE=5, lightF = lightD*lightE;
 function lightMovement(){
-	var z = 20, d = 150, e=5, f = d*e;
 	
-lightCos3= Math.cos(lightTimer * 0.3 ) * f;
-lightCos5= Math.cos(lightTimer *0.5 ) * f;
-lightCos7= Math.cos(lightTimer *0.7 ) * f;
+lightCos3= Math.cos(lightTimer * 0.3 ) * lightF;
+lightCos5= Math.cos(lightTimer *0.5 ) * lightF;
+lightCos7= Math.cos(lightTimer *0.7 ) * lightF;
 	
-lightSin3=	Math.sin( lightTimer * 0.3 ) * f ;
-lightSin5=	Math.sin( lightTimer * 0.7 )  * f;
-lightSin7=	Math.sin( lightTimer * 0.5 )  * f;
+lightSin3=	Math.sin( lightTimer * 0.3 ) * lightF ;
+lightSin5=	Math.sin( lightTimer * 0.7 )  * lightF;
+lightSin7=	Math.sin( lightTimer * 0.5 )  * lightF;
 	
 	
 		//lights
-		light1.position.x = Math.sin( lightTimer * 0.7 ) * d;
+						light1.position.x = lightSin7;
 						light1.position.z = lightCos3;
 						lightcube1.position = light1.position;
 
@@ -1199,14 +1204,12 @@ lightSin7=	Math.sin( lightTimer * 0.5 )  * f;
 								lightcube5.position = light5.position;
 
 									light6.position = fireballmesh.position
-										lightcube6.position = light6.position;
 										light6.lookAt(0,0,0);
 	
 	
 }
 
 function funstuff (){
-			
 movementTimer();
 characterMovement();
 fireballMovement();
@@ -1214,6 +1217,18 @@ particleMovement();
 lightMovement();
 
 	
+
+	
+TWEEN.update();
+			
+controls.update(clock.getDelta());			
+			
+	
+}
+
+	function animate() {
+		requestAnimationFrame( animate );
+		renderManager.renderCurrent();
 		//audio
 
 			// get the input and update position
@@ -1221,16 +1236,6 @@ lightMovement();
 
 			//audioooooooooo
 			makeNoise();
-	
-	
-			TWEEN.update();
-			controls.update(clock.getDelta());
-	
-}
-
-	function animate() {
-		requestAnimationFrame( animate );
-		renderManager.renderCurrent();
 	}
 
 	animate();
