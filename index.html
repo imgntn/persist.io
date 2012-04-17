@@ -306,11 +306,16 @@ console.log("Got data: " + data);
 	//scene2
 	var sessionArrayFetch, sessionArrayParse, sessionArrayStaging;
 	var sessionArray =[];
+	
+	function sessionArrayGET(){
+		
+		sessionArrayFetch = $.get("http://bethere.io:7379/SMEMBERS/sessionIDs");
+		sessionArrayParse = JSON.parse(sessionArrayFetch.responseText);
+		sessionArrayStaging = sessionArrayParse.SMEMBERS;
+		sessionArray.push(sessionArrayStaging);
+	}
 		 jug.subscribe("scene2trees", function(data){
-		    sessionArrayFetch = $.get("http://bethere.io:7379/SMEMBERS/sessionIDs")
-			sessionArrayParse = JSON.parse(sessionArrayFetch.responseText);
-			sessionArrayStaging = sessionArrayParse.SMEMBERS;
-			sessionArray.push(sessionArrayStaging)
+		    
 		
 		    });
 		
@@ -1273,6 +1278,7 @@ lightSin7=	Math.sin( lightTimer * 0.5 )  * lightF;
 										
 											scene2spot1.position.x = lightSin3;
 											scene2spot1.position.z= lightSin3;
+											scene2spot1cube.position = scene2spot1.position;
 	
 	
 }

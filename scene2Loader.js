@@ -18,6 +18,12 @@ var ground, ground_geometry, ground_material;
 //skybox var
 var urlPrefix,urls,textureCube,skyShader,skyUniforms,skyMaterial,skyMesh;
 
+
+//lightcube vars
+
+var scene2spot1cube, scene2spot1cube_geometry, scene2spot1cube_material;
+
+
 function scene2Loader(){
 
 
@@ -126,13 +132,23 @@ branchMaterial.shading = THREE.SmoothShading;
 	scene2spot1.scale.set(1,1,1);
 	scene2.add( scene2spot1 );
 	
+	//lightcubes
+	
+	 scene2spot1cube_geometry = new THREE.CubeGeometry(200,200,200);
+	scene2spot1cube_material =  new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
+	scene2spot1cube = new THREE.Mesh( scene2spot1cube_geometry, scene2spot1cube_material );
+	        scene2.add( scene2spot1cube );
 	//skybox
 
 	// load the cube textures
-		 urlPrefix	= "skybox/";
-		 urls = [ urlPrefix + "posx.jpg", urlPrefix + "negx.jpg",
+		 urlPrefix	= "skybox/cubemap_gradient/";
+	/*	 urls = [ urlPrefix + "posx.jpg", urlPrefix + "negx.jpg",
 				urlPrefix + "posy.jpg", urlPrefix + "negy.jpg",
 				urlPrefix + "posz.jpg", urlPrefix + "negz.jpg" ];
+				*/
+				 urls = [ urlPrefix + "posx.png", urlPrefix + "negx.png",
+						urlPrefix + "posy.png", urlPrefix + "negy.png",
+						urlPrefix + "posz.png", urlPrefix + "negz.png" ];
 		 textureCube	= THREE.ImageUtils.loadTextureCube( urls );
 
 		// init the cube shadder
