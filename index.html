@@ -309,10 +309,17 @@ console.log("Got data: " + data);
 	
 	function sessionArrayGET(){
 		
-		sessionArrayFetch = $.get("http://bethere.io:7379/SMEMBERS/sessionIDs");
-		sessionArrayParse = JSON.parse(sessionArrayFetch.responseText);
-		sessionArrayStaging = sessionArrayParse.SMEMBERS;
-		sessionArray.push(sessionArrayStaging);
+	
+		
+		
+		sessionArrayFetch = $.get("http://bethere.io:7379/SMEMBERS/sessionIDs")
+		.success(function (){
+			
+			sessionArrayParse = JSON.parse(sessionArrayFetch.responseText);
+			sessionArrayStaging = sessionArrayParse.SMEMBERS;
+			sessionArray.push(sessionArrayStaging);
+			})
+		
 	}
 		 jug.subscribe("scene2trees", function(data){
 		    
@@ -1173,9 +1180,11 @@ function movementTimer (){
 
 }
 
+//character movement
+
+
 function characterMovement(){
 	
-		//character
 			for ( var i = 0; i < nCharacters; i ++ ) {
 
 				characters[ i ].update( delta );
@@ -1185,7 +1194,7 @@ function characterMovement(){
 
 
 
-//animation loop!
+//fireball movement
 
 function fireballMovement(){
 	
@@ -1200,7 +1209,7 @@ function fireballMovement(){
 		fireballmesh.position.z = 4000 * Math.sin( spinTimer );
 	
 }
-//particles
+//particle movement
 
 function particleMovement(){
 		for ( i = 0; i < scene.children.length; i ++ ) {
@@ -1225,8 +1234,13 @@ function particleMovement(){
 						}
 }
 
+
+//light movement
+
 var lightCos3, lightCos5, lightCos7, lightSin3, lightSin5, lightSin7;
 var lightZ = 20, lightD = 150, lightE=5, lightF = lightD*lightE;
+
+
 function lightMovement(){
 	
 lightCos3= Math.cos(lightTimer * 0.3 ) * lightF;
@@ -1238,7 +1252,6 @@ lightSin5=	Math.sin( lightTimer * 0.7 )  * lightF;
 lightSin7=	Math.sin( lightTimer * 0.5 )  * lightF;
 	
 	
-		//lights
 						light1.position.x = lightSin7;
 						light1.position.z = lightCos3;
 						lightcube1.position = light1.position;
