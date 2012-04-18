@@ -22,6 +22,7 @@
 	<!--This is where we load the island and the objects specific to it-->
 	<script src="bethereLoader.js"></script>
 	<script src="scene2Loader.js"></script>
+		<script src="onDeath.js"></script>
 	
 	<script src='threex.domevent.js'></script>
 	<script src='threex.domevent.object3d.js'></script>
@@ -268,6 +269,27 @@
 			})
 		
 	}
+	
+	/*
+	
+	var sessionArrayFetch, sessionArrayParse, sessionArrayStaging;
+	var sessionArray =[];
+	
+	function sessionArrayGet(){
+		
+	
+		
+		
+		sessionArrayFetch = $.get("http://bethere.io:7379/SMEMBERS/sessionIDs")
+		.success(function (){
+			
+			sessionArrayParse = JSON.parse(sessionArrayFetch.responseText);
+			sessionArrayStaging = sessionArrayParse.SMEMBERS;
+			sessionArray.push(sessionArrayStaging);
+			})
+		
+	}
+	*/
 	
 	//juggernaut websockets
 
