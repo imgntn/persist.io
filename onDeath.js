@@ -26,7 +26,7 @@ var deathTreePositionArray = [];
 
 var length, i, temp;
 
-	*/
+
 	
  	deathTreeArrayFetch = $.ajax({
 	  url: "http://bethere.io:7379/SMEMBERS/deathTrees",

@@ -267,7 +267,7 @@
 			sessionArray.push(sessionArrayStaging);
 			})
 		
-	}deat
+	}
 		
 	/*
 	
@@ -1190,13 +1190,13 @@ renderManager.add('SecondScene', scene2, scene2camera, function(delta, renderer)
 //clock
 
 var clock = new THREE.Clock();
+//	delta = clock.getDelta();
 
 //other movement timers
 
 var time, delta, spinTimer, lightTimer;
 
 function movementTimer (){
-	//	delta = clock.getDelta();
 	
 	time = Date.now();
 	spinTimer = time / 6000;
