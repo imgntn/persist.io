@@ -25,24 +25,7 @@ var deathTreeArray = [];
 var deathTreePositionArray = [];
 
 var length, i, temp;
-/*	
-deathTreeArrayFetch = $.get("http://bethere.io:7379/SMEMBERS/deathTrees", function() {
-deathTreeArrayParse = JSON.parse(deathTreeArrayFetch.responseText);
-}).error(function() { console.log("error"); });
 
-deathTreeArrayFetch.success(function () { 
-	length = deathTreeArrayParse.SMEMBERS.length;
-		for (i=0; i<= length; i++){
-			
-temp=JSON.parse(deathTreeArrayParse.SMEMBERS[i]);
-			
-			deathTreePositionArray.push(temp);
-			console.log(temp);
-
-
-		}
-	
-	 });
 	*/
 	
  	deathTreeArrayFetch = $.ajax({
@@ -56,7 +39,7 @@ temp=JSON.parse(deathTreeArrayParse.SMEMBERS[i]);
 					temp = deathTreeArrayParse.SMEMBERS[i];
 		temp=JSON.parse(temp);
 				deathTreePositionArray.push(temp);
-					console.log(temp);
+					//console.log(temp);
 	  }
 	}
 	
