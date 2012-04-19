@@ -1,16 +1,16 @@
-var bethereLoader		= bethereLoader 		|| {};
-bethereLoader.createIsland	= bethereLoader.createIsland	|| {};
-bethereLoader.createBaptistery = bethereLoader.createBaptistery || {};
-bethereLoader.createPlant1 = bethereLoader.createPlant1 || {};
-bethereLoader.createAttachments = bethereLoader.createAttachments;
+var scene1Loader		= scene1Loader 		|| {};
+scene1Loader.createIsland	= scene1Loader.createIsland	|| {};
+scene1Loader.createBaptistery = scene1Loader.createBaptistery || {};
+scene1Loader.createPlant1 = scene1Loader.createPlant1 || {};
+scene1Loader.createAttachments = scene1Loader.createAttachments;
 var island;
 	var baptistery;
 	var plant1;
 	var meshes	= {};
 	
-var bethereLoader = function(){
+var scene1Loader = function(){
 
- bethereLoader.createIsland = function(scene) {
+ scene1Loader.createIsland = function(scene) {
 
 	var island_loader = new THREE.JSONLoader();
 	island_loader.load( "island1.js", function(island_geometry) {
@@ -32,7 +32,7 @@ var bethereLoader = function(){
 };
 		
 	
-bethereLoader.createBaptistery = function(scene) {
+scene1Loader.createBaptistery = function(scene) {
 
 	var baptistery_loader = new THREE.JSONLoader();
 	baptistery_loader.load( "last_baptistery2.js", function(bapstistery_geometry) {
@@ -53,7 +53,7 @@ bethereLoader.createBaptistery = function(scene) {
 	return baptistery;
 };
 
-bethereLoader.createPlant1 = function(scene) {
+scene1Loader.createPlant1 = function(scene) {
 	var loader = new THREE.JSONLoader();
 	loader.load( "plant1.js", function(plant1_geometry) {
 	var plant1_material = new THREE.MeshPhongMaterial();
@@ -74,7 +74,7 @@ bethereLoader.createPlant1 = function(scene) {
 };
 
 
-bethereLoader.createAttachments = function(scene, geometry) {
+scene1Loader.createAttachments = function(scene, geometry) {
 	
 	var material	= new THREE.MeshPhongMaterial( { color: 0xFF8800 } );
 	material.ambient = new THREE.Color().setRGB(0.0196078431372549,0.0196078431372549,0.0196078431372549);

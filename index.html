@@ -22,7 +22,7 @@
 
 	<script src='threex.domevent.js'></script>
 	<script src='threex.domevent.object3d.js'></script>
-	<script src="bethereLoader.js"></script>
+	<script src="scene1Loader.js"></script>
 	<script src="scene2Loader.js"></script>
 	<script src="onDeath.js"></script>
 	<script src="Tree.js"></script>
@@ -455,7 +455,7 @@ scene.add(camera);
 	renderer.shadowMapSoft = true;
 	container.appendChild( renderer.domElement );
 	var renderManager = new THREE.Extras.RenderManager(renderer);
-	bethereLoader();
+	scene1Loader();
 	
 
 	
@@ -551,15 +551,15 @@ controls.lookSpeed = 0.15;
 										
 												
 	//island 
-var island = bethereLoader.createIsland(scene);
+var island = scene1Loader.createIsland(scene);
 
 
 	//baptistery
-var baptistery = bethereLoader.createBaptistery(scene);
+var baptistery = scene1Loader.createBaptistery(scene);
 
 
 //plants
-var plant1 = bethereLoader.createPlant1(scene);
+var plant1 = scene1Loader.createPlant1(scene);
 
 
 
@@ -599,7 +599,7 @@ var attachmentA, attachmentB, attachmentC, attachmentD, attachmentE, attachmentF
 
 
 new THREE.JSONLoader().load('attachmentpoint2.js', function(geometry){
-	var	meshes = bethereLoader.createAttachments(scene, geometry);//buildMeshes(geometry);
+	var	meshes = scene1Loader.createAttachments(scene, geometry);//buildMeshes(geometry);
 		bindEvents(meshes);
 		attachmentA = meshes['attachmentA'];
 		attachmentB = meshes['attachmentB'];
@@ -610,7 +610,7 @@ new THREE.JSONLoader().load('attachmentpoint2.js', function(geometry){
 		drawTube();
 		drawTube2();
 		drawTube3();
-	});
+});
 
 
 
@@ -1355,7 +1355,6 @@ controls.update(clock.getDelta());
 			//audioooooooooo
 			makeNoise();
 	}
-
 	animate();
 	</script>
 
