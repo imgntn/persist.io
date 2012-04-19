@@ -40,7 +40,6 @@ scene2.add(scene2camera);
 //THREE.Object3D._threexDomEvent.camera(scene2camera);
 
 
-branchTexture = THREE.ImageUtils.loadTexture( "treebark.jpg" );
 branchTexture.minFilter = THREE.LinearFilter;
 branchTexture.magFilter = THREE.LinearFilter;
 branchTexture.wrapS = branchTexture.wrapT = THREE.RepeatWrapping;
@@ -77,12 +76,14 @@ branchMaterial.shading = THREE.SmoothShading;
 	
 	
 	//ground
+	var groundimage = document.createElement( 'img' );
 	
-	groundGeometry = new THREE.PlaneGeometry( 10000, 10000 );
-	groundTexture = THREE.ImageUtils.loadTexture("ground2.jpg");
+	groundimage.src = "ground2.jpg";
+	groundTexture = new THREE.Texture( groundimage );
 	groundTexture.minFilter = THREE.LinearFilter;
 	groundTexture.magFilter = THREE.LinearFilter;
 	groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
+	groundGeometry = new THREE.PlaneGeometry( 10000, 10000 );
 	groundMaterial =  new THREE.MeshPhongMaterial( { map:groundTexture, shininess: 2, ambient:0x998822} );
 	ground = new THREE.Mesh( groundGeometry, groundMaterial );
 	ground.position = new THREE.Vector3(0,-10,0)

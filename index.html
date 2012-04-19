@@ -823,8 +823,10 @@ var tree, treeContainer;
 var branchTexture, branchMaterial;
 //tree branch texture
 
-
-				branchTexture = THREE.ImageUtils.loadTexture( "treebark.jpg" );
+var barkimage = document.createElement( 'img' );
+barkimage.src = "treebark.jpg";
+				branchTexture = new THREE.Texture( barkimage );
+				branchTexture.needsUpdate = true;
 				branchTexture.minFilter = THREE.LinearFilter;
 				branchTexture.magFilter = THREE.LinearFilter;
 				branchTexture.wrapS = branchTexture.wrapT = THREE.RepeatWrapping;
@@ -1355,7 +1357,8 @@ controls.update(clock.getDelta());
 			//audioooooooooo
 			makeNoise();
 	}
-	animate();
+/*setTimeout("animate();",4000);*/
+animate();
 	</script>
 
 	

@@ -18,7 +18,7 @@ var scene1Loader = function(){
 	island_material.color = new THREE.Color().setRGB(1,1,1);
 	island_material.ambient = new THREE.Color().setRGB(0.0196078431372549,0.0196078431372549,0.0196078431372549);
 	island_material.specular = new THREE.Color().setRGB(0.06666666666666667,0.06666666666666667,0.06666666666666667);
-    //island_material.map = THREE.ImageUtils.loadTexture("grass.jpg");
+    //island_material.map =
 
 	island = new THREE.Mesh(island_geometry, island_material);
 		island.receiveShadow = true;
@@ -40,7 +40,7 @@ scene1Loader.createBaptistery = function(scene) {
 	baptistery_material.color = new THREE.Color().setRGB(1,1,1);
 	baptistery_material.ambient = new THREE.Color().setRGB(0.0196078431372549,0.0196078431372549,0.0196078431372549);
 	baptistery_material.specular = new THREE.Color().setRGB(0.06666666666666667,0.06666666666666667,0.06666666666666667);
-	//material.map = THREE.ImageUtils.loadTexture("path/to/texture.jpg");
+	//material.map =
 	
 	baptistery = new THREE.Mesh(bapstistery_geometry, baptistery_material);
 	baptistery.position.set(12.26993865,7.5,-58.47953216);
@@ -60,7 +60,7 @@ scene1Loader.createPlant1 = function(scene) {
 	plant1_material.color = new THREE.Color().setRGB(1,1,1);
 	plant1_material.ambient = new THREE.Color().setRGB(0.0196078431372549,0.0196078431372549,0.0196078431372549);
 	plant1_material.specular = new THREE.Color().setRGB(0.06666666666666667,0.06666666666666667,0.06666666666666667);
-	//material.map = THREE.ImageUtils.loadTexture("path/to/texture.jpg");
+	//material.map =
 	plant1 = new THREE.Mesh(plant1_geometry, plant1_material);
 	plant1.position.set(150,50,50);
 	plant1.rotation.set(0,0,0);
