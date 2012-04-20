@@ -455,10 +455,13 @@ scene.add(camera);
 	renderer.shadowMapSoft = true;
 	container.appendChild( renderer.domElement );
 	var renderManager = new THREE.Extras.RenderManager(renderer);
-	scene1Loader();
 	
+	var barkimage = document.createElement( 'img' );
+	barkimage.src = "treebark.jpg";
+	branchTexture = new THREE.Texture( barkimage );
 
 	
+scene1Loader();
 	
 	//controls
 
@@ -549,6 +552,7 @@ controls.lookSpeed = 0.15;
 										lightcube5 = new THREE.Mesh( lightcube5_geometry, lightcube5_material );
 										        scene.add( lightcube5 );
 										
+
 												
 	//island 
 var island = scene1Loader.createIsland(scene);
@@ -823,10 +827,6 @@ var tree, treeContainer;
 var branchTexture, branchMaterial;
 //tree branch texture
 
-var barkimage = document.createElement( 'img' );
-barkimage.src = "treebark.jpg";
-				branchTexture = new THREE.Texture( barkimage );
-				branchTexture.needsUpdate = true;
 				branchTexture.minFilter = THREE.LinearFilter;
 				branchTexture.magFilter = THREE.LinearFilter;
 				branchTexture.wrapS = branchTexture.wrapT = THREE.RepeatWrapping;
@@ -1121,7 +1121,8 @@ scene.add(arrowZMinus);
 //rendermanager add
 
 renderManager.add('FirstSetup', scene, camera, function(delta, renderer)
-	{
+	{branchTexture.needsUpdate = true;
+	
 		THREE.Object3D._threexDomEvent.camera(this.camera);
 	
 		funstuff();
