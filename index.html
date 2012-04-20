@@ -1121,8 +1121,10 @@ scene.add(arrowZMinus);
 //rendermanager add
 
 renderManager.add('FirstSetup', scene, camera, function(delta, renderer)
-	{branchTexture.needsUpdate = true;
-	
+	{
+		
+		branchTexture.needsUpdate = true;
+		leafTexture.needsUpdate = true;
 		THREE.Object3D._threexDomEvent.camera(this.camera);
 	
 		funstuff();
