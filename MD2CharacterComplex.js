@@ -547,26 +547,23 @@ THREE.MD2CharacterComplex = function () {
 
 	// internal helpers
 
+
 	function loadTextures( baseUrl, textureUrls ) {
 
-var mapping = new THREE.UVMapping();
-var textures = [];
-var modelimages=[];
+		var mapping = new THREE.UVMapping();
+		var textures = [];
 
 		for ( var i = 0; i < textureUrls.length; i ++ ) {
 
-			modelimages[i] = document.createElement( 'img');
-			modelimages[i].src = baseUrl + textureUrls[ i ];
-			textures[i]= new THREE.Texture(modelimages[i]);
-			textures[i].name = textureUrls[i];
-			textures[i].needsUpdate = true;
-		
+			textures[ i ] = THREE.ImageUtils.loadTexture( baseUrl + textureUrls[ i ], mapping, checkLoadingComplete );
+			textures[ i ].name = textureUrls[ i ];
 
 		}
 
 		return textures;
 
 	};
+
 	
 
 
