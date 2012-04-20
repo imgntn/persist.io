@@ -1,4 +1,4 @@
-var scene2camera;
+var tmp, scene2camera;
 
 
 //tree vars
