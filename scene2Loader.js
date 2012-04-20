@@ -12,7 +12,7 @@ var scene2light1,scene2light2,scene2light3,scene2spot1;
 
 
 //ground vars
-var ground, ground_geometry, ground_material;
+var ground, ground_geometry, ground_material, groundimage;
 
 
 //skybox var
@@ -76,8 +76,7 @@ branchMaterial.shading = THREE.SmoothShading;
 	
 	
 	//ground
-	var groundimage = document.createElement( 'img' );
-	
+	groundimage= document.createElement( 'img' );
 	groundimage.src = "ground2.jpg";
 	groundTexture = new THREE.Texture( groundimage );
 	groundTexture.minFilter = THREE.LinearFilter;
