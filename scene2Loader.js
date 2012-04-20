@@ -79,6 +79,7 @@ branchMaterial.shading = THREE.SmoothShading;
 	groundimage= document.createElement( 'img' );
 	groundimage.src = "ground2.jpg";
 	groundTexture = new THREE.Texture( groundimage );
+	groundTexture.needsUpdate = true;
 	groundTexture.minFilter = THREE.LinearFilter;
 	groundTexture.magFilter = THREE.LinearFilter;
 	groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
