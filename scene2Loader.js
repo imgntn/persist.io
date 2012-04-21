@@ -198,6 +198,38 @@ branchMaterial.shading = THREE.SmoothShading;
 		skyMesh.doubleSided = true;
 		// add it to the scene
 		scene2.add( skyMesh );
+		
+		
+		
+		
+		//neshamot
+		
+		var neshamotLoader = new THREE.JSONLoader();
+		neshamotLoader.load( "neshamot.js", function(neshamotGeometry) {
+		var neshamotMaterial = new THREE.MeshPhongMaterial();
+		neshamotMaterial.color = new THREE.Color().setRGB(1,1,1);
+		neshamotMaterial.ambient = new THREE.Color().setRGB(0.0196078431372549,0.0196078431372549,0.0196078431372549);
+		neshamotMaterial.specular = new THREE.Color().setRGB(0.06666666666666667,0.06666666666666667,0.06666666666666667);
+		//material.map =
+
+		neshamot = new THREE.Mesh(neshamotGeometry, neshamotMaterial);
+		neshamot.position.set(100,-10,200);
+		neshamot.rotation.set(0,-0.84,0);
+		neshamot.scale.set(2.5,2.5,2.5);
+		neshamot.receiveShadow=true;
+			neshamot.castShadow=true;
+		scene2.add( neshamot );
+	});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	//text
 
 	
