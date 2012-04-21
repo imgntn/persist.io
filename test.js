@@ -11,7 +11,16 @@ var msg2 = {
 
 };
 
+var msg3 = {
+  "channels": ["scene2trees"],
+  "data": ["whatever i want"]
+
+};
+
+
 var client = redis.createClient();
 client.publish("juggernaut", JSON.stringify(msg));
 client.publish("juggernaut", JSON.stringify(msg2));
+client.publish("juggernaut", JSON.stringify(msg3));
+
 
