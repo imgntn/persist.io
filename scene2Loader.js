@@ -214,7 +214,7 @@ branchMaterial.shading = THREE.SmoothShading;
 						bevelEnabled = true,
 						bend = true,
 
-						font = "helvetiker", 		// helvetiker, optimer, gentilis, droid sans, droid serif
+						font = "helvetiker", 		// helvetiker
 						weight = "bold",		// normal bold
 						style = "normal";		// normal italic
 

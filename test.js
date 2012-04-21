@@ -13,7 +13,7 @@ var msg2 = {
 
 var msg3 = {
   "channels": ["scene2trees"],
-  "data": ["whatever i want"]
+  "data": [-1000,-10,0]
 
 };
 
