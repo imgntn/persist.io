@@ -354,18 +354,18 @@ console.log("Got data: " + data);
 
 		 jug.subscribe("scene2trees", function(data){
 		    console.log("treesdata: " + data)
-			scene2tree2 = new Tree(branchMaterial, -1 , 25, 0, 1);
-			scene2tree2.position = new THREE.Vector3(0,0,0)
-			scene2tree2.rotation.x = -90 * Math.PI / 180;
-			scene2tree2.scale = new THREE.Vector3(1,1,1)
-			scene2tree2.castShadow = true;
-			scene2tree2.receiveShadow = false;
+			scene2NetTree = new Tree(branchMaterial, -1 , 25, 0, 1);
+			scene2NetTree.position = new THREE.Vector3(0,0,0)
+			scene2NetTree.rotation.x = -90 * Math.PI / 180;
+			scene2NetTree.scale = new THREE.Vector3(1,1,1)
+			scene2NetTree.castShadow = true;
+			scene2NetTree.receiveShadow = false;
 			//tree container
-			scene2treeContainer2 = new THREE.Object3D();
-			scene2treeContainer2.useQuaternion = true;
-			scene2treeContainer2.add( scene2tree2 );
-			scene2treeContainer2.position= new THREE.Vector3(data[0],data[1],data[2]);
-			scene2.add(scene2treeContainer2);
+			scene2NetTreeContainer = new THREE.Object3D();
+			scene2NetTreeContainer.useQuaternion = true;
+			scene2NetTreeContainer.add( scene2NetTree );
+			scene2NetTreeContainer.position= new THREE.Vector3(data[0],data[1],data[2]);
+			scene2.add(scene2NetTreeContainer);
 		    });
 		
 		
