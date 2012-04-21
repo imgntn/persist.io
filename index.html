@@ -380,8 +380,8 @@ console.log("Got data: " + data);
 
 				neshamot = new THREE.Mesh(neshamotGeometry, neshamotMaterial);
 				neshamot.position.set(100,-10,200);
-				neshamot.rotation.set(0,-0.84,0);
-				neshamot.scale.set(2.5,2.5,2.5);
+				neshamot.rotation.set(2*data[0],2*data[1],2*data[2]);
+				neshamot.scale.set(4.5,4.5,4.5);
 				neshamot.receiveShadow=true;
 				neshamot.castShadow=true;
 			
