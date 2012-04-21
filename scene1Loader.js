@@ -55,16 +55,16 @@ scene1Loader.createBaptistery = function(scene) {
 
 scene1Loader.createPlant1 = function(scene) {
 	var loader = new THREE.JSONLoader();
-	loader.load( "plant1.js", function(plant1_geometry) {
+	loader.load( "iris.js", function(plant1_geometry) {
 	var plant1_material = new THREE.MeshPhongMaterial();
 	plant1_material.color = new THREE.Color().setRGB(1,1,1);
 	plant1_material.ambient = new THREE.Color().setRGB(0.0196078431372549,0.0196078431372549,0.0196078431372549);
 	plant1_material.specular = new THREE.Color().setRGB(0.06666666666666667,0.06666666666666667,0.06666666666666667);
 	//material.map =
 	plant1 = new THREE.Mesh(plant1_geometry, plant1_material);
-	plant1.position.set(150,50,50);
+	plant1.position.set(150,10,50);
 	plant1.rotation.set(0,0,0);
-	plant1.scale.set(50,50,50);
+	plant1.scale.set(100,100,100);
 	plant1.castShadow = true;
 	plant1.receiveShadow = true;
 	scene.add( plant1 );
