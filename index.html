@@ -18,8 +18,8 @@
 	<script src="audiolet/audiolet/Audiolet.js"></script>
 	<script src="audiolet_util.js"></script>
 	<script src="audiolet_testapp.js"></script>
-	<!--This is where we load the island and the objects specific to it-->
-
+	<script src="helvetiker_regular.typeface.js"></script>
+	<script src="helvetiker_bold.typeface.js"></script>
 	<script src='threex.domevent.js'></script>
 	<script src='threex.domevent.object3d.js'></script>
 	<script src="scene1Loader.js"></script>
@@ -827,8 +827,8 @@ var tree, treeContainer;
 var branchTexture, branchMaterial;
 //tree branch texture
 
-				branchTexture.minFilter = THREE.LinearFilter;
-				branchTexture.magFilter = THREE.LinearFilter;
+				branchTexture.minFilter = THREE.NearestFilter;
+				branchTexture.magFilter = THREE.NearestFilter;
 				branchTexture.wrapS = branchTexture.wrapT = THREE.RepeatWrapping;
 				branchMaterial = new THREE.MeshPhongMaterial( { map:branchTexture, shininess: 2, ambient:0x998822} );
 				//branchMaterial = new THREE.MeshBasicMaterial( { color:0x0044ff, opacity:1, map: branchTexture } );
@@ -1186,6 +1186,8 @@ renderManager.add('SecondScene', scene2, scene2camera, function(delta, renderer)
 		controls.object = this.camera;
 		//this.camera.lookAt(new THREE.Vector3(0,0,0));
 			renderer.render(this.scene, this.camera);
+			
+			
 	//collisionDetection()
 	
 	}
