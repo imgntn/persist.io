@@ -377,10 +377,10 @@ console.log("Got data: " + data);
 				neshamotMaterial.ambient = new THREE.Color().setRGB(0.0196078431372549,0.0196078431372549,0.0196078431372549);
 				neshamotMaterial.specular = new THREE.Color().setRGB(0.06666666666666667,0.06666666666666667,0.06666666666666667);
 				//material.map =
-
+2*data[0],2*data[1],2*data[2])
 				neshamot = new THREE.Mesh(neshamotGeometry, neshamotMaterial);
-				neshamot.position.set(100,-10,200);
-				neshamot.rotation.set(2*data[0],2*data[1],2*data[2]);
+				neshamot.position.set(data[0]/2,data[1]/2,data[2]/2);
+				neshamot.rotation.set(0,0,0);
 				neshamot.scale.set(4.5,4.5,4.5);
 				neshamot.receiveShadow=true;
 				neshamot.castShadow=true;
