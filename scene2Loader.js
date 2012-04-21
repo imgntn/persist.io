@@ -218,7 +218,7 @@ branchMaterial.shading = THREE.SmoothShading;
 						weight = "bold",		// normal bold
 						style = "normal";		// normal italic
 
-				;
+				
 
 		faceMaterial = new THREE.MeshFaceMaterial();
 
