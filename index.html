@@ -401,7 +401,7 @@ console.log("Got data: " + data);
 				var netCharacters, nnetCharacter, netCharacterControls, netConfigModel;
 
 				var nnetRows = 1,  nnetSkins = 1,  netCharacter,  netBaseCharacter,  cloneCharacterNet, netGyro;
-				var neshamotLoader, neshamotMaterial;
+				var neshamotLoader, neshamotMaterial,netLight;
 		 jug.subscribe("scene2trees", function(data){
 		    console.log("treesdata: " + data)
 			scene2NetTree = new Tree(branchMaterial, -1 , 25, 0, 1);
@@ -417,7 +417,7 @@ console.log("Got data: " + data);
 			scene2NetTreeContainer.position= new THREE.Vector3(data[0],data[1],data[2]);
 			scene2.add(scene2NetTreeContainer);
 			
-			var netLight = new THREE.SpotLight();
+			netLight = new THREE.SpotLight();
 			netLight.intensity = 5;
 			netLight.castShadow = true;
 			netLight.color = new THREE.Color().setRGB(1,1,1);
@@ -1526,8 +1526,8 @@ lightSin7=	Math.sin( lightTimer * 0.5 )  * lightF;
 											scene2spot1.position.z= lightSin3;
 											scene2spot1cube.position = scene2spot1.position;
 	
-	netLight.position.x = lightCos3;
-	netLight.position.z = lightSin7;
+											netLight.position.x = lightCos3;
+											netLight.position.z = lightSin7;
 }
 
 function funstuff (){
