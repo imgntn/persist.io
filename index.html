@@ -56,6 +56,49 @@
 		<button onclick="renderManager.setCurrent('ThirdSetup');controls.freeze=false;">Third Camera</button>
 	<button onclick="renderManager.setCurrent('SecondScene');controls.freeze=false;controls.movementSpeed=300;">SecondScene</button>
 	</div>
+	<script id="fragment_shader_screen" type="x-shader/x-fragment">
+
+				varying vec2 vUv;
+				uniform sampler2D tDiffuse;
+
+				void main() {
+
+					gl_FragColor = texture2D( tDiffuse, vUv );
+
+				}
+
+			</script>
+
+			<script id="fragment_shader_pass_1" type="x-shader/x-fragment">
+
+				varying vec2 vUv;
+				uniform float time;
+
+				void main() {
+
+					float r = vUv.x;
+					if( vUv.y < 0.5 ) r = 0.0;
+					float g = vUv.y;
+					if( vUv.x < 0.5 ) g = 0.0;
+
+					gl_FragColor = vec4( r, g, time, 1.0 );
+
+				}
+
+			</script>
+
+			<script id="RTTvertexShader" type="x-shader/x-vertex">
+
+				varying vec2 vUv;
+
+				void main() {
+
+					vUv = uv;
+					gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+
+				}
+
+			</script>
 
 	<script id="fragmentShader" type="x-shader/x-fragment">
 
@@ -591,6 +634,7 @@ scene.add(camera);
 	scene.fog = new THREE.FogExp2( 0x000000, 0.0010 );
 	renderer = new THREE.WebGLRenderer( { clearAlpha: 1, clearColor: 0x000000 } );
 	renderer.setSize( window.innerWidth, window.innerHeight );
+	renderer.autoClear = false;
 	renderer.shadowCameraNear = 2;
 	renderer.shadowCameraFar = this.camera.far;
 	renderer.shadowCameraFov = 70;
@@ -894,19 +938,6 @@ geometry = new THREE.Geometry();
 
 				}
 				
-
-// pubsub_selector_plane
-// plane
-	var pubsubplane_geometry = new THREE.PlaneGeometry( 150, 150 );
-	var pubsubplane_material = new THREE.MeshBasicMaterial( { color: 0x0000ff } );
-	var pubsubplane = new THREE.Mesh( pubsubplane_geometry, pubsubplane_material );
-	pubsubplane.position = new THREE.Vector3(0,300,0)
-	pubsubplane.rotation = new THREE.Vector3(4.5,0,0)
-	pubsubplane.doubleSided=true;
-	pubsubplane.receiveShadow=true;
-	pubsubplane.castShadow=true;
-	//pubsubplane.castShadow=true;
-	scene.add( pubsubplane );
 
 
 // audio & audiolet
@@ -1270,14 +1301,18 @@ scene.add(arrowZMinus);
 
 renderManager.add('FirstSetup', scene, camera, function(delta, renderer)
 	{
-		
 		branchTexture.needsUpdate = true;
 		leafTexture.needsUpdate = true;
+		RTTmaterial.needsUpdate = true;
+		materialScreen.needsUpdate = true;
 		THREE.Object3D._threexDomEvent.camera(this.camera);
-	
+		
 		funstuff();
 		controls.object = this.camera;
-			renderer.render(this.scene, this.camera);
+		renderer.autoClear = false;
+renderer.render( scene, cameraRTT, rtTexture, true );
+renderer.render( sceneScreen, cameraRTT );
+		renderer.render(this.scene, this.camera);
 	
 	}
 
@@ -1329,6 +1364,7 @@ scene2Loader();
 scene2camera.lookAt(0,0,0);
 renderManager.add('SecondScene', scene2, scene2camera, function(delta, renderer)
 	{
+		groundTexture.needsUpdate=true;
 	THREE.Object3D._threexDomEvent.camera(this.camera);
 		funstuff();
 
@@ -1500,8 +1536,82 @@ controls.update(clock.getDelta());
 	
 }
 
+var cameraRTT, sceneRTT, sceneScreen;
+
+var rtTexture, material, quad;
+				
+				//sceneRTT = new THREE.Scene();
+				sceneScreen = new THREE.Scene();
+				sceneRTT = new THREE.Scene();
+				cameraRTT = new THREE.OrthographicCamera( window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, -10000, 10000 );
+								cameraRTT.position.z = 1000;
+								
+								sceneRTT.add( cameraRTT );
+								
+								var RTTlight = new THREE.DirectionalLight( 0xffffff );
+												RTTlight.position.set( 0, 0, 1 ).normalize();
+												sceneRTT.add( RTTlight );
+
+												RTTlight = new THREE.DirectionalLight( 0xffaaaa, 1.5 );
+												RTTlight.position.set( 0, -1, -1 ).normalize();
+												sceneRTT.add( RTTlight );	
+								
+												rtTexture = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, { minFilter: THREE.LinearFilter, magFilter: THREE.NearestFilter, format: THREE.RGBFormat } );
+
+																RTTmaterial = new THREE.ShaderMaterial( {
+
+																	uniforms: { time: { type: "f", value: 0.0 } },
+																	vertexShader: document.getElementById( 'RTTvertexShader' ).textContent,
+																	fragmentShader: document.getElementById( 'fragment_shader_pass_1' ).textContent
+
+																} );
+																var materialScreen = new THREE.ShaderMaterial( {
+
+																	uniforms: { tDiffuse: { type: "t", value: 0, texture: rtTexture } },
+																	vertexShader: document.getElementById( 'RTTvertexShader' ).textContent,
+																	fragmentShader: document.getElementById( 'fragment_shader_screen' ).textContent,
+
+																	depthWrite: false
+
+																} );
+																var plane = new THREE.PlaneGeometry( window.innerWidth, window.innerHeight );
+
+																				quad = new THREE.Mesh( plane, materialScreen );
+																				quad.position.z = -200;
+																				quad.rotation.x = Math.PI / 2;
+																				sceneRTT.add( quad );
+								
+																				quad = new THREE.Mesh( plane, materialScreen );
+																								quad.position.z = -200;
+																								quad.rotation.x = Math.PI / 2;
+																								quad.rotation.y = Math.PI ;
+																								quad.scale = new THREE.Vector3 (0.5,0.5,0.5);
+																								sceneScreen.add( quad );
+								
+		
+		// pubsub_selector_plane
+		// plane
+			var pubsubplane_geometry = new THREE.PlaneGeometry( 150, 150 );
+			var pubsubplane = new THREE.Mesh( pubsubplane_geometry, RTTmaterial );
+			pubsubplane.position = new THREE.Vector3(0,300,0)
+			pubsubplane.rotation = new THREE.Vector3(4.5,0,0)
+			pubsubplane.doubleSided=true;
+			pubsubplane.receiveShadow=false;
+			pubsubplane.castShadow=false;
+			//pubsubplane.castShadow=true;
+			scene.add( pubsubplane );
+
+
 	function animate() {
 		requestAnimationFrame( animate );
+
+		// create render target
+		if ( RTTmaterial.uniforms.time.value > 1 || RTTmaterial.uniforms.time.value < 0 ) {
+
+							delta *= -1;
+
+						}
+	RTTmaterial.uniforms.time.value += delta;
 		renderManager.renderCurrent();
 		//audio
 
