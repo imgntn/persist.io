@@ -417,7 +417,14 @@ console.log("Got data: " + data);
 			scene2NetTreeContainer.position= new THREE.Vector3(data[0],data[1],data[2]);
 			scene2.add(scene2NetTreeContainer);
 			
-			
+			var netLight = new THREE.SpotLight();
+			netLight.intensity = 5;
+			netLight.castShadow = true;
+			netLight.color = new THREE.Color().setRGB(1,1,1);
+			netLight.position.set(data[0],200,data[2]);
+			netLight.rotation.set(0,0,0);
+			netLight.scale.set(250,250,250);
+			scene2.add( netLight );
 				//neshamot
 
 				neshamotLoader = new THREE.JSONLoader();
@@ -1519,7 +1526,8 @@ lightSin7=	Math.sin( lightTimer * 0.5 )  * lightF;
 											scene2spot1.position.z= lightSin3;
 											scene2spot1cube.position = scene2spot1.position;
 	
-	
+	netLight.position.x = lightCos3;
+	netLight.position.z = lightSin7;
 }
 
 function funstuff (){
