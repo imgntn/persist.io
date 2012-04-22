@@ -164,6 +164,14 @@ branchMaterial.shading = THREE.SmoothShading;
 	scene2spot1.scale.set(1,1,1);
 	scene2.add( scene2spot1 );
 	
+	netLight = new THREE.SpotLight();
+	netLight.intensity = 5;
+	netLight.castShadow = true;
+	netLight.color = new THREE.Color().setRGB(1,1,1);
+	netLight.rotation.set(0,0,0);
+	netLight.scale.set(250,250,250);
+	scene2.add( netLight );
+	
 	//lightcubes
 	
 	 scene2spot1cube_geometry = new THREE.CubeGeometry(200,200,200);
