@@ -397,12 +397,31 @@ console.log("Got data: " + data);
 	$.get("http://bethere.io:7379/SET/characterposition2/"+ JSON.stringify(character.root.position));
 	    });
 	
+			function drawdTube(dtube){
+
+			var dradius = 5 ;
+			var dpath;
+				dpath = new THREE.SplineCurve3();
+			      dpath.points.push( new THREE.Vector3(data[0],data[1],data[2]));
+			      dpath.points.push( new THREE.Vector3(0,800,0));
+			      dpath.points.push( netCharacter.root.position);
+
+				 dtube = new THREE.Mesh(new THREE.TubeGeometry(dpath, 100, dradius, 4), new THREE.MeshPhongMaterial({
+			        color: 0xff00ff
+			      }));
+				dtube.castShadow=true;
+			      dtube.receiveShadow = true;
+				 dtube.scale = new THREE.Vector3(1,1,1);
+			      scene.add(dtube);
+				collidersArray.push(dtube);
+						return dtube
+						}
 
 				var netCharacters, nnetCharacter, netCharacterControls, netConfigModel;
 
 				var nnetRows = 1,  nnetSkins = 1,  netCharacter,  netBaseCharacter,  cloneCharacterNet, netGyro;
 				var neshamotLoader, neshamotMaterial,netLight;
-				
+					var dtube;
 		 jug.subscribe("scene2trees", function(data){
 		    console.log("treesdata: " + data)
 			scene2NetTree = new Tree(branchMaterial, -1 , 25, 0, 1);
@@ -436,6 +455,11 @@ console.log("Got data: " + data);
 				neshamot.receiveShadow=true;
 				neshamot.castShadow=true;
 				scene2.add( neshamot );	
+				
+				drawdTube();
+			
+				
+					
 			});
 	
 			//character
@@ -1575,8 +1599,7 @@ var rtTexture, material, quad;
 
 																	uniforms: { tDiffuse: { type: "t", value: 0, texture: rtTexture } },
 																	vertexShader: document.getElementById( 'RTTvertexShader' ).textContent,
-																	fragmentShader: document.getElementById( 'fragment_shader_screen' ).textContent,
-
+																	fragmentShader: document.getElementById( 'fragment_shader_screen').textContent,
 																	depthWrite: false
 
 																} );
