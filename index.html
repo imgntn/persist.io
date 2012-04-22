@@ -54,7 +54,7 @@
 		<button onclick="renderManager.setCurrent('FirstSetup');controls.freeze=false;">First Camera</button>
 		<button onclick="renderManager.setCurrent('SecondSetup');controls.freeze=false;">Second Camera</button>
 		<button onclick="renderManager.setCurrent('ThirdSetup');controls.freeze=false;">Third Camera</button>
-	<button onclick="renderManager.setCurrent('SecondScene');controls.freeze=false;controls.movementSpeed=300;">SecondScene</button>
+	<button onclick="renderManager.setCurrent('SecondScene');controls.freeze=false;controls.movementSpeed=300">SecondScene</button>
 	</div>
 
 	<script id="fragmentShader" type="x-shader/x-fragment">
@@ -964,7 +964,7 @@ var nCharacters = 0;
 //	var nSkins = configOgro.skins.length;
 var nSkins = 1;
 	nCharacters = nSkins * nRows;
-	var character
+	var character;
 	for ( var i = 0; i < nCharacters; i ++ ) {
 
 	 	character = new THREE.MD2CharacterComplex();
@@ -978,7 +978,7 @@ var nSkins = 1;
 
 	var baseCharacter = new THREE.MD2CharacterComplex();
 	baseCharacter.scale = 3;
-
+	var cloneCharacter;
 baseCharacter.onLoadComplete = function () {
 
 		var k = 0;
@@ -987,7 +987,7 @@ baseCharacter.onLoadComplete = function () {
 
 			for ( var i = 0; i < nSkins; i ++ ) {
 
-				var cloneCharacter = characters[ k ];
+			 	cloneCharacter = characters[ k ];
 
 				cloneCharacter.shareParts( baseCharacter );
 
@@ -999,7 +999,7 @@ baseCharacter.onLoadComplete = function () {
 				cloneCharacter.root.position.x = ( i - nSkins/2 ) * 150;
 				cloneCharacter.root.position.z = j * 250;
 				
-					scene.add( cloneCharacter.root );
+				scene.add( cloneCharacter.root );
 				
 				
 				k ++;
