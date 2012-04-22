@@ -352,6 +352,10 @@ console.log("Got data: " + data);
 	    });
 	
 
+				var netCharacters, nnetCharacter, netCharacterControls, netConfigModel;
+
+				var nnetRows = 1,  nnetSkins = 1,  netCharacter,  netBaseCharacter,  cloneCharacterNet, netGyro;
+				
 		 jug.subscribe("scene2trees", function(data){
 		    console.log("treesdata: " + data)
 			scene2NetTree = new Tree(branchMaterial, -1 , 25, 0, 1);
@@ -385,14 +389,12 @@ console.log("Got data: " + data);
 				neshamot.castShadow=true;
 				scene2.add( neshamot );	
 			});
-			
-			
-			
+	
 			//character
-			var netCharacters = [];
-			var nnetCharacters = 0;
+			 netCharacters = [];
+			 nnetCharacters = 0;
 
-				var netCharacterControls = {
+				 netCharacterControls = {
 
 					moveForward: false,
 					moveBackward: false,
@@ -407,7 +409,7 @@ console.log("Got data: " + data);
 					point: false,
 
 				};
-				var netConfigModel = {
+				 netConfigModel = {
 
 					baseUrl: "models/faerie/",
 
@@ -443,12 +445,10 @@ console.log("Got data: " + data);
 
 
 
-
-				var nnetRows = 1;
+				 nnetRows = 1;
 			//	var nSkins = configOgro.skins.length;
-			var nnetSkins = 1;
+			 nnetSkins = 1;
 				nnetCharacters = nnetSkins * nnetRows;
-				var netCharacter;
 				for ( var i = 0; i < nCharacters; i ++ ) {
 
 				 	netCharacter = new THREE.MD2CharacterComplex();
@@ -460,9 +460,8 @@ console.log("Got data: " + data);
 
 				}
 
-				var netBaseCharacter = new THREE.MD2CharacterComplex();
+			 netBaseCharacter = new THREE.MD2CharacterComplex();
 				netBaseCharacter.scale = 3;
-				var cloneCharacterNet;
 			netBaseCharacter.onLoadComplete = function () {
 
 					var k = 0;
@@ -492,10 +491,10 @@ console.log("Got data: " + data);
 
 					}
 
-					var gyro = new THREE.Gyroscope();
-					gyro.add( camera );
+					 netGyro = new THREE.Gyroscope();
+					netGyro.add( scene2camera );
 
-					netCharacters[ Math.floor( nSkins/2 ) ].root.add( gyro );
+					netCharacters[ Math.floor( nSkins/2 ) ].root.add( netGyro );
 
 				};
 
