@@ -54,7 +54,7 @@
 		<button onclick="renderManager.setCurrent('FirstSetup');controls.freeze=false;">First Camera</button>
 		<button onclick="renderManager.setCurrent('SecondSetup');controls.freeze=false;">Second Camera</button>
 		<button onclick="renderManager.setCurrent('ThirdSetup');controls.freeze=false;">Third Camera</button>
-	<button onclick="renderManager.setCurrent('SecondScene');controls.freeze=false;controls.movementSpeed=300">SecondScene</button>
+	<button onclick="renderManager.setCurrent('SecondScene');controls.freeze=false;controls.movementSpeed=300;">SecondScene</button>
 	</div>
 
 	<script id="fragmentShader" type="x-shader/x-fragment">
@@ -385,6 +385,123 @@ console.log("Got data: " + data);
 				neshamot.castShadow=true;
 				scene2.add( neshamot );	
 			});
+			
+			
+			
+			//character
+			var netCharacters = [];
+			var nnetCharacters = 0;
+
+				var netCharacterControls = {
+
+					moveForward: false,
+					moveBackward: false,
+					moveLeft: false,
+					moveRight: false,
+					attack:false,
+					pain:false,
+					death:false,
+					wave: false,
+					flip: false,
+					taunt: false,
+					point: false,
+
+				};
+				var netConfigModel = {
+
+					baseUrl: "models/faerie/",
+
+					body: "faerie.js",
+					//body: "ogro-light.js",
+					/*skins: [ "grok.jpg", "ogrobase.png", "arboshak.png", "ctf_r.png", "ctf_b.png", "darkam.png", "freedom.png",
+							 "gib.png", "gordogh.png", "igdosh.png", "khorne.png", "nabogro.png",
+							 "sharokh.png" ],*/
+							skins:["Faerie2.png"],
+					weapons:  [ ["faeriewand.js","weapon.png"]],
+				//	weapons:  [ [ "weapon-light.js", "weapon.jpg" ] ],
+					animations: {
+						move: "run",
+						idle: "stand",
+						jump: "jump",
+						attack: "attack",
+						crouchMove: "crwalk",
+						crouchIdle: "crstand",
+						crouchAttach: "crattack",
+						pain: "pain",
+						death: "death",
+						wave: "wave",
+						flip: "flip",
+						taunt: "taunt",
+						point: "point"
+					},
+
+					walkSpeed: 250,
+					crouchSpeed: 175
+
+				};
+
+
+
+
+
+				var nnetRows = 1;
+			//	var nSkins = configOgro.skins.length;
+			var nnetSkins = 1;
+				nnetCharacters = nnetSkins * nnetRows;
+				var netCharacter;
+				for ( var i = 0; i < nCharacters; i ++ ) {
+
+				 	netCharacter = new THREE.MD2CharacterComplex();
+					netCharacter.scale = 3;
+					netCharacter.controls = netCharacterControls;
+
+					netCharacters.push( netCharacter );
+
+
+				}
+
+				var netBaseCharacter = new THREE.MD2CharacterComplex();
+				netbaseCharacter.scale = 3;
+				var cloneCharacterNet;
+			netBaseCharacter.onLoadComplete = function () {
+
+					var k = 0;
+
+					for ( var j = 0; j < nRows; j ++ ) {
+
+						for ( var i = 0; i < nSkins; i ++ ) {
+
+						 	cloneCharacterNet = netCharacters[ k ];
+
+							cloneCharacterNet.shareParts( netBaseCharacter );
+
+							cloneCharacterNet.enableShadows( true );
+
+							cloneCharacterNet.setWeapon( 0 );
+							cloneCharacterNet.setSkin( i );
+
+							cloneCharacterNet.root.position.x = ( i - nSkins/2 ) * 150;
+							cloneCharacterNet.root.position.z = j * 250;
+
+							scene2.add( cloneCharacterNet.root );
+
+
+							k ++;
+
+						}
+
+					}
+
+					var gyro = new THREE.Gyroscope();
+					gyro.add( camera );
+
+					netCharacters[ Math.floor( nSkins/2 ) ].root.add( gyro );
+
+				};
+
+				netBaseCharacter.loadParts( netConfigModel );
+			
+			
 			
 		    });
 		
