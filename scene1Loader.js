@@ -21,7 +21,7 @@ var scene1Loader = function(){
     //island_material.map =
 
 	island = new THREE.Mesh(island_geometry, island_material);
-		island.receiveShadow = true;
+	island.receiveShadow = true;
 	island.position.set(0,0,0);
 	island.rotation.set(0,0,0);
 	island.scale.set(500,500,500);

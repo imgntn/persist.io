@@ -378,7 +378,7 @@ console.log("Got data: " + data);
 				neshamotMaterial.specular = new THREE.Color().setRGB(0.06666666666666667,0.06666666666666667,0.06666666666666667);
 				//material.map =
 				neshamot = new THREE.Mesh(neshamotGeometry, neshamotMaterial);
-				neshamot.position.set(data[0]/2,data[1]/2,data[2]/2);
+				neshamot.position.set(data[0]/2,-10,data[2]/2);
 				neshamot.rotation.set(0,0,0);
 				neshamot.scale.set(4.5,4.5,4.5);
 				neshamot.receiveShadow=true;
@@ -386,7 +386,8 @@ console.log("Got data: " + data);
 				scene2.add( neshamot );	
 			});
 		
-			
+			scene.remove(character.root);
+			scene2.add(character.root);
 			
 		    });
 		
@@ -1000,9 +1001,10 @@ baseCharacter.onLoadComplete = function () {
 
 				cloneCharacter.root.position.x = ( i - nSkins/2 ) * 150;
 				cloneCharacter.root.position.z = j * 250;
-
-				scene.add( cloneCharacter.root );
-
+				
+					scene.add( cloneCharacter.root );
+				
+				
 				k ++;
 
 			}
@@ -1216,6 +1218,7 @@ renderManager.add('SecondScene', scene2, scene2camera, function(delta, renderer)
 	{
 	THREE.Object3D._threexDomEvent.camera(this.camera);
 		funstuff();
+
 		controls.object = this.camera;
 		//this.camera.lookAt(new THREE.Vector3(0,0,0));
 			renderer.render(this.scene, this.camera);
