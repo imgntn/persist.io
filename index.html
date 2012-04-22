@@ -960,10 +960,10 @@ var mesh, meshsource;
 		mesh.position = new THREE.Vector3 (0,200,0);
 		scene.add( mesh );
 		
-		var geometry_b	= new THREE.SphereGeometry( 50, 20, 20 );
+		var geometry_b	= new THREE.SphereGeometry( 20, 20, 20 );
 		var material_b 	= new THREE.MeshPhongMaterial();
 		meshsource = new THREE.Mesh( geometry_b, material_b );
-		meshsource.position = new THREE.Vector3 (0,40,0);
+		meshsource.position = new THREE.Vector3 (0,100,0);
 		scene.add( meshsource );
 		
 		//init your audiolet shit
@@ -1596,8 +1596,9 @@ var rtTexture, material, quad;
 		// plane
 			var pubsubplane_geometry = new THREE.PlaneGeometry( 150, 150 );
 			var pubsubplane = new THREE.Mesh( pubsubplane_geometry, materialScreen );
-			pubsubplane.position = new THREE.Vector3(12.26993865,7.5,-58.47953216);
-			pubsubplane.rotation = new THREE.Vector3(0,0,0);
+			pubsubplane.position = new THREE.Vector3(12.26993865,-60,-58.47953216);
+			pubsubplane.rotation = new THREE.Vector3(0,-1,0);
+			pubsubplane.scale = new THREE.Vector3(1.4,1.4,1.4)
 			pubsubplane.doubleSided=true;
 			pubsubplane.receiveShadow=false;
 			pubsubplane.castShadow=false;
