@@ -29,10 +29,10 @@ client.publish("juggernaut", JSON.stringify(msg3));
 request('http://bethere.io:7379/SMEMBERS/sessionIDs', function (error, response, body) {
   if (!error && response.statusCode == 200) {
     console.log(body) // Print the google web page.
-  }
+  };
 
 request('http://bethere.io:7379/SMEMBERS/scene2Trees', function (error, response, body) {
   if (!error && response.statusCode == 200) {
     console.log(body) // Print the google web page.
   }
-})
+});
