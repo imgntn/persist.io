@@ -404,7 +404,7 @@ console.log("Got data: " + data);
 				var nnetRows = 1,  nnetSkins = 1,  netCharacter,  netBaseCharacter,  cloneCharacterNet, netGyro;
 				var neshamotLoader, neshamotMaterial,netLight;
 					var dtube;
-					var neshamotHere;
+					var neshamotHere = false;
 		
 		 jug.subscribe("scene2trees", function(data){
 		    console.log("treesdata: " + data)
@@ -1368,6 +1368,7 @@ renderManager.add('SecondSetup', scene, camera2, function(delta, renderer)
 
 	renderer.render(this.scene, this.camera);
 	//collisionDetection()
+	if(neshamotHere=true){neshamot.updateAnimation(animDelta)};
 	
 	}
 
