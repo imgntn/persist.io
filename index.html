@@ -589,6 +589,11 @@ console.log("Got data: " + data);
 		      log("Got data: " + data);
 		console.log("Got data: " + data);
 		    });
+		
+			//subscribe to a liveList channel
+					 jug.subscribe("liveList", function(data){
+					console.log("Got liveList data: " + data);
+					    });
 	
 	//closing, refreshing, aborting, error should remove user from connected session id list
 window.onbeforeunload = unloadPage;

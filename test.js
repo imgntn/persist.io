@@ -35,7 +35,7 @@ new cronJob('* * * * * *', function(){
 	    console.log(body) // Print the google web page.
 		liveList = {
 		  "channels": ["liveList"],
-		  "data": [liveListRequests]
+		  "data": [body]
 		};
 	  };
 
