@@ -405,6 +405,13 @@ console.log("Got data: " + data);
 				var neshamotLoader, neshamotMaterial,netLight;
 					var dtube;
 						var netTreeTweenScale;
+							function initNetTreeAnim() {
+											//scale
+											netTreeTweenScale = new TWEEN.Tween( scene2NetTree.scale )
+											.delay(4000)
+											.to({x: 1.25, y: 1.25, z: 1.25}, 4000)
+											.easing(TWEEN.Easing.Sinusoidal.EaseInOut)
+										}
 		 jug.subscribe("scene2trees", function(data){
 		    console.log("treesdata: " + data)
 			scene2NetTree = new Tree(branchMaterial, -1 , 25, 0, 1.5);
@@ -422,13 +429,7 @@ console.log("Got data: " + data);
 			
 			
 				
-					function initNetTreeAnim() {
-									//scale
-									netTreeTweenScale = new TWEEN.Tween( scene2NetTree.scale )
-									.delay(4000)
-									.to({x: 1.25, y: 1.25, z: 1.25}, 4000)
-									.easing(TWEEN.Easing.Sinusoidal.EaseInOut)
-								}
+				
 						initTreeAnim();		
 								
 			netLight.position = new THREE.Vector3(data[0],200,data[2]);
