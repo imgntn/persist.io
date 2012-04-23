@@ -395,7 +395,7 @@ console.log("Got data: " + data);
 	 smoothCharacter = function(object3d) {
 
 		new TWEEN.Tween(character.root.position)
-			.to({x: data[0], y: data[1], z: data[2]}, 2000)
+			.to({x: data[0], y: data[1], z: data[2]}, 5000)
 			.easing(TWEEN.Easing.Quartic.EaseIn)
 			.start();
 	};
