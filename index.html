@@ -1365,6 +1365,7 @@ renderManager.add('SecondSetup', scene, camera2, function(delta, renderer)
 		funstuff();
 
 	controls.object = this.camera;
+	materialScreen.needsUpdate = true;
 	
 
 	renderer.render(this.scene, this.camera);
