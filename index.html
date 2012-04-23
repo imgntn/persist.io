@@ -1364,7 +1364,7 @@ scene.add(camera2);
 camera2.position = new THREE.Vector3(-300,300,-300);
 
 renderManager.add('SecondSetup', scene, camera2, function(delta, renderer)
-	{
+	{mesh.position.x = Math.sin(spinTimer)*140;
 		THREE.Object3D._threexDomEvent.camera(this.camera);
 		
 		funstuff();
