@@ -1368,7 +1368,7 @@ renderManager.add('SecondSetup', scene, camera2, function(delta, renderer)
 
 	renderer.render(this.scene, this.camera);
 	//collisionDetection()
-	if(neshamotHere=true){neshamot.updateAnimation(animDelta)};
+	
 	
 	}
 
@@ -1642,7 +1642,7 @@ var rtTexture, material, quad;
 
 	function animate() {
 		requestAnimationFrame( animate );
-
+if(neshamotHere==true){neshamot.updateAnimation(animDelta)};
 		// create render target
 		if ( RTTmaterial.uniforms.time.value > 1 || RTTmaterial.uniforms.time.value < 0 ) {
 
