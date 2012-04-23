@@ -22,11 +22,8 @@ var msg3 = {
   "data": [-1500,-10,0]
 
 };
-
-var liveList = {
-  "channels": ["liveList"],
-  "data": [liveListRequests]
-
+var liveList;
+ 
 };
 var liveListRequests;
 var cronjob;
@@ -38,6 +35,11 @@ new cronJob('* * * * * *', function(){
 	    console.log(body) // Print the google web page.
 
 	  };
+
+	liveList = {
+	  "channels": ["liveList"],
+	  "data": [liveListRequests]
+	
 		client.publish("juggernaut", JSON.stringify(liveList));
 	});
 	
