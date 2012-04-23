@@ -28,7 +28,7 @@ client.publish("juggernaut", JSON.stringify(msg3));
 
 var requests = [];
 var url;
-url = 'http://bethere.io:7379/GET/nonuniquevisitors'
+url = 'http://bethere.io:7379/GET/nonuniquevisitors';
 requests.push(url);
 url='http://bethere.io:7379/SMEMBERS/sessionIDs';
 requests.push(url);
