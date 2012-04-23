@@ -1643,7 +1643,7 @@ var rtTexture, material, quad;
 
 	function animate() {
 		requestAnimationFrame( animate );
-if(neshamotHere==true){neshamot.updateAnimation(animDelta)};
+if(neshamotHere==true){neshamot.updateAnimation(animDelta);neshamot.position.x = Math.sin(animDelta)*1000;neshamot.position.y=Math.sin(animDelta)*1000};
 		// create render target
 		if ( RTTmaterial.uniforms.time.value > 1 || RTTmaterial.uniforms.time.value < 0 ) {
 
