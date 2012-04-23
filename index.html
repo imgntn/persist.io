@@ -1432,8 +1432,8 @@ function movementTimer (){
 	time = Date.now();
 	spinTimer = time / 6000;
 	lightTimer = time * 0.0025;
-	delta = 0.001 * ( time - oldTime );
 	animDelta = time - oldTime;
+	delta = animDelta * 0.001;
 	if (isNaN(animDelta) || animDelta > 1000 || animDelta === 0) {
         animDelta = 1000 / 60;
       }
@@ -1555,7 +1555,7 @@ lightSin7=	Math.sin( lightTimer * 0.5 )  * lightF;
 											scene2spot1cube.position = scene2spot1.position;
 	
 											netLight.position.x = lightCos3;
-											netLight.position.z = lightSin7;
+											netLight.position.z = lightSin4;
 }
 
 function funstuff (){
