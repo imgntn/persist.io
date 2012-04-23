@@ -1,32 +1,20 @@
-/*
-function onDeath () {
-
-
-addDeathTree();
-
-
-}
-
 function addDeathTree()
 
 {
 	
-	$.get("http://bethere.io:7379/SADD/deathTrees/"+JSON.stringify(scene2treeContainer2.position));
+	$.get("http://bethere.io:7379/SADD/deathTrees/"+JSON.stringify());
 	
 }
-*/
 
 
 var deathTreeArrayFetch, deathTreeArrayParse, deathTreeArrayStaging;
-
-
 
 var deathTreeArray = [];
 var deathTreePositionArray = [];
 
 var length, i, temp;
 
-function onDeath (){
+function getDeathTrees (){
 	
  	deathTreeArrayFetch = $.ajax({
 	  url: "http://bethere.io:7379/SMEMBERS/deathTrees",
