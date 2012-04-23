@@ -553,6 +553,7 @@ console.log("Got data: " + data);
 
 							cloneCharacterNet.root.position = 	new THREE.Vector3(data[0]+70,data[1]+100,data[2]+70);
 							 cloneCharacterNet.root.rotation = 	new THREE.Vector3(0,3.75,0);
+							cloneCharacterNet.castShadow = true;
 							scene2.add( cloneCharacterNet.root );
 
 
