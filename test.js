@@ -28,8 +28,9 @@ var liveList = {
   "data": [liveListRequests]
 
 };
-var liveListRequests;
-var cronJob = require('cron').CronJob;
+var liveListRequests = []
+var cronjob;
+cronJob = require('cron').CronJob;
 new cronJob('* * * * * *', function(){
 	
 	liveListRequests = request("http://localhost:7379/SMEMBERS/sessionIDs'", function (error, response, body) {
