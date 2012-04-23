@@ -445,7 +445,7 @@ console.log("Got data: " + data);
 						dpath = new THREE.SplineCurve3();
 					      dpath.points.push( new THREE.Vector3(data[0],data[1],data[2]));
 					      dpath.points.push( new THREE.Vector3(0,800,0));
-					      dpath.points.push( netCharacter.root.position);
+					      dpath.points.push( new THREE.Vector3(data[0]+30,data[1]+30,data[2]+30));
 
 						 dtube = new THREE.Mesh(new THREE.TubeGeometry(dpath, 100, dradius, 4), new THREE.MeshPhongMaterial({
 					        color: 0xff00ff
@@ -552,7 +552,7 @@ console.log("Got data: " + data);
 							cloneCharacterNet.setWeapon( 0 );
 							cloneCharacterNet.setSkin( i );
 
-							cloneCharacterNet.root.position = 	new THREE.Vector3(data[0]+30,data[1]+30,data[2]+30)
+							cloneCharacterNet.root.position = 	new THREE.Vector3(data[0]+30,data[1]+30,data[2]+30);
 							scene2.add( cloneCharacterNet.root );
 
 
