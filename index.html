@@ -404,6 +404,7 @@ console.log("Got data: " + data);
 				var nnetRows = 1,  nnetSkins = 1,  netCharacter,  netBaseCharacter,  cloneCharacterNet, netGyro;
 				var neshamotLoader, neshamotMaterial,netLight;
 					var dtube;
+						var netTreeTweenScale;
 		 jug.subscribe("scene2trees", function(data){
 		    console.log("treesdata: " + data)
 			scene2NetTree = new Tree(branchMaterial, -1 , 25, 0, 1.5);
@@ -420,7 +421,7 @@ console.log("Got data: " + data);
 			scene2.add(scene2NetTreeContainer);
 			
 			
-					var netTreeTweenScale;
+				
 					function initNetTreeAnim() {
 									//scale
 									netTreeTweenScale = new TWEEN.Tween( scene2NetTree.scale )
