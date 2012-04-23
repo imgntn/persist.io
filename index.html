@@ -440,7 +440,6 @@ console.log("Got data: " + data);
 				neshamot.scale.set(4.5,4.5,4.5);
 				neshamot.receiveShadow=true;
 				neshamot.castShadow=true;
-				neshamotHere = true;
 				scene2.add( neshamot );	
 				
 					function drawdTube(dtube){
@@ -1404,7 +1403,6 @@ renderManager.add('SecondScene', scene2, scene2camera, function(delta, renderer)
 		controls.object = this.camera;
 		//this.camera.lookAt(new THREE.Vector3(0,0,0));
 			
-			if(neshamotHere=true){neshamot.updateAnimation(animDelta);}
 			renderer.render(this.scene, this.camera);
 		
 	//collisionDetection()
