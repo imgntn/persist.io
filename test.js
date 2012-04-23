@@ -24,7 +24,7 @@ var liveList = {
   "data": [liveListRequests]
 
 };
-
+var liveListRequests = [];
 var cronJob = require('cron').CronJob;
 new cronJob('* * * * * *', function(){
 	
