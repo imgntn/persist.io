@@ -444,8 +444,7 @@ console.log("Got data: " + data);
 					var dpath;
 						dpath = new THREE.SplineCurve3();
 					      dpath.points.push( new THREE.Vector3(data[0],data[1]+100,data[2]));
-					      dpath.points.push( new THREE.Vector3(data[0]+75,data[1]+75,data[2]+75));
-					      dpath.points.push( new THREE.Vector3(data[0]+30,data[1]+100,data[2]+30));
+					      dpath.points.push( new THREE.Vector3(data[0]+70,data[1]+150,data[2]+70));
 
 						 dtube = new THREE.Mesh(new THREE.TubeGeometry(dpath, 100, dradius, 4), new THREE.MeshPhongMaterial({
 					        color: 0xff00ff
