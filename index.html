@@ -441,6 +441,7 @@ console.log("Got data: " + data);
 				neshamot.receiveShadow=true;
 				neshamot.castShadow=true;
 				scene2.add( neshamot );	
+				neshamotHere=true;
 				
 					function drawdTube(dtube){
 
@@ -578,7 +579,6 @@ console.log("Got data: " + data);
 			
 									netLight.position = new THREE.Vector3(data[0],200,data[2]);
 									netLight.target = netCharacter.root;
-									neshamotHere=true;
 		    });
 		
 		
