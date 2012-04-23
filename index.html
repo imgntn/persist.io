@@ -431,13 +431,15 @@ console.log("Got data: " + data);
 				neshamotMaterial.color = new THREE.Color().setRGB(1,1,1);
 				neshamotMaterial.ambient = new THREE.Color().setRGB(0.0196078431372549,0.0196078431372549,0.0196078431372549);
 				neshamotMaterial.specular = new THREE.Color().setRGB(0.06666666666666667,0.06666666666666667,0.06666666666666667);
+				neshamotMaterial.morphTargets=true;
 				//material.map =
-				neshamot = new THREE.Mesh(neshamotGeometry, neshamotMaterial);
+				neshamot = new THREE.MorphAnimMesh(neshamotGeometry, neshamotMaterial);
 				neshamot.position.set(data[0]/2,-10,data[2]/2);
 				neshamot.rotation.set(0,0,0);
 				neshamot.scale.set(4.5,4.5,4.5);
 				neshamot.receiveShadow=true;
 				neshamot.castShadow=true;
+				neshamot.updateAnimation(animDelta);
 				scene2.add( neshamot );	
 				
 					function drawdTube(dtube){
@@ -1422,7 +1424,7 @@ var clock = new THREE.Clock();
 
 //other movement timers
 
-var time, delta, spinTimer, lightTimer;
+var time, delta, spinTimer, lightTimer, animDelta;
 
 function movementTimer (){
 	
@@ -1430,6 +1432,10 @@ function movementTimer (){
 	spinTimer = time / 6000;
 	lightTimer = time * 0.0025;
 	delta = 0.001 * ( time - oldTime );
+	animDelta = time - oldTime;
+	if (isNaN(animDelta) || animDelta > 1000 || animDelta === 0) {
+        animDelta = 1000 / 60;
+      }
 	oldTime = time;
 
 }
