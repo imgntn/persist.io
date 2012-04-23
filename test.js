@@ -32,6 +32,8 @@ url = 'http://bethere.io:7379/GET/nonuniquevisitors'
 requests.push(url);
 url='http://bethere.io:7379/SMEMBERS/sessionIDs';
 requests.push(url);
+url = 'http://bethere.io:7379/GET/mytest';
+requests.push(url);
 
 for (var i=0; i < requests.length; i++){
 	
