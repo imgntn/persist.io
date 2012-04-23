@@ -552,9 +552,7 @@ console.log("Got data: " + data);
 							cloneCharacterNet.setWeapon( 0 );
 							cloneCharacterNet.setSkin( i );
 
-							cloneCharacterNet.root.position.x = ( i - nSkins/2 ) * 150;
-							cloneCharacterNet.root.position.z = j * 250;
-
+							cloneCharacterNet.root.position = 	new THREE.Vector3(data[0]+10,data[1]+10,data[2]+10)
 							scene2.add( cloneCharacterNet.root );
 
 

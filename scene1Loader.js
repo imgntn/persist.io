@@ -26,7 +26,7 @@ var scene1Loader = function(){
 	island.rotation.set(0,0,0);
 	island.scale.set(500,500,500);
 	scene.add( island );
-	collidersArray.push(island);
+	//collidersArray.push(island);
 	});
 	return island;
 };
@@ -48,7 +48,7 @@ scene1Loader.createBaptistery = function(scene) {
 	baptistery.scale.set(22.5,22.5,22.5);
 	baptistery.receiveShadow=true;
 	scene.add( baptistery );
-	collidersArray.push(baptistery);
+	//collidersArray.push(baptistery);
 	});
 	return baptistery;
 };
@@ -68,7 +68,7 @@ scene1Loader.createPlant1 = function(scene) {
 	plant1.castShadow = true;
 	plant1.receiveShadow = true;
 	scene.add( plant1 );
-	collidersArray.push(plant1);
+//	collidersArray.push(plant1);
 	});
 	return plant1;
 };
@@ -125,7 +125,7 @@ scene1Loader.createAttachments = function(scene, geometry) {
 	mesh.scale= new THREE.Vector3(5,5,5);
 	scene.add( mesh );
 	meshes['attachmentF'] = mesh;
-collidersArray.push(meshes);
+//collidersArray.push(meshes);
 	return meshes;	
 };
 
