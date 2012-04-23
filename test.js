@@ -25,7 +25,13 @@ client.publish("juggernaut", JSON.stringify(msg));
 client.publish("juggernaut", JSON.stringify(msg2));
 client.publish("juggernaut", JSON.stringify(msg3));
 
-request('http://bethere.io:7379/GET/nonuniquevisitors', function (error, response, body) {
+request1 = request('http://bethere.io:7379/GET/nonuniquevisitors', function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+    console.log(body) // Print the google web page.
+  }
+});
+
+request2 = request('http://bethere.io:7379/SMEMBERS/sessionIDs', function (error, response, body) {
   if (!error && response.statusCode == 200) {
     console.log(body) // Print the google web page.
   }
