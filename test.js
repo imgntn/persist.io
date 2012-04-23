@@ -18,8 +18,25 @@ var msg3 = {
   "data": [-1500,-10,0]
 
 };
+
+var liveList = {
+  "channels": ["liveList"],
+  "data": [liveListRequests]
+
+};
+
 var cronJob = require('cron').CronJob;
 new cronJob('* * * * * *', function(){
+	
+	liveListRequests = request("http://localhost:7379/SMEMBERS/sessionIDs'", function (error, response, body) {
+	  if (!error && response.statusCode == 200) {
+			client.pubish("juggernaut",JSON.stringify(liveList));
+	    console.log(body) // Print the google web page.
+	  }
+	});
+	
+
+	
     console.log('You will see this message every second');
 }, null, true, "America/Los_Angeles");
 
