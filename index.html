@@ -404,15 +404,7 @@ console.log("Got data: " + data);
 				var nnetRows = 1,  nnetSkins = 1,  netCharacter,  netBaseCharacter,  cloneCharacterNet, netGyro;
 				var neshamotLoader, neshamotMaterial,netLight;
 					var dtube;
-					
-								var netTreeTweenScale;
-								function initNetTreeAnim() {
-												//scale
-												netTreeTweenScale = new TWEEN.Tween( scene2NetTree.scale )
-												.delay(4000)
-												.to({x: 1.25, y: 1.25, z: 1.25}, 4000)
-												.easing(TWEEN.Easing.Sinusoidal.EaseInOut)
-											}			
+		
 		 jug.subscribe("scene2trees", function(data){
 		    console.log("treesdata: " + data)
 			scene2NetTree = new Tree(branchMaterial, -1 , 25, 0, 1.5);
@@ -451,7 +443,7 @@ console.log("Got data: " + data);
 				
 					function drawdTube(dtube){
 
-					var dradius = 5 ;
+					var dradius = 2.5 ;
 					var dpath;
 						dpath = new THREE.SplineCurve3();
 					      dpath.points.push( new THREE.Vector3(data[0],data[1]+100,data[2]));
@@ -563,7 +555,7 @@ console.log("Got data: " + data);
 							cloneCharacterNet.setSkin( i );
 
 							cloneCharacterNet.root.position = 	new THREE.Vector3(data[0]+70,data[1]+100,data[2]+70);
-							 cloneCharacterNet.root.rotation = 	new THREE.Vector3(0,3.75,0);
+							cloneCharacterNet.root.rotation = 	new THREE.Vector3(0,3.75,0);
 							cloneCharacterNet.castShadow = true;
 							scene2.add( cloneCharacterNet.root );
 
@@ -583,7 +575,6 @@ console.log("Got data: " + data);
 
 				netBaseCharacter.loadParts( netConfigModel );
 			
-			initNetTreeAnim();
 		    });
 		
 		
