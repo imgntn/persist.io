@@ -37,9 +37,9 @@ new cronJob('* * * * * *', function(){
 		  "channels": ["liveList"],
 		  "data": [liveListRequests]
 		};
-			client.publish("juggernaut", JSON.stringify(liveList));
 	  };
 
+		client.publish("juggernaut", JSON.stringify(liveList));
 
 	});
 	
