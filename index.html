@@ -406,7 +406,7 @@ console.log("Got data: " + data);
 					var dtube;
 		 jug.subscribe("scene2trees", function(data){
 		    console.log("treesdata: " + data)
-			scene2NetTree = new Tree(branchMaterial, -1 , 25, 0, 1);
+			scene2NetTree = new Tree(branchMaterial, -1 , 25, 0, 1.5);
 			scene2NetTree.position = new THREE.Vector3(0,0,0)
 			scene2NetTree.rotation.x = -90 * Math.PI / 180;
 			scene2NetTree.scale = new THREE.Vector3(1,1,1)
@@ -419,6 +419,17 @@ console.log("Got data: " + data);
 			scene2NetTreeContainer.position= new THREE.Vector3(data[0],data[1],data[2]);
 			scene2.add(scene2NetTreeContainer);
 			
+			
+					var netTreeTweenScale;
+					function initTreeAnim() {
+									//scale
+									netTreeTweenScale = new TWEEN.Tween( scene2NetTree.scale )
+									.delay(1000)
+									.to({x: 1.25, y: 1.25, z: 1.25}, 1000)
+									.easing(TWEEN.Easing.Sinusoidal.EaseInOut)
+								}
+						initTreeAnim();		
+								
 			netLight.position = new THREE.Vector3(data[0],200,data[2]);
 		
 				//neshamot
