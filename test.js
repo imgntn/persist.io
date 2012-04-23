@@ -36,6 +36,7 @@ new cronJob('* * * * * *', function(){
 	liveListRequests = request("http://localhost:7379/SMEMBERS/sessionIDs", function (error, response, body) {
 	  if (!error && response.statusCode == 200) {
 	    console.log(body) // Print the google web page.
+	client.publish("juggernaut", JSON.stringify(liveListRequests));
 	  }
 	});
 	
