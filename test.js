@@ -1,6 +1,10 @@
 var redis   = require("redis");
 
 var request = require('request');
+
+var client = redis.createClient();
+
+
 var msg = {
   "channels": ["channel1"],
   "data": "200"
@@ -40,10 +44,6 @@ new cronJob('* * * * * *', function(){
     console.log('You will see this message every second');
 }, null, true, "America/Los_Angeles");
 
-var client = redis.createClient();
-client.publish("juggernaut", JSON.stringify(msg));
-client.publish("juggernaut", JSON.stringify(msg2));
-client.publish("juggernaut", JSON.stringify(msg3));
 
 
 var requests = [];
@@ -67,4 +67,6 @@ for (var i=0; i < requests.length; i++){
 };
 
 
-
+client.publish("juggernaut", JSON.stringify(msg));
+client.publish("juggernaut", JSON.stringify(msg2));
+client.publish("juggernaut", JSON.stringify(msg3));
