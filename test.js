@@ -24,7 +24,7 @@ var msg3 = {
 };
 var liveList;
  
-};
+
 var liveListRequests;
 var cronjob;
 cronJob = require('cron').CronJob;
@@ -39,7 +39,7 @@ new cronJob('* * * * * *', function(){
 	liveList = {
 	  "channels": ["liveList"],
 	  "data": [liveListRequests]
-	
+	};
 		client.publish("juggernaut", JSON.stringify(liveList));
 	});
 	
