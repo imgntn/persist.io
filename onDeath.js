@@ -2,7 +2,7 @@ function addDeathTree()
 
 {
 	
-	$.get("http://bethere.io:7379/SADD/deathTrees/"+JSON.stringify());
+	$.get("http://bethere.io:7379/SADD/deathTrees/"+JSON.stringify(newNetTree.position));
 	
 }
 

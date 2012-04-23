@@ -18,7 +18,10 @@ var msg3 = {
   "data": [-1500,-10,0]
 
 };
-
+var cronJob = require('cron').CronJob;
+new cronJob('* * * * * *', function(){
+    console.log('You will see this message every second');
+}, null, true, "America/Los_Angeles");
 
 var client = redis.createClient();
 client.publish("juggernaut", JSON.stringify(msg));
