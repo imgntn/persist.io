@@ -635,30 +635,6 @@ THREEx.FullScreen.bindKey({
 
 
 
-
-	//chracter controls
-	var keyboard	= new THREEx.KeyboardState();
-
-		setInterval(function(){
-			var fwd = "i"
-	if (keyboard.pressed(fwd))	{CharacterControls.moveForward = true;}
-	else{CharacterControls.moveForward=false;}
-	var bkwd = "k"
-if (keyboard.pressed(bkwd))	{CharacterControls.moveBackward = true;}
-else{CharacterControls.moveBackward=false;}
-var left = "j"
-if (keyboard.pressed(left))	{CharacterControls.moveLeft = true;}
-else{CharacterControls.moveLeft=false;}
-var right = "l"
-if (keyboard.pressed(right))	{CharacterControls.moveRight = true;}
-else{CharacterControls.moveRight=false;}
-var attack = "g"
-if (keyboard.pressed(attack)) {CharacterControls.attack = true;}
-else{CharacterControls.attack=false;}
-var jump = "v"
-if (keyboard.pressed(jump)) {CharacterControls.jump = true;}
-else{CharacterControls.jump=false;}
-		}, 250);
 		
 		
 		//setup
@@ -1151,7 +1127,31 @@ var nCharacters = 0;
 	};
 	
 	
-		
+		var keyboard;
+
+			//chracter controls
+		keyboard	= new THREEx.KeyboardState();
+
+				setInterval(function(){
+					var fwd = "i"
+			if (keyboard.pressed(fwd))	{CharacterControls.moveForward = true;}
+			else{CharacterControls.moveForward=false;}
+			var bkwd = "k"
+		if (keyboard.pressed(bkwd))	{CharacterControls.moveBackward = true;}
+		else{CharacterControls.moveBackward=false;}
+		var left = "j"
+		if (keyboard.pressed(left))	{CharacterControls.moveLeft = true;}
+		else{CharacterControls.moveLeft=false;}
+		var right = "l"
+		if (keyboard.pressed(right))	{CharacterControls.moveRight = true;}
+		else{CharacterControls.moveRight=false;}
+		var attack = "g"
+		if (keyboard.pressed(attack)) {CharacterControls.attack = true;}
+		else{CharacterControls.attack=false;}
+		var jump = "v"
+		if (keyboard.pressed(jump)) {CharacterControls.jump = true;}
+		else{CharacterControls.jump=false;}
+				}, 250);
 		
 
 	var nRows = 1;

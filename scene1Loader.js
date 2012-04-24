@@ -18,6 +18,7 @@ var scene1Loader = function(){
 	island_material.color = new THREE.Color().setRGB(1,1,1);
 	island_material.ambient = new THREE.Color().setRGB(0.0196078431372549,0.0196078431372549,0.0196078431372549);
 	island_material.specular = new THREE.Color().setRGB(0.06666666666666667,0.06666666666666667,0.06666666666666667);
+	island_material.doubleSided=true;
     //island_material.map =
 
 	island = new THREE.Mesh(island_geometry, island_material);
@@ -41,7 +42,7 @@ scene1Loader.createBaptistery = function(scene) {
 	baptistery_material.ambient = new THREE.Color().setRGB(0.0196078431372549,0.0196078431372549,0.0196078431372549);
 	baptistery_material.specular = new THREE.Color().setRGB(0.06666666666666667,0.06666666666666667,0.06666666666666667);
 	//material.map =
-	
+	baptistery_material.doubleSided=true;
 	baptistery = new THREE.Mesh(bapstistery_geometry, baptistery_material);
 	baptistery.position.set(12.26993865,7.5,-58.47953216);
 	baptistery.rotation.set(0,-0.84,0);
