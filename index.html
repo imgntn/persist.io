@@ -59,6 +59,15 @@
 		<button onclick="renderManager.setCurrent('ThirdSetup');controls.freeze=false;">Third Camera</button>
 	<button onclick="renderManager.setCurrent('SecondScene');controls.freeze=false;controls.movementSpeed=300;">SecondScene</button>
 	</div>
+	
+	
+	
+	<audio id="audio_1" preload loop>
+	<source src="html5-audio-loop.ogg">
+	<source src="html5-audio-loop.mp3">
+	</audio>
+	
+	
 	<script id="fragment_shader_screen" type="x-shader/x-fragment">
 
 				varying vec2 vUv;
@@ -1380,7 +1389,7 @@ renderManager.add('SecondSetup', scene, camera2, function(delta, renderer)
 	controls.object = this.camera;
 	RTTmaterial.needsUpdate = true;
 	materialScreen.needsUpdate = true;
-	renderer.render( scene, cameraRTT, rtTexture, true );
+	renderer.render( scene2, cameraRTT, rtTexture, true );
 //	renderer.render( sceneScreen, cameraRTT );
 
 	renderer.render(this.scene, this.camera);

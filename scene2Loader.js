@@ -250,7 +250,7 @@ branchMaterial.shading = THREE.SmoothShading;
 					txtparent = new THREE.Object3D();
 					txtparent.position.y = 100;
 
-					scene2.add( txtparent );
+				//	scene2.add( txtparent );
 		
 	createText();
 	
