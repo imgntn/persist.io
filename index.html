@@ -1879,6 +1879,7 @@ if(neshamotHere==true){neshamot.updateAnimation(animDelta);neshamot.position.x =
 			makeNoise();
 	}
 /*setTimeout("animate();",4000);*/
+$('#dialogTarget').dialog('open');
 animate();
 
 function show_prompt_name()
@@ -1891,7 +1892,7 @@ $.get("http://bethere.io:7379/SADD/userNames/"+name)
   }
 }
 
-$('#dialogTarget').dialog('open');
+
 
 $(document).ready(function () {
 	show_prompt_name();
