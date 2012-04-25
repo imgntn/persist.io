@@ -122,6 +122,7 @@ branchMaterial.shading = THREE.SmoothShading;
 	ground.doubleSided=true;
 	ground.receiveShadow=true;
 	ground.castShadow=false;
+	ground.scale= new THREE.Vector3(2.5,2.5,2.5)
 	scene2.add( ground );
 	
 	//lights
@@ -181,14 +182,14 @@ branchMaterial.shading = THREE.SmoothShading;
 	//skybox
 
 	// load the cube textures
-		 urlPrefix	= "skybox/cubemap_gradient/";
-	/*	 urls = [ urlPrefix + "posx.jpg", urlPrefix + "negx.jpg",
+		 urlPrefix	= "skybox/cubemap_badmeat_nightsky/";
+		 urls = [ urlPrefix + "posx.jpg", urlPrefix + "negx.jpg",
 				urlPrefix + "posy.jpg", urlPrefix + "negy.jpg",
 				urlPrefix + "posz.jpg", urlPrefix + "negz.jpg" ];
-				*/
-				 urls = [ urlPrefix + "posx.png", urlPrefix + "negx.png",
+				
+				 /*urls = [ urlPrefix + "posx.png", urlPrefix + "negx.png",
 						urlPrefix + "posy.png", urlPrefix + "negy.png",
-						urlPrefix + "posz.png", urlPrefix + "negz.png" ];
+						urlPrefix + "posz.png", urlPrefix + "negz.png" ];*/
 		 textureCube	= THREE.ImageUtils.loadTextureCube( urls );
 
 		// init the cube shadder
