@@ -224,14 +224,14 @@ branchMaterial.shading = THREE.SmoothShading;
 
 	
 
-						height = 200,
-						size = 200,
+						height = 50,
+						size = 50,
 						hover = 000,
 
-						curveSegments = 4,
+						curveSegments = 6,
 
-						bevelThickness = 2,
-						bevelSize = 1.5,
+						bevelThickness = 1.5,
+						bevelSize = 1.8,
 						bevelSegments = 3,
 						bevelEnabled = true,
 						bend = true,
@@ -253,6 +253,7 @@ branchMaterial.shading = THREE.SmoothShading;
 		
 	createText();
 	scene2.add(txtparent);
+	txtparent.scale = new THREE.Vector3(2,2,2);
 	txtparent.position.y = 800;
 	
 
