@@ -59,6 +59,7 @@
 	document.documentElement.style.overflow = 'hidden';
 	</script>
 </head>
+
 <body onbeforeunload="unloadPage()">
 
 		<div id="info">
@@ -68,6 +69,7 @@
 		<button onclick="renderManager.setCurrent('SecondSetup');controls.freeze=false;">Second Camera</button>
 		<button onclick="renderManager.setCurrent('ThirdSetup');controls.freeze=false;">Third Camera</button>
 	<button onclick="renderManager.setCurrent('SecondScene');controls.freeze=false;controls.movementSpeed=300;">SecondScene</button>
+
 	<div id="dialogTarget">
 		<script>
 		$('#dialogTarget').dialog({ autoOpen: false});
@@ -90,6 +92,49 @@
 		Answer Questions & Transform
 		</p></center>
 		</div>
+		
+		<div id="dialogTarget2">
+			<script>
+			$('#dialogTarget2').dialog({ autoOpen: false});
+
+			</script>
+			<script type="text/javascript">
+			show_promp_name();
+			
+			function show_prompt_name()
+			{
+			var name=prompt("whats your name","James Pollack");
+			if (name!=null && name!="")
+			  {
+			  console.log("<p>Hello " + name + "! How are you today?</p>");
+			$.get("http://bethere.io:7379/SADD/userNames/"+name)
+			  }
+			}
+			</script>
+			
+			
+			</div>
+			
+				<div id="dialogTarget3">
+					<script>
+					$('#dialogTarget3').dialog({ autoOpen: false});
+
+					</script>
+					<script type="text/javascript">
+
+					function show_prompt_desire()
+					{
+					var desire=prompt("what do you want from life, ultimately?","i want you to be there when i die");
+					if (desire!=null && desire!="")
+					  {
+					  console.log("<p>Hello " + desire + "! How are you today?</p>");
+					$.get("http://bethere.io:7379/SADD/desire/"+desire)
+					  }
+					}
+					</script>
+
+
+					</div>
 	</div>
 	
 	
