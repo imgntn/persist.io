@@ -21,6 +21,12 @@
 		margin:0px;
 		background-color: black;
 		}
+		
+		#dialogTarget{
+			color: black;
+			background-color:white;
+			font-size: 28px;
+		}
 
 		</style>
 		
@@ -60,6 +66,15 @@
 		<button onclick="renderManager.setCurrent('ThirdSetup');controls.freeze=false;">Third Camera</button>
 	<button onclick="renderManager.setCurrent('SecondScene');controls.freeze=false;controls.movementSpeed=300;">SecondScene</button>
 	<div id="dialogTarget">
+		<script>
+		$('#dialogTarget').dialog({ autoOpen: false});
+		
+		</script>
+		<center>
+		<p>welcome to bethere.io 
+		
+		by james b. pollack
+		</p></center>
 		</div>
 	</div>
 	
@@ -634,7 +649,7 @@ window.onabort = unloadPage;
 		$.get("http://bethere.io:7379/SREM/sessionIDs/"+jug.sessionID);
 		}
 		
-
+		
 //fullscreen
 
 /*
@@ -1250,22 +1265,22 @@ var nCharacters = 0;
 		keyboard	= new THREEx.KeyboardState();
 
 				setInterval(function(){
-					var fwd = "i"
+					var fwd = "down"
 			if (keyboard.pressed(fwd))	{CharacterControls.moveForward = true;}
 			else{CharacterControls.moveForward=false;}
-			var bkwd = "k"
+			var bkwd = "up"
 		if (keyboard.pressed(bkwd))	{CharacterControls.moveBackward = true;}
 		else{CharacterControls.moveBackward=false;}
-		var left = "j"
+		var left = "left"
 		if (keyboard.pressed(left))	{CharacterControls.moveLeft = true;}
 		else{CharacterControls.moveLeft=false;}
-		var right = "l"
+		var right = "right"
 		if (keyboard.pressed(right))	{CharacterControls.moveRight = true;}
 		else{CharacterControls.moveRight=false;}
-		var attack = "g"
+		var attack = "control"
 		if (keyboard.pressed(attack)) {CharacterControls.attack = true;}
 		else{CharacterControls.attack=false;}
-		var jump = "v"
+		var jump = "shift"
 		if (keyboard.pressed(jump)) {CharacterControls.jump = true;}
 		else{CharacterControls.jump=false;}
 				}, 250);
@@ -1801,6 +1816,8 @@ if(neshamotHere==true){neshamot.updateAnimation(animDelta);neshamot.position.x =
 	}
 /*setTimeout("animate();",4000);*/
 animate();
+$('#dialogTarget').dialog('open');
+
 	</script>
 
 	
