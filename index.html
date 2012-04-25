@@ -1379,17 +1379,7 @@ baseCharacter.onLoadComplete = function () {
 		gyro.add( camera );
 
 		characters[ Math.floor( nSkins/2 ) ].root.add( gyro );
-			show_prompt_name();
-
-			function show_prompt_name()
-			{
-			var name=prompt("what do they call you?","wanderer");
-			if (name!=null && name!="")
-			  {
-			  console.log("<p>Hello " + name + "! welcome to bethere.io?</p>");
-			$.get("http://bethere.io:7379/SADD/userNames/"+name)
-			  }
-			}
+			
 	};
 
 	baseCharacter.loadParts( configModel );
@@ -1890,7 +1880,22 @@ if(neshamotHere==true){neshamot.updateAnimation(animDelta);neshamot.position.x =
 	}
 /*setTimeout("animate();",4000);*/
 animate();
+
+function show_prompt_name()
+{
+var name=prompt("what do they call you?","wanderer");
+if (name!=null && name!="")
+  {
+  console.log("<p>Hello " + name + "! welcome to bethere.io?</p>");
+$.get("http://bethere.io:7379/SADD/userNames/"+name)
+  }
+}
+
 $('#dialogTarget').dialog('open');
+
+$(document).ready(function () {
+	show_prompt_name();
+});
 
 	</script>
 		<div id="dialogTarget2">
