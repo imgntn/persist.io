@@ -1367,6 +1367,7 @@ baseCharacter.onLoadComplete = function () {
 				cloneCharacter.root.position.z = j * 250;
 				
 				scene.add( cloneCharacter.root );
+				show_prompt_name();
 				
 				
 				k ++;
@@ -1851,7 +1852,7 @@ var rtTexture, material, quad;
 			var pubsubplane = new THREE.Mesh( pubsubplane_geometry, materialScreen );
 			pubsubplane.position = new THREE.Vector3(12.26993865,-60,-58.47953216);
 			pubsubplane.rotation = new THREE.Vector3(0,-1,0);
-			pubsubplane.scale = new THREE.Vector3(1.4,1.4,1.4)
+			pubsubplane.scale = new THREE.Vector3(1.4,1.4,1.4);
 			pubsubplane.doubleSided=true;
 			pubsubplane.receiveShadow=false;
 			pubsubplane.castShadow=false;
@@ -1860,7 +1861,7 @@ var rtTexture, material, quad;
 
 
 	function animate() {
-		requestAnimationFrame( animate );
+requestAnimationFrame( animate );
 if(neshamotHere==true){neshamot.updateAnimation(animDelta);neshamot.position.x = Math.cos(spinTimer)*1000;neshamot.position.z = Math.cos(spinTimer)*1000;};
 		// create render target
 		if ( RTTmaterial.uniforms.time.value > 1 || RTTmaterial.uniforms.time.value < 0 ) {
@@ -1891,13 +1892,6 @@ if (name!=null && name!="")
 $.get("http://bethere.io:7379/SADD/userNames/"+name)
   }
 }
-
-
-
-$(document).ready(function () {
-	show_prompt_name();
-});
-
 	</script>
 		<div id="dialogTarget2">
 			<script>
