@@ -1104,7 +1104,7 @@ geometry = new THREE.Geometry();
 
 				for ( i = 0; i < 2000; i ++ ) {
 
-					vector = new THREE.Vector3( Math.random() * 2000 - 1000, Math.random() * 2000 - 1000, Math.random() * 2000 - 1000 );
+					vector = new THREE.Vector3( Math.random() * 3000 - 1000, Math.random() * 3000 - 1000, Math.random() * 3000 - 1000 );
 					geometry.vertices.push( new THREE.Vertex( vector ) );
 
 				}
@@ -1550,6 +1550,16 @@ renderManager.add('Above', scene, camera2, function(delta, renderer)
 		if (this.camera.position.y <=-1000){this.camera.position.y=-990;}
 		//ceiling
 			if (this.camera.position.y >=1500){this.camera.position.y=1480;}
+			
+			//walls
+			
+			if (this.camera.position.x >=2600){this.camera.position.x=2560;}
+			if (this.camera.position.x <=-2600){this.camera.position.x=-2560;}
+			
+				if (this.camera.position.z >=2600){this.camera.position.z=2560;}
+				if (this.camera.position.z <=-2600){this.camera.position.z=-2560;}
+			
+			
 	//collisionDetection()
 	
 	
@@ -1608,6 +1618,13 @@ renderManager.add('Beyond', scene2, scene2camera, function(delta, renderer)
 				if (this.camera.position.y <=10){this.camera.position.y=11;}
 				//ceiling
 					if (this.camera.position.y >=3000){this.camera.position.y=1990;}
+					
+					
+						if (this.camera.position.x >=10000){this.camera.position.x=9990;}
+						if (this.camera.position.x <=-10000){this.camera.position.x=-9990;}
+
+							if (this.camera.position.z >=10000){this.camera.position.z=9990;}
+							if (this.camera.position.z <=-10000){this.camera.position.z=-9990;}
 	//collisionDetection()
 	
 	}

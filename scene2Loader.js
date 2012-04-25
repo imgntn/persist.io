@@ -114,15 +114,15 @@ branchMaterial.shading = THREE.SmoothShading;
 	groundTexture.minFilter = THREE.LinearFilter;
 	groundTexture.magFilter = THREE.LinearFilter;
 	groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
-	groundGeometry = new THREE.PlaneGeometry( 10000, 10000 );
+	groundGeometry = new THREE.PlaneGeometry( 20000, 20000 );
 	groundMaterial =  new THREE.MeshPhongMaterial( { map:groundTexture, shininess: 2, ambient:0x998822} );
 	ground = new THREE.Mesh( groundGeometry, groundMaterial );
-	ground.position = new THREE.Vector3(0,-30,0)
-	ground.rotation = new THREE.Vector3(0,0,0)
+	ground.position = new THREE.Vector3(0,-30,0);
+	ground.rotation = new THREE.Vector3(0,0,0);
 	ground.doubleSided=true;
 	ground.receiveShadow=true;
 	ground.castShadow=false;
-	ground.scale= new THREE.Vector3(2.5,2.5,2.5)
+	ground.scale= new THREE.Vector3(1.25,1.25,1.25);
 	scene2.add( ground );
 	
 	//lights
