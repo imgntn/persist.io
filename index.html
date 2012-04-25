@@ -452,7 +452,7 @@ console.log("Got data: " + data);
 				neshamotMaterial.morphTargets=true;
 				//material.map =
 				neshamot = new THREE.MorphAnimMesh(neshamotGeometry, neshamotMaterial);
-				neshamot.position.set(data[0]/2,-10,data[2]/2);
+				neshamot.position.set(data[0]/2,-30,data[2]/2);
 				neshamot.rotation.set(0,0,0);
 				neshamot.scale.set(4.5,4.5,4.5);
 				neshamot.receiveShadow=true;
@@ -596,6 +596,7 @@ console.log("Got data: " + data);
 			
 									netLight.position = new THREE.Vector3(data[0],1200,data[2]);
 									netLight.target = netCharacter.root;
+									
 		    });
 		
 		
@@ -643,7 +644,103 @@ THREEx.FullScreen.bindKey({
 //loader
 
 
+function createText() {
 
+				textGeo = new THREE.TextGeometry( text, {
+
+					size: size,
+					height: height,
+					curveSegments: curveSegments,
+
+					font: font,
+					weight: weight,
+					style: style,
+
+					bevelThickness: bevelThickness,
+					bevelSize: bevelSize,
+					bevelEnabled: bevelEnabled,
+
+					bend: bend,
+
+					material: 0,
+					extrudeMaterial: 1
+
+				});
+				textGeo.materials = [ textMaterialFront, textMaterialSide ];
+
+							textGeo.computeBoundingBox();
+							textGeo.computeVertexNormals();
+
+							// "fix" side normals by removing z-component of normals for side faces
+							// (this doesn't work well for beveled geometry as then we lose nice curvature around z-axis)
+
+							if ( ! bevelEnabled ) {
+
+								var triangleAresaHeuristics = 0.1 * ( height * size );
+
+								for ( var i = 0; i < textGeo.faces.length; i ++ ) {
+
+									var face = textGeo.faces[ i ];
+
+									if ( face.materialIndex == 1 ) {
+
+										for ( var j = 0; j < face.vertexNormals.length; j ++ ) {
+
+											face.vertexNormals[ j ].z = 0;
+											face.vertexNormals[ j ].normalize();
+
+										}
+
+										var va = textGeo.vertices[ face.a ].position;
+										var vb = textGeo.vertices[ face.b ].position;
+										var vc = textGeo.vertices[ face.c ].position;
+
+										var s = THREE.GeometryUtils.triangleArea( va, vb, vc );
+
+										if ( s > triangleAreaHeuristics ) {
+
+											for ( var j = 0; j < face.vertexNormals.length; j ++ ) {
+
+												face.vertexNormals[ j ].copy( face.normal );
+
+											}
+
+										}
+
+									}
+
+								}
+
+							text}
+
+							var centerOffset = -0.3 * ( textGeo.boundingBox.max.x - textGeo.boundingBox.min.x );
+
+							textMesh1 = new THREE.Mesh( textGeo, faceMaterial );
+
+							textMesh1.position.x = centerOffset;
+							textMesh1.position.y = hover;
+							textMesh1.position.z = 0;
+
+							textMesh1.rotation.x = 0;
+							textMesh1.rotation.y = Math.PI * 2;
+
+							txtparent.add( textMesh1 );
+							if ( mirror ) {
+
+											textMesh2 = new THREE.Mesh( textGeo, faceMaterial );
+
+											textMesh2.position.x = centerOffset;
+											textMesh2.position.y = -hover;
+											textMesh2.position.z = height;
+
+											textMesh2.rotation.x = Math.PI;
+											textMesh2.rotation.y = Math.PI * 2;
+
+											txtparent.add( textMesh2 );
+											
+
+}
+}
 		
 		
 		//setup
@@ -663,7 +760,7 @@ THREEx.FullScreen.bindKey({
 
 	scene = new THREE.Scene();
 scene.add(camera);
-	scene.fog = new THREE.FogExp2( 0x000000, 0.0010 );
+	scene.fog = new THREE.FogExp2( 0x000000, 0.0007 );
 	renderer = new THREE.WebGLRenderer( { clearAlpha: 1, clearColor: 0x000000 } );
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.autoClear = false;
@@ -1369,6 +1466,9 @@ renderManager.add('FirstSetup', scene, camera, function(delta, renderer)
 renderer.render( scene, cameraRTT, rtTexture, true );
 //renderer.render( sceneScreen, cameraRTT );
 		renderer.render(this.scene, this.camera);
+			if (this.camera.position.y <=-1000){this.camera.position.y=-990;}
+			//ceiling
+				if (this.camera.position.y >=1500){this.camera.position.y=1480;}
 	
 	}
 
@@ -1429,9 +1529,12 @@ renderManager.add('SecondScene', scene2, scene2camera, function(delta, renderer)
 		funstuff();
 		controls.object = this.camera;
 		//this.camera.lookAt(new THREE.Vector3(0,0,0));
-			
-			renderer.render(this.scene, this.camera);
-		
+	
+						renderer.render(this.scene, this.camera);
+						//floor
+				if (this.camera.position.y <=10){this.camera.position.y=11;}
+				//ceiling
+					if (this.camera.position.y >=3000){this.camera.position.y=1990;}
 	//collisionDetection()
 	
 	}

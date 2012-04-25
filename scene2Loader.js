@@ -87,7 +87,7 @@ branchMaterial.shading = THREE.SmoothShading;
 	scene2treeContainer = new THREE.Object3D();
 	scene2treeContainer.useQuaternion = true;
 	scene2treeContainer.add( scene2tree );
-	scene2treeContainer.position= new THREE.Vector3(0,-10,0);
+	scene2treeContainer.position= new THREE.Vector3(0,-30,0);
 	scene2.add(scene2treeContainer);
 	
 	scene2tree2 = new Tree(branchMaterial, -1 , 25, 0, 1);
@@ -100,7 +100,7 @@ branchMaterial.shading = THREE.SmoothShading;
 	scene2treeContainer2 = new THREE.Object3D();
 	scene2treeContainer2.useQuaternion = true;
 	scene2treeContainer2.add( scene2tree2 );
-	scene2treeContainer2.position= new THREE.Vector3(1000,-10,0);
+	scene2treeContainer2.position= new THREE.Vector3(1000,-30,0);
 	scene2.add(scene2treeContainer2);
 	
 	
@@ -117,7 +117,7 @@ branchMaterial.shading = THREE.SmoothShading;
 	groundGeometry = new THREE.PlaneGeometry( 10000, 10000 );
 	groundMaterial =  new THREE.MeshPhongMaterial( { map:groundTexture, shininess: 2, ambient:0x998822} );
 	ground = new THREE.Mesh( groundGeometry, groundMaterial );
-	ground.position = new THREE.Vector3(0,-10,0)
+	ground.position = new THREE.Vector3(0,-30,0)
 	ground.rotation = new THREE.Vector3(0,0,0)
 	ground.doubleSided=true;
 	ground.receiveShadow=true;
@@ -224,9 +224,9 @@ branchMaterial.shading = THREE.SmoothShading;
 
 	
 
-						height = 100,
-						size = 100,
-						hover = 600,
+						height = 200,
+						size = 200,
+						hover = 800,
 
 						curveSegments = 4,
 
@@ -248,107 +248,12 @@ branchMaterial.shading = THREE.SmoothShading;
 					textMaterialSide = new THREE.MeshPhongMaterial( { color: 0xffffff, shading: THREE.SmoothShading } );
 
 					txtparent = new THREE.Object3D();
-					txtparent.position.y = 100;
 
 				//	scene2.add( txtparent );
 		
 	createText();
+	scene2.add(txtparent);
+	txtparent.position.y = 300;
 	
-	function createText() {
 
-					textGeo = new THREE.TextGeometry( text, {
-
-						size: size,
-						height: height,
-						curveSegments: curveSegments,
-
-						font: font,
-						weight: weight,
-						style: style,
-
-						bevelThickness: bevelThickness,
-						bevelSize: bevelSize,
-						bevelEnabled: bevelEnabled,
-
-						bend: bend,
-
-						material: 0,
-						extrudeMaterial: 1
-
-					});
-					textGeo.materials = [ textMaterialFront, textMaterialSide ];
-
-								textGeo.computeBoundingBox();
-								textGeo.computeVertexNormals();
-
-								// "fix" side normals by removing z-component of normals for side faces
-								// (this doesn't work well for beveled geometry as then we lose nice curvature around z-axis)
-
-								if ( ! bevelEnabled ) {
-
-									var triangleAresaHeuristics = 0.1 * ( height * size );
-
-									for ( var i = 0; i < textGeo.faces.length; i ++ ) {
-
-										var face = textGeo.faces[ i ];
-
-										if ( face.materialIndex == 1 ) {
-
-											for ( var j = 0; j < face.vertexNormals.length; j ++ ) {
-
-												face.vertexNormals[ j ].z = 0;
-												face.vertexNormals[ j ].normalize();
-
-											}
-
-											var va = textGeo.vertices[ face.a ].position;
-											var vb = textGeo.vertices[ face.b ].position;
-											var vc = textGeo.vertices[ face.c ].position;
-
-											var s = THREE.GeometryUtils.triangleArea( va, vb, vc );
-
-											if ( s > triangleAreaHeuristics ) {
-
-												for ( var j = 0; j < face.vertexNormals.length; j ++ ) {
-
-													face.vertexNormals[ j ].copy( face.normal );
-
-												}
-
-											}
-
-										}
-
-									}
-
-								text}
-
-								var centerOffset = -0.3 * ( textGeo.boundingBox.max.x - textGeo.boundingBox.min.x );
-
-								textMesh1 = new THREE.Mesh( textGeo, faceMaterial );
-
-								textMesh1.position.x = centerOffset;
-								textMesh1.position.y = hover;
-								textMesh1.position.z = 0;
-
-								textMesh1.rotation.x = 0;
-								textMesh1.rotation.y = Math.PI * 2;
-
-								txtparent.add( textMesh1 );
-								if ( mirror ) {
-
-												textMesh2 = new THREE.Mesh( textGeo, faceMaterial );
-
-												textMesh2.position.x = centerOffset;
-												textMesh2.position.y = -hover;
-												textMesh2.position.z = height;
-
-												textMesh2.rotation.x = Math.PI;
-												textMesh2.rotation.y = Math.PI * 2;
-
-												txtparent.add( textMesh2 );
-												
-
-	}
-	}
 	}	
