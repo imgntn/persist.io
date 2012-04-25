@@ -601,6 +601,7 @@ console.log("Got data: " + data);
 								txtparent = new THREE.Object3D();
 								txtparent.position =new THREE.Vector3(data[0]+70,data[1]+200,data[2]+70);
 								txtparent.scale = new THREE.Vector3(0.5,0.5,0.5);
+								txtparent.rotation = new THREE.Vector3(0,3.75,0);
 								createText();
 								scene2.add(txtparent);
 		    });
