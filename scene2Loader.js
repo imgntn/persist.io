@@ -226,7 +226,7 @@ branchMaterial.shading = THREE.SmoothShading;
 
 						height = 200,
 						size = 200,
-						hover = 800,
+						hover = 000,
 
 						curveSegments = 4,
 
@@ -253,7 +253,7 @@ branchMaterial.shading = THREE.SmoothShading;
 		
 	createText();
 	scene2.add(txtparent);
-	txtparent.position.y = 300;
+	txtparent.position.y = 800;
 	
 
 	}	
