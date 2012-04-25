@@ -599,8 +599,8 @@ console.log("Got data: " + data);
 								
 								text =Date();
 								txtparent = new THREE.Object3D();
+								txtparent.position =new THREE.Vector3(data[0]+70,data[1]+200,data[2]+70);
 								createText();
-								txtparent.position = new THREE.Vector3(data[0]+70,data[1]+200,data[2]+70) 
 								scene2.add(txtparent);
 		    });
 		
