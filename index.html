@@ -492,26 +492,7 @@ console.log("Got data: " + data);
 				scene2.add( neshamot );	
 				neshamotHere=true;
 				
-					function drawdTube(dtube){
-
-					var dradius = 2.5 ;
-					var dpath;
-						dpath = new THREE.SplineCurve3();
-					      dpath.points.push( new THREE.Vector3(data[0],data[1]+100,data[2]));
-					      dpath.points.push( new THREE.Vector3(data[0]+70,data[1]+150,data[2]+70));
-
-						 dtube = new THREE.Mesh(new THREE.TubeGeometry(dpath, 100, dradius, 4), new THREE.MeshPhongMaterial({
-					        color: 0xff00ff
-					      }));
-						dtube.castShadow=true;
-					      dtube.receiveShadow = true;
-						 dtube.scale = new THREE.Vector3(1,1,1);
-					      scene2.add(dtube);
-								return dtube
-								}
-			
-			
-								drawdTube();
+				
 				
 					
 			});
@@ -621,6 +602,27 @@ console.log("Got data: " + data);
 					netGyro.add( scene2camera );
 
 					netCharacters[ Math.floor( nSkins/2 ) ].root.add( netGyro );
+					
+						function drawdTube(dtube){
+
+						var dradius = 2.5 ;
+						var dpath;
+							dpath = new THREE.SplineCurve3();
+						      dpath.points.push( new THREE.Vector3(data[0],data[1]+100,data[2]));
+						      dpath.points.push( new THREE.Vector3(data[0]+70,data[1]+150,data[2]+70));
+
+							 dtube = new THREE.Mesh(new THREE.TubeGeometry(dpath, 100, dradius, 4), new THREE.MeshPhongMaterial({
+						        color: 0xff00ff
+						      }));
+							dtube.castShadow=true;
+						      dtube.receiveShadow = true;
+							 dtube.scale = new THREE.Vector3(1,1,1);
+						      scene2.add(dtube);
+									return dtube
+									}
+
+
+									drawdTube();
 
 				};
 
