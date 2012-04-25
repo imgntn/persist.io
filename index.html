@@ -1536,6 +1536,7 @@ renderManager.add('Above', scene, camera2, function(delta, renderer)
 			leafTexture.needsUpdate = true;
 			RTTmaterial.needsUpdate = true;
 			materialScreen.needsUpdate = true;
+		
 			
 			renderer.autoClear = false;
 			
@@ -1544,7 +1545,7 @@ renderManager.add('Above', scene, camera2, function(delta, renderer)
 		funstuff();
 
 	controls.object = this.camera;
-	renderer.render( scene, cameraRTT, rtTexture, true );
+	renderer.render( scene2, cameraRTT, rtTexture, true );
 //	renderer.render( sceneScreen, cameraRTT );
 
 	renderer.render(this.scene, this.camera);
@@ -1580,16 +1581,13 @@ renderManager.add('ThirdSetup', scene, camera3, function(delta, renderer)
 			leafTexture.needsUpdate = true;
 			RTTmaterial.needsUpdate = true;
 			materialScreen.needsUpdate = true;
-			
 			renderer.autoClear = false;
 			
 	//THREE.Object3D._threexDomEvent.camera(this.camera);
 		
 		funstuff();
 	//controls.object = this.camera;
-	this.camera.lookAt(character.root.position)
-		renderer.render( scene, cameraRTT, rtTexture, true );
-	renderer.render(this.scene, this.camera);
+	
 	camera3.position.x = Math.sin(spinTimer) * 200;
 	camera3.position.z = Math.cos(spinTimer) * -200;
 	camera3.position.z = Math.cos(spinTimer) * 80 ;
@@ -1598,6 +1596,12 @@ renderManager.add('ThirdSetup', scene, camera3, function(delta, renderer)
 	//ceiling
 		if (camera3.position.y >=1000){camera3.position.y=990;}
 	//collisionDetection()
+	 
+	this.camera.lookAt(character.root.position)
+	
+	renderer.render( scene, cameraRTT, rtTexture, true );
+	renderer.render(this.scene, this.camera);
+
 	
 	}
 
