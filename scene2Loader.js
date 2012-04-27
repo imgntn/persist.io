@@ -256,6 +256,6 @@ branchMaterial.shading = THREE.SmoothShading;
 	scene2.add(txtparent);
 	txtparent.scale = new THREE.Vector3(2,2,2);
 	txtparent.position.y = 800;
-	
 
+var myplant = scene1Loader.createPlant1(scene2);
 	}	

@@ -74,16 +74,39 @@ scene1Loader.createPlant1 = function(scene) {
 	return plant1;
 };
 
+scene1Loader.createPlant2 = function(scene) {
+	
+	for (var i=0;i<=1000;i++){
+		var loader = new THREE.JSONLoader();
+		loader.load( "poppies.js", function(plant1_geometry) {
+		var plant1_material = new THREE.MeshPhongMaterial();
+		plant1_material.color = new THREE.Color().setRGB(1,1,1);
+		plant1_material.ambient = new THREE.Color().setRGB(0.019,0.019,0.01);
+		plant1_material.specular = new THREE.Color().setRGB(0.06,0.06,0.06);
+		//material.map =
+		plant1 = new THREE.Mesh(plant1_geometry, plant1_material);
+		plant1.position.set((Math.floor((Math.random()*-2000)+1)),-30,(Math.floor((Math.random()*2000)+1)));
+		plant1.rotation.set(0,0,0);
+		plant1.scale.set(100,100,100);
+		plant1.castShadow = true;
+		plant1.receiveShadow = true;
+		scene.add( plant1 );
+	//	collidersArray.push(plant1);
+		});
+	}
+	return plant1;
+	
+};
+
 
 scene1Loader.createAttachments = function(scene, geometry) {
 	
 	var material	= new THREE.MeshPhongMaterial( { color: 0xFF8800 } );
 	material.ambient = new THREE.Color().setRGB(0.0196078431372549,0.0196078431372549,0.0196078431372549);
-	
 	var mesh	= new THREE.Mesh( geometry, material );
 	mesh.position.set(-213.1438721,11.19820829,246.3605823);
 	mesh.rotation.set(0,-0.84,0);
-	mesh.scale= new THREE.Vector3(5,5,5);
+	mesh.scale= new THREE.Vector3(8,8,8);
 	scene.add( mesh );
 	meshes['attachmentA']	= mesh;
 
@@ -91,7 +114,7 @@ scene1Loader.createAttachments = function(scene, geometry) {
 	var mesh	= new THREE.Mesh( geometry, material );
 	mesh.position.set(-35.52397869,11.19820829,492.7211646);
 	mesh.rotation.set(0,-0.6283185307179586,-0.06981317007977328);
-	mesh.scale= new THREE.Vector3(5,5,5);
+	mesh.scale= new THREE.Vector3(8,8,8);
 	scene.add( mesh );
 	meshes['attachmentB']	= mesh;
 	
@@ -99,7 +122,7 @@ scene1Loader.createAttachments = function(scene, geometry) {
 	var mesh	= new THREE.Mesh( geometry, material );
 	mesh.position.set(275.3108348,11.19820829,-235.162374);
 	mesh.rotation.set(0,-0.6283185307179586,-0.06981317007977328);
-	mesh.scale= new THREE.Vector3(5,5,5);
+	mesh.scale= new THREE.Vector3(8,8,8);
 	scene.add( mesh );
 	meshes['attachmentC']	= mesh;
 
@@ -107,7 +130,7 @@ scene1Loader.createAttachments = function(scene, geometry) {
 	var mesh	= new THREE.Mesh( geometry, material );
 	mesh.position.set(-257.5488455,11.19820829,-235.162374);
 	mesh.rotation.set(0,0.13962634015954656,0);
-	mesh.scale= new THREE.Vector3(5,5,5);
+	mesh.scale= new THREE.Vector3(8,8,8);
 	scene.add( mesh );
 	meshes['attachmentD']	= mesh;
 	
@@ -115,7 +138,7 @@ scene1Loader.createAttachments = function(scene, geometry) {
 	var mesh	= new THREE.Mesh( geometry, material );
 	mesh.position.set(195.3818828,11.19820829,235.162374);
 	mesh.rotation.set(0,0.13962634015954656,0);
-	mesh.scale= new THREE.Vector3(5,5,5);
+	mesh.scale= new THREE.Vector3(8,8,8);
 	scene.add( mesh );
 	meshes['attachmentE']	= mesh;
 	
@@ -123,7 +146,7 @@ scene1Loader.createAttachments = function(scene, geometry) {
 	var mesh	= new THREE.Mesh( geometry, material );
 	mesh.position.set(-8.880994671,11.19820829,-503.9193729);
 	mesh.rotation.set(0,-2.303834612632515,0);
-	mesh.scale= new THREE.Vector3(5,5,5);
+	mesh.scale= new THREE.Vector3(8,8,8);
 	scene.add( mesh );
 	meshes['attachmentF'] = mesh;
 //collidersArray.push(meshes);

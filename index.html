@@ -989,9 +989,9 @@ var attachmentA, attachmentB, attachmentC, attachmentD, attachmentE, attachmentF
 
 
 
-new THREE.JSONLoader().load('attachmentpoint2.js', function(geometry){
+new THREE.JSONLoader().load('platform5.js', function(geometry){
 	var	meshes = scene1Loader.createAttachments(scene, geometry);//buildMeshes(geometry);
-		bindEvents(meshes);
+	//	bindEvents(meshes);
 		attachmentA = meshes['attachmentA'];
 		attachmentB = meshes['attachmentB'];
 		attachmentC = meshes['attachmentC'];
@@ -1344,7 +1344,7 @@ var nSkins = 1;
 	}
 
 	var baseCharacter = new THREE.MD2CharacterComplex();
-	baseCharacter.scale = 3;
+	baseCharacter.scale = 1;
 	var cloneCharacter;
 baseCharacter.onLoadComplete = function () {
 
@@ -1365,6 +1365,7 @@ baseCharacter.onLoadComplete = function () {
 
 				cloneCharacter.root.position.x = ( i - nSkins/2 ) * 150;
 				cloneCharacter.root.position.z = j * 250;
+				cloneCharacter.root.position.y = 75;
 				
 				scene.add( cloneCharacter.root );
 				show_prompt_name();
@@ -1549,7 +1550,7 @@ renderManager.add('Above', scene, camera2, function(delta, renderer)
 //	renderer.render( sceneScreen, cameraRTT );
 
 	renderer.render(this.scene, this.camera);
-		if (this.camera.position.y <=-1000){this.camera.position.y=-990;}
+		if (this.camera.position.y <= 15){this.camera.position.y=20;}
 		//ceiling
 			if (this.camera.position.y >=1500){this.camera.position.y=1480;}
 			
