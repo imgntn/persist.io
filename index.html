@@ -64,7 +64,7 @@
 
 		<div id="info">
 		<button class="button request">request fullscreen</button>
-	  <textarea id="log" readonly></textarea>
+
 		<button onclick="renderManager.setCurrent('Above');controls.freeze=false;">Above</button>
 		<button onclick="renderManager.setCurrent('ThirdSetup');controls.freeze=false;">&&&</button>
 	<button onclick="renderManager.setCurrent('Beyond');controls.freeze=false;controls.movementSpeed=300;">Beyond</button>
@@ -407,13 +407,13 @@
 	*/
 	
 	//juggernaut websockets
-
+/*
 	var logElement = document.getElementById("log");
     logElement.value = "";
     var log = function(data){
       logElement.value += (data + "\n");
     };
-
+*/
     var jug = new Juggernaut({
       secure: ('https:' == document.location.protocol),
       host: document.location.hostname,
@@ -424,7 +424,7 @@
 	
 	var sessionIDs = [];
 	
-	log("Connected");
+//	log("Connected");
 	$.get("http://bethere.io:7379/INCR/nonuniquevisitors");
 	
 	$.get("http://bethere.io:7379/SADD/sessionIDs/"+jug.sessionID);
@@ -434,28 +434,28 @@
 	 });
     jug.on("disconnect", function(){ 
 	
-	log("Disconnected")
+//	log("Disconnected")
 	$.get("http://bethere.io:7379/SREM/sessionIDs/"+jug.sessionID);
 
  });
     jug.on("reconnect", function(){ 
 	
-	log("Reconnecting") ;
+//	log("Reconnecting") ;
 	$.get("http://bethere.io:7379/SADD/sessionIDs/"+jug.sessionID);
 	
 
 });
 
-    log("Subscribing to channel1");
-  log("Subscribing to channel2");
+//    log("Subscribing to channel1");
+//  log("Subscribing to channel2");
    
  jug.subscribe("channel1", function(data){
-      log("Got data: " + data);
+//log("Got data: " + data);
 console.log("Got data: " + data);
     });
 	var smoothCharacter;
 	    jug.subscribe("channel2", function(data){
-	      log("Got data: " + data);
+	//      log("Got data: " + data);
 	console.log("Got data: " + data);
 	 smoothCharacter = function(object3d) {
 
@@ -852,8 +852,8 @@ scene1Loader();
 	//controls
 
 var controls = new THREE.FirstPersonControls(camera);
-controls.movementSpeed = 100;
-controls.lookSpeed = 0.15;
+controls.movementSpeed = 50;
+controls.lookSpeed = 0.10;
 controls.constrainVertical = true; 
 
 //lights
@@ -1545,7 +1545,7 @@ renderManager.add('Above', scene, camera2, function(delta, renderer)
 		funstuff();
 
 	controls.object = this.camera;
-	renderer.render( scene2, cameraRTT, rtTexture, true );
+	renderer.render( scene, cameraRTT, rtTexture, true );
 //	renderer.render( sceneScreen, cameraRTT );
 
 	renderer.render(this.scene, this.camera);
