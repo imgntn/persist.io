@@ -260,4 +260,5 @@ branchMaterial.shading = THREE.SmoothShading;
 	txtparent.position.y = 1000;
 
 var myplant = scene1Loader.createPlant1(scene2);
+localTransform();
 	}	

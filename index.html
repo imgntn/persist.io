@@ -66,7 +66,7 @@
 			<button onclick="$('#dialogTarget').dialog('open');">Instructions</button>
 <br>
 		<button onclick="renderManager.setCurrent('Above');controls.freeze=false;">Above</button>
-	<button onclick="renderManager.setCurrent('Beyond');controls.freeze=false;controls.movementSpeed=300;localTransform();">Beyond</button>
+	<button onclick="renderManager.setCurrent('Beyond');controls.freeze=false;controls.movementSpeed=300;">Beyond</button>
 
 	<div id="dialogTarget">
 		<script>
@@ -1483,7 +1483,7 @@ function particleMovement(){
 //light movement
 
 var lightCos3, lightCos5, lightCos7, lightSin3, lightSin5, lightSin7;
-var lightZ = 20, lightD = 25, lightE=5, lightF = lightD*lightE;
+var lightZ = 20, lightD = 75, lightE=5, lightF = lightD*lightE;
 
 
 function lightMovement(){
@@ -1826,7 +1826,7 @@ function localTransform(){
 						
 						text =Date();
 						txtparent = new THREE.Object3D();
-						txtparent.position =new THREE.Vector3(1570+70,200,70);
+						txtparent.position =new THREE.Vector3(-1430,200,70);
 						txtparent.scale = new THREE.Vector3(0.25,0.25,0.25);
 						txtparent.rotation = new THREE.Vector3(0,120,0);
 						
