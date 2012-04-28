@@ -25,7 +25,7 @@
 		#dialogTarget {
 			color: black;
 			background-color:white;
-			font-size: 28px;
+			font-size: 14px;
 			font-family: helvetica;
 		
 
@@ -63,10 +63,9 @@
 <body onbeforeunload="unloadPage()">
 
 		<div id="info">
-		<button class="button request">request fullscreen</button>
-
+			<button onclick="$('#dialogTarget').dialog('open');">Instructions</button>
+<br>
 		<button onclick="renderManager.setCurrent('Above');controls.freeze=false;">Above</button>
-		<button onclick="renderManager.setCurrent('ThirdSetup');controls.freeze=false;">&&&</button>
 	<button onclick="renderManager.setCurrent('Beyond');controls.freeze=false;controls.movementSpeed=300;">Beyond</button>
 
 	<div id="dialogTarget">
@@ -80,15 +79,40 @@
 		<br>
 		by james b. pollack
 		<br>2012<br><br>
-		Q to Freeze Camera
+		what to do: <br>
+		explore the space.  when you're ready to transform, use the above and beyond buttons.
 		<br>
-		WASD to Move Camera
 		<br>
-		Mouse to Look Around
+		how to do it  (controls):
 		<br>
-		Arrow Keys to Move Character
+		mouse to look around
 		<br>
-		Answer Questions & Transform
+		spacebar to freeze/unfreeze camera
+		<br>
+		w = camera forward
+		<br>		
+		a = camera backward
+		<br>
+		s = camera pan Left
+				<br>
+		d = camera pan Right
+				<br>
+		r = camera up
+			<br>
+		f = camera down
+		<br>
+		arrow keys to move character
+		<br>
+		if it breaks, refresh the page
+		<br>
+		<br>
+		what it is:<br>
+		
+		an interactive virtual environment running on a live website without any plugins. "bethere.io" is written in javascript.  it runs in modern web browsers (currently chrome-only) on computers that support webGL.  
+		
+		both the software and the hardware of this piece are, at their core, collections of written instructions.  it operates on a set of stateless machines known as the cloud to emulate the manner in which a particular set of programs behaves on a certain set of electronic components. so long as we are able to simulate less powerful computers inside of more powerful ones, "bethere.io" should never suffer a technical death due to deprecation.  it comes from a foreknowledge of its own (and my own) supersession.  the code is open source, which means anyone can contribute or create a new branch and modify it to build a world of their own.  fork it on github. 
+
+
 		</p></center>
 		</div>
 		
@@ -698,13 +722,13 @@ THREEx.FullScreen.bindKey({
 			charCode : false
 		});
 
-*/
+
 
 	document.querySelector(".button.request").addEventListener('click', function(){
 		THREEx.FullScreen.request();
 	}, false);
 	
-
+*/
 
 //loader
 
@@ -848,13 +872,14 @@ scene.add(camera);
 
 	
 scene1Loader();
-	
+
 	//controls
 
 var controls = new THREE.FirstPersonControls(camera);
 controls.movementSpeed = 50;
-controls.lookSpeed = 0.10;
+controls.lookSpeed = 0.025;
 controls.constrainVertical = true; 
+controls.verticalMax = 1;
 
 //lights
 
@@ -912,7 +937,7 @@ controls.constrainVertical = true;
 	light6.scale.set(250,250,250);
 	scene.add( light6 );
 
-
+/*
 
 	var lightcube1_geometry = new THREE.CubeGeometry(200,200,200);
 	lightcube1_material =  new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
@@ -939,7 +964,7 @@ controls.constrainVertical = true;
 										lightcube5 = new THREE.Mesh( lightcube5_geometry, lightcube5_material );
 										        scene.add( lightcube5 );
 										
-
+*/
 												
 	//island 
 var island = scene1Loader.createIsland(scene);
@@ -1169,11 +1194,11 @@ var mesh, meshsource;
 		keyboardFuncs.up = function(){ mesh.position.setZ(mesh.position.z - 2); };
 		keyboardFuncs.down = function(){ mesh.position.setZ(mesh.position.z + 2); };
 	function getInput() {
-		if (keyboard.pressed("left")) { keyboardFuncs.left(); }
-		if (keyboard.pressed("right")) { keyboardFuncs.right(); }
-		if (keyboard.pressed("up")) { keyboardFuncs.up(); }
-		if (keyboard.pressed("down")) { keyboardFuncs.down(); }
-		if (keyboard.pressed("space"))
+	//	if (keyboard.pressed("left")) { keyboardFuncs.left(); }
+	//	if (keyboard.pressed("right")) { keyboardFuncs.right(); }
+	//	if (keyboard.pressed("up")) { keyboardFuncs.up(); }
+	//	if (keyboard.pressed("down")) { keyboardFuncs.down(); }
+		if (keyboard.pressed("o"))
 		{
 			if (!initaudio) { playExample(); initaudio = true; }
 		}
@@ -1521,6 +1546,7 @@ scene.add(arrowZMinus);
 
 //rendermanager add
 
+
 var camera2;
 camera2 = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, 1, 9500 );
 camera2.updateProjectionMatrix();
@@ -1562,6 +1588,7 @@ renderManager.add('Above', scene, camera2, function(delta, renderer)
 				if (this.camera.position.z >=2600){this.camera.position.z=2560;}
 				if (this.camera.position.z <=-2600){this.camera.position.z=-2560;}
 			
+	
 			
 	//collisionDetection()
 	
@@ -1631,6 +1658,17 @@ renderManager.add('Beyond', scene2, scene2camera, function(delta, renderer)
 
 							if (this.camera.position.z >=10000){this.camera.position.z=9990;}
 							if (this.camera.position.z <=-10000){this.camera.position.z=-9990;}
+							
+						/*	function recenterView(){
+
+								this.camera.position = new THREE.Vector3(200,200,200);
+								centerPoint = new THREE.Vector3(0,0,0);
+								this.camera.lookAt(centerPoint);
+							};
+							
+							if (recenterView = true){} 
+				*/
+							
 	//collisionDetection()
 	
 	}
@@ -1723,7 +1761,7 @@ function particleMovement(){
 //light movement
 
 var lightCos3, lightCos5, lightCos7, lightSin3, lightSin5, lightSin7;
-var lightZ = 20, lightD = 150, lightE=5, lightF = lightD*lightE;
+var lightZ = 20, lightD = 25, lightE=5, lightF = lightD*lightE;
 
 
 function lightMovement(){
@@ -1739,25 +1777,25 @@ lightSin7=	Math.sin( lightTimer * 0.5 )  * lightF;
 	
 						light1.position.x = lightSin7;
 						light1.position.z = lightCos3;
-						lightcube1.position = light1.position;
+					//	lightcube1.position = light1.position;
 
 						light2.position.x = lightCos3;
 						light2.position.z = lightSin7;
-							lightcube2.position = light2.position;
+					//		lightcube2.position = light2.position;
 
 
 						light3.position.x = lightSin7;
 						light3.position.z = lightSin5;
-							lightcube3.position = light3.position;
+					//		lightcube3.position = light3.position;
 
 
 						light4.position.x = lightSin3;
 						light4.position.z = lightSin5;
-							lightcube4.position = light4.position;
+					//		lightcube4.position = light4.position;
 
 							light5.position.x = lightSin5;
 							light5.position.z = lightCos5;
-								lightcube5.position = light5.position;
+						//		lightcube5.position = light5.position;
 
 									light6.position = fireballmesh.position
 										light6.lookAt(0,0,0);
@@ -1776,7 +1814,7 @@ lightSin7=	Math.sin( lightTimer * 0.5 )  * lightF;
 										
 											scene2spot1.position.x = lightSin3;
 											scene2spot1.position.z= lightSin3;
-											scene2spot1cube.position = scene2spot1.position;
+										//	scene2spot1cube.position = scene2spot1.position;
 	
 											netLight.position.x = lightCos3;
 											netLight.position.z = lightSin7;
@@ -1896,6 +1934,9 @@ if (name!=null && name!="")
   console.log("<p>Hello " + name + "! welcome to bethere.io?</p>");
 $.get("http://bethere.io:7379/SADD/userNames/"+name)
   }
+
+
+
 }
 	</script>
 		<div id="dialogTarget2">
@@ -1903,6 +1944,8 @@ $.get("http://bethere.io:7379/SADD/userNames/"+name)
 			$('#dialogTarget2').dialog({ autoOpen: false});
 			</script>
 			
+			
+
 			
 			</div>
 

@@ -1,0 +1,2 @@
+	<button class="button request">request fullscreen</button>
+	<button onclick="renderManager.setCurrent('ThirdSetup');controls.freeze=false;">&&&</button>

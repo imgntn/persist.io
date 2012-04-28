@@ -173,12 +173,14 @@ branchMaterial.shading = THREE.SmoothShading;
 	netLight.scale.set(250,250,250);
 	scene2.add( netLight );
 	
-	//lightcubes
+/*	//lightcubes
 	
 	 scene2spot1cube_geometry = new THREE.CubeGeometry(200,200,200);
 	scene2spot1cube_material =  new THREE.MeshBasicMaterial( { color: 0xff0000, wireframe: true } );
 	scene2spot1cube = new THREE.Mesh( scene2spot1cube_geometry, scene2spot1cube_material );
 	        scene2.add( scene2spot1cube );
+
+*/
 	//skybox
 
 	// load the cube textures
@@ -254,8 +256,8 @@ branchMaterial.shading = THREE.SmoothShading;
 		
 	createText();
 	scene2.add(txtparent);
-	txtparent.scale = new THREE.Vector3(2,2,2);
-	txtparent.position.y = 800;
+	txtparent.scale = new THREE.Vector3(4,4,4);
+	txtparent.position.y = 1000;
 
 var myplant = scene1Loader.createPlant1(scene2);
 	}	
