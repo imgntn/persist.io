@@ -70,7 +70,7 @@
 			<button onclick="$('#dialogTarget').dialog('open');">Instructions</button>
 <br>
 		<button onclick="renderManager.setCurrent('Above');controls.freeze=false;">Above</button>
-	<button onclick="renderManager.setCurrent('Beyond');controls.freeze=false;controls.movementSpeed=300;">Beyond</button>
+	<button onclick="desires.prompt();renderManager.setCurrent('Beyond');controls.freeze=false;controls.movementSpeed=300;">Beyond</button>
 
 	<div id="dialogTarget">
 		<script>
@@ -1835,7 +1835,7 @@ function localTransform(){
 							netLight.position = new THREE.Vector3(-1500,1200,0);
 							netLight.target = netCharacter.root;
 						
-						text =Date();
+						text = Date();
 						txtparent = new THREE.Object3D();
 						txtparent.position =new THREE.Vector3(-1430,200,70);
 						txtparent.scale = new THREE.Vector3(0.25,0.25,0.25);
@@ -1843,6 +1843,8 @@ function localTransform(){
 						
 						createText();
 						scene2.add(txtparent);
+						
+					
 						
     }
 	function createText() {
@@ -1957,6 +1959,34 @@ $.get("http://bethere.io:7379/SADD/userNames/"+name)
 
 }
 */
+var myDesire, myAnswer;
+var desires = {
+	prompt: function (){
+	//var myName =	prompt("What are you called?");
+	myDesire =	prompt("What do you want from life, ultimately?");
+	myAnswer = {
+	
+	 //"called":myName ,
+	"wants":myDesire, "time":Date() }
+	//{ "firstName":"Anna" , "lastName":"Smith" }, 
+	//{ "firstName":"Peter" , "lastName":"Jones" }
+
+	
+
+	$.get("http://bethere.io:7379/SADD/desires/"+JSON.stringify(myAnswer));
+	
+		text = myDesire;
+		txtparent = new THREE.Object3D();
+		txtparent.position =new THREE.Vector3(-1430,300,70);
+		txtparent.scale = new THREE.Vector3(0.35,0.35,0.35);
+		txtparent.rotation = new THREE.Vector3(0,120,0);
+		
+		createText();
+		scene2.add(txtparent);
+	
+	}
+};
+
 	</script>
 		<div id="dialogTarget2">
 			<script>
