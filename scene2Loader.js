@@ -60,7 +60,7 @@ function scene2Loader(){
 
 
 
-scene2camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, 1, 150000 );
+scene2camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, 1, 12000 );
 scene2camera.updateProjectionMatrix();
 scene2camera.position = new THREE.Vector3(0,500,500);
 
@@ -205,7 +205,7 @@ branchMaterial.shading = THREE.SmoothShading;
 		});
 
 		// build the skybox Mesh
-		skyMesh	= new THREE.Mesh( new THREE.CubeGeometry( 150000, 150000, 150000, 1, 1, 1, null, true ), skyMaterial );
+		skyMesh	= new THREE.Mesh( new THREE.CubeGeometry( 12000, 12000, 12000, 1, 1, 1, null, true ), skyMaterial );
 		skyMesh.doubleSided = true;
 		// add it to the scene
 		scene2.add( skyMesh );

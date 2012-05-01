@@ -25,7 +25,7 @@
 		#dialogTarget {
 			color: black;
 			background-color:white;
-			font-size: 14px;
+			font-size: 12px;
 			font-family: helvetica;
 			width:800px;
 		a {
@@ -70,8 +70,7 @@
 			<button onclick="$('#dialogTarget').dialog('open');">Instructions</button>
 <br>
 		<button onclick="renderManager.setCurrent('Above');controls.freeze=false;">Above</button>
-	<button onclick="desires.prompt();renderManager.setCurrent('Beyond');controls.freeze=false;controls.movementSpeed=300;">Beyond</button>
-
+	<button onclick="desires.prompt();renderManager.setCurrent('Beyond');controls.freeze=false;controls.movementSpeed=300;plant1.position.y=-30">Beyond</button>
 	<div id="dialogTarget">
 		<script>
 		$('#dialogTarget').dialog({ autoOpen: false});
@@ -89,17 +88,17 @@
 		<br>
 		how to do it  (controls):
 		<br>
-		mouse to look around
+		mouse to look around, 
 		<br>
 		spacebar to freeze/unfreeze camera
 		<br>
-		w = camera forward
+		w or left mouse button = camera forward
 		<br>		
-		a = camera backward
+		a or right mouse button = camera backward
 		<br>
-		s = camera pan Left
+		s = camera pan left
 				<br>
-		d = camera pan Right
+		d = camera pan right
 				<br>
 		r = camera up
 			<br>
@@ -114,7 +113,7 @@
 		
 		an interactive virtual environment running on a live website without any plugins. "bethere.io" is written in javascript.  it runs in modern web browsers (currently chrome-only) on computers that support webGL.  
 		
-		both the software and the hardware of this piece are, at their core, collections of written instructions.  it operates on a set of stateless machines known as the cloud to emulate the manner in which a particular set of programs behaves on a certain set of electronic components. so long as we are able to simulate less powerful computers inside of more powerful ones, "bethere.io" should never suffer a technical death due to deprecation.  it comes from a foreknowledge of its own (and my own) supersession.  the code is open source, which means anyone can contribute or create a new branch and modify it to build a world of their own.  fork it on github. 
+		both the software and the hardware of this piece are, at their core, collections of written instructions.  it operates on a set of stateless machines known as the cloud to emulate the manner in which a particular set of programs behaves on a certain set of electronic components. so long as we are able to simulate less powerful computers inside of more powerful ones, "bethere.io" should never suffer a technical death due to deprecation.  it comes from acknowledging its own supersession.  the code is open source, which means anyone can contribute or create a new branch and modify it to build a world of their own.  fork it on github. 
 
 
 		</p></center>
@@ -1337,7 +1336,7 @@ camera3.updateProjectionMatrix();
 scene.add(camera3);
 camera3.position = new THREE.Vector3(-300,300,-300);
 
-renderManager.add('And', scene, camera3, function(delta, renderer)
+renderManager.add('Below', scene, camera3, function(delta, renderer)
 	{
 			branchTexture.needsUpdate = true;
 			leafTexture.needsUpdate = true;
@@ -1973,6 +1972,8 @@ var desires = {
 					txtparent.rotation = new THREE.Vector3(0,120,0);
 					txtparent.scale = new THREE.Vector3(4,4,4);
 					txtparent.position.y = 1000;
+					txtparent.position.z = 500;
+					
 					createText();
 					scene2.add(txtparent);
 					
