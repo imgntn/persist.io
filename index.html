@@ -27,7 +27,11 @@
 			background-color:white;
 			font-size: 14px;
 			font-family: helvetica;
-		
+			width:800px;
+		a {
+			color: red;
+			font-size:20px;
+			font-family: helvetica;
 
 		}
 	
@@ -569,7 +573,7 @@ THREEx.FullScreen.bindKey({
 
 	scene = new THREE.Scene();
 scene.add(camera);
-	scene.fog = new THREE.FogExp2( 0x000000, 0.0007 );
+	scene.fog = new THREE.FogExp2( 0x000000, 0.0003 );
 	renderer = new THREE.WebGLRenderer( { clearAlpha: 1, clearColor: 0x000000 } );
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	renderer.autoClear = false;
@@ -595,11 +599,13 @@ scene1Loader();
 	//controls
 
 var controls = new THREE.FirstPersonControls(camera);
-controls.movementSpeed = 50;
-controls.lookSpeed = 0.040;
-controls.constrainVertical = true; 
-controls.verticalMax = 0;
-controls.verticalMin = -5;
+controls.movementSpeed = 100;
+controls.lookSpeed = 0.080;
+controls.constrainVertical = false; 
+//controls.verticalMax = 12.5;
+//controls.verticalMin = -2.5;
+//controls.constrainVertical = false; 
+
 originSpot = new THREE.Vector3(0,0,0);
 
 
@@ -736,7 +742,7 @@ var attachmentA, attachmentB, attachmentC, attachmentD, attachmentE, attachmentF
 
 
 
-new THREE.JSONLoader().load('platform5.js', function(geometry){
+new THREE.JSONLoader().load('last_baptistery2.js', function(geometry){
 	var	meshes = scene1Loader.createAttachments(scene, geometry);//buildMeshes(geometry);
 	//	bindEvents(meshes);
 		attachmentA = meshes['attachmentA'];
@@ -1293,14 +1299,21 @@ renderManager.add('Above', scene, camera2, function(delta, renderer)
 		
 		funstuff();
 
+		
 	controls.object = this.camera;
+	controls.constrainVertical = true;
+	controls.verticalMin = 2.75;
+	controls.verticalMax = 1.25;
+	
 	renderer.render( scene, cameraRTT, rtTexture, true );
 //	renderer.render( sceneScreen, cameraRTT );
+//this.camera.lookAt(character.root.position);
 
 	renderer.render(this.scene, this.camera);
+
 		if (this.camera.position.y <= 15){this.camera.position.y=20;}
 		//ceiling
-			if (this.camera.position.y >=1500){this.camera.position.y=1480;}
+			if (this.camera.position.y >=1200){this.camera.position.y=1180;}
 			
 			//walls
 			
@@ -1309,8 +1322,7 @@ renderManager.add('Above', scene, camera2, function(delta, renderer)
 			
 				if (this.camera.position.z >=2600){this.camera.position.z=2560;}
 				if (this.camera.position.z <=-2600){this.camera.position.z=-2560;}
-			
-	
+				
 			
 	//collisionDetection()
 	
@@ -1325,7 +1337,7 @@ camera3.updateProjectionMatrix();
 scene.add(camera3);
 camera3.position = new THREE.Vector3(-300,300,-300);
 
-renderManager.add('ThirdSetup', scene, camera3, function(delta, renderer)
+renderManager.add('And', scene, camera3, function(delta, renderer)
 	{
 			branchTexture.needsUpdate = true;
 			leafTexture.needsUpdate = true;
@@ -1367,7 +1379,6 @@ renderManager.add('Beyond', scene2, scene2camera, function(delta, renderer)
 		funstuff();
 		controls.object = this.camera;
 		//this.camera.lookAt(new THREE.Vector3(0,0,0));
-	
 						renderer.render(this.scene, this.camera);
 						//floor
 				if (this.camera.position.y <=10){this.camera.position.y=11;}
