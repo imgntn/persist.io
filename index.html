@@ -1834,15 +1834,7 @@ function localTransform(){
 	
 							netLight.position = new THREE.Vector3(-1500,1200,0);
 							netLight.target = netCharacter.root;
-						
-						text = Date();
-						txtparent = new THREE.Object3D();
-						txtparent.position =new THREE.Vector3(-1430,200,70);
-						txtparent.scale = new THREE.Vector3(0.25,0.25,0.25);
-						txtparent.rotation = new THREE.Vector3(0,120,0);
-						
-						createText();
-						scene2.add(txtparent);
+				
 						
 					
 						
@@ -1959,7 +1951,7 @@ $.get("http://bethere.io:7379/SADD/userNames/"+name)
 
 }
 */
-var myDesire, myAnswer;
+var myDesire, myAnswer,txtparent;
 var desires = {
 	prompt: function (){
 	//var myName =	prompt("What are you called?");
@@ -1974,7 +1966,17 @@ var desires = {
 	
 
 	$.get("http://bethere.io:7379/SADD/desires/"+JSON.stringify(myAnswer));
-	
+			scene2.remove(txtparent);
+				
+				text = Date();
+				txtparent = new THREE.Object3D();
+				txtparent.position =new THREE.Vector3(-1430,200,70);
+				txtparent.scale = new THREE.Vector3(0.25,0.25,0.25);
+				txtparent.rotation = new THREE.Vector3(0,120,0);
+				
+				createText();
+				scene2.add(txtparent);
+				
 		text = myDesire;
 		txtparent = new THREE.Object3D();
 		txtparent.position =new THREE.Vector3(-1430,300,70);
