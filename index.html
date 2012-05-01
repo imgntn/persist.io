@@ -28,10 +28,7 @@
 			font-size: 12px;
 			font-family: helvetica;
 			width:800px;
-		a {
-			color: red;
-			font-size:20px;
-			font-family: helvetica;
+	
 
 		}
 	
@@ -104,7 +101,7 @@
 			<br>
 		f = camera down
 		<br>
-		arrow keys to move character
+		arrow keys to move the characters
 		<br>
 		if it breaks, refresh the page
 		<br>
@@ -1059,16 +1056,23 @@ var nCharacters = 0;
 
 				setInterval(function(){
 					var fwd = "down"
-			if (keyboard.pressed(fwd))	{CharacterControls.moveForward = true;}
-			else{CharacterControls.moveForward=false;}
+			if (keyboard.pressed(fwd))	{CharacterControls.moveForward = true;neshamot.position.z += 5;		if(neshamotHere==true){neshamot.updateAnimation(animDelta*2);	};
+			 }
+			else{CharacterControls.moveForward=false;
+				}
 			var bkwd = "up"
-		if (keyboard.pressed(bkwd))	{CharacterControls.moveBackward = true;}
-		else{CharacterControls.moveBackward=false;}
+		if (keyboard.pressed(bkwd))	{CharacterControls.moveBackward = true;neshamot.position.z -= 5 ;	if(neshamotHere==true){neshamot.updateAnimation(-animDelta*2);	};
+		}
+		else{CharacterControls.moveBackward=false;
+			}
 		var left = "left"
-		if (keyboard.pressed(left))	{CharacterControls.moveLeft = true;}
-		else{CharacterControls.moveLeft=false;}
+		if (keyboard.pressed(left))	{CharacterControls.moveLeft = true;neshamot.position.x -= 5;if(neshamotHere==true){neshamot.updateAnimation(animDelta*2);	};
+		}
+		else{CharacterControls.moveLeft=false;
+			}
 		var right = "right"
-		if (keyboard.pressed(right))	{CharacterControls.moveRight = true;}
+		if (keyboard.pressed(right))	{CharacterControls.moveRight = true;neshamot.position.x += 5; if(neshamotHere==true){neshamot.updateAnimation(-animDelta*2);	};
+		}
 		else{CharacterControls.moveRight=false;}
 		var attack = "control"
 		if (keyboard.pressed(attack)) {CharacterControls.attack = true;}
@@ -1310,7 +1314,7 @@ renderManager.add('Above', scene, camera2, function(delta, renderer)
 
 	renderer.render(this.scene, this.camera);
 
-		if (this.camera.position.y <= 15){this.camera.position.y=20;}
+		if (this.camera.position.y <= 20){this.camera.position.y=20;}
 		//ceiling
 			if (this.camera.position.y >=1200){this.camera.position.y=1180;}
 			
@@ -1390,7 +1394,10 @@ renderManager.add('Beyond', scene2, scene2camera, function(delta, renderer)
 
 							if (this.camera.position.z >=10000){this.camera.position.z=9990;}
 							if (this.camera.position.z <=-10000){this.camera.position.z=-9990;}
-							
+						
+						
+				
+								
 						/*	function recenterView(){
 
 								this.camera.position = new THREE.Vector3(200,200,200);
@@ -1634,10 +1641,10 @@ var rtTexture, material, quad;
 			//pubsubplane.castShadow=true;
 			scene.add( pubsubplane );
 
-
+			
+				
 	function animate() {
 requestAnimationFrame( animate );
-if(neshamotHere==true){neshamot.updateAnimation(animDelta);neshamot.position.x = Math.cos(spinTimer)*1000;neshamot.position.z = Math.cos(spinTimer)*1000;};
 		// create render target
 		if ( RTTmaterial.uniforms.time.value > 1 || RTTmaterial.uniforms.time.value < 0 ) {
 
@@ -1681,7 +1688,7 @@ function localTransform(){
 		neshamotLoader = new THREE.JSONLoader();
 		neshamotLoader.load( "neshamot.js", function(neshamotGeometry) {
 		neshamotMaterial = new THREE.MeshPhongMaterial();
-		neshamotMaterial.color = new THREE.Color().setRGB(1,1,1);
+		neshamotMaterial.color = new THREE.Color().setRGB(0,0,0);
 		neshamotMaterial.ambient = new THREE.Color().setRGB(0.0196078431372549,0.0196078431372549,0.0196078431372549);
 		neshamotMaterial.specular = new THREE.Color().setRGB(0.06666666666666667,0.06666666666666667,0.06666666666666667);
 		neshamotMaterial.morphTargets=true;
@@ -1689,10 +1696,11 @@ function localTransform(){
 		neshamot = new THREE.MorphAnimMesh(neshamotGeometry, neshamotMaterial);
 		neshamot.position.set(-750,-30,0);
 		neshamot.rotation.set(0,0,0);
-		neshamot.scale.set(4.5,4.5,4.5);
+		neshamot.scale.set(2.5,2.5,2.5);
 		neshamot.receiveShadow=true;
 		neshamot.castShadow=true;
 		scene2.add( neshamot );	
+		neshamot.lookAt(scene2NetTreeContainer.position);
 		neshamotHere=true;
 		
 		
