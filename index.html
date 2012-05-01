@@ -1968,6 +1968,22 @@ var desires = {
 	$.get("http://bethere.io:7379/SADD/desires/"+JSON.stringify(myAnswer));
 			scene2.remove(txtparent);
 				
+					text = 	"Was ihr seid, das waren wir. Was wir sind, das werdet ihr.";
+					txtparent = new THREE.Object3D();
+					txtparent.rotation = new THREE.Vector3(0,120,0);
+					txtparent.scale = new THREE.Vector3(4,4,4);
+					txtparent.position.y = 1000;
+					createText();
+					scene2.add(txtparent);
+					
+			
+			
+			
+								
+				
+					
+					
+				
 				text = Date();
 				txtparent = new THREE.Object3D();
 				txtparent.position =new THREE.Vector3(-1430,200,70);
