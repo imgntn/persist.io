@@ -1989,7 +1989,7 @@ var netWorld = {
 	
 	makeText: function(){
 		
-		for (var i=0;i<desiresArray.length;i+2)
+		for (var i=0;i<desiresArray.length/2;i+2)
 		
 		text = desiresArray[i];
 		txtparent = new THREE.Object3D();
@@ -2009,19 +2009,6 @@ createText();
 scene2.add(txtparent);
 		
 	}
-	
-	scene2NetTree = new Tree(branchMaterial, -1 , 25, 0, 1.5);
-	scene2NetTree.position = new THREE.Vector3(i*50,0,i*50)
-	scene2NetTree.rotation.x = -90 * Math.PI / 180;
-	scene2NetTree.scale = new THREE.Vector3(1,1,1)
-	scene2NetTree.castShadow = true;
-	scene2NetTree.receiveShadow = true;
-	//tree container
-	scene2NetTreeContainer = new THREE.Object3D();
-	scene2NetTreeContainer.useQuaternion = true;
-	scene2NetTreeContainer.add( scene2NetTree );
-	scene2NetTreeContainer.position= new THREE.Vector3(i*50,-20,i*50);
-	scene2.add(scene2NetTreeContainer);
 	
 };
 var myDesire, myAnswer,txtparent;
