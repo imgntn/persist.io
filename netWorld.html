@@ -67,7 +67,7 @@
 			<button onclick="$('#dialogTarget').dialog('open');">Instructions</button>
 <br>
 		<button onclick="renderManager.setCurrent('Above');controls.freeze=false;">Above</button>
-	<button onclick="desires.prompt();renderManager.setCurrent('Beyond');controls.freeze=false;controls.movementSpeed=300;plant1.position.y=-30">Beyond</button>
+	<button onclick="desires.prompt();renderManager.setCurrent('Beyond');controls.freeze=false;controls.movementSpeed=300;plant1.position.y=-30;netWorld.makeText();">Beyond</button>
 	<div id="dialogTarget">
 		<script>
 		$('#dialogTarget').dialog({ autoOpen: false});
@@ -1984,6 +1984,33 @@ $.get("http://bethere.io:7379/SADD/userNames/"+name)
 
 }
 */
+
+var netWorld = {
+	
+	makeText: function(){
+		
+		for (var i=0;i<desiresArray.length/2;i+2)
+		
+		text = desiresArray[i];
+		txtparent = new THREE.Object3D();
+		txtparent.position =new THREE.Vector3(i*50,200,i*50);
+		txtparent.scale = new THREE.Vector3(0.25,0.25,0.25);
+		txtparent.rotation = new THREE.Vector3(0,120,0);
+		createText();
+		scene2.add(txtparent);
+		
+text = desiresArray[i+1];
+txtparent = new THREE.Object3D();
+txtparent.position =new THREE.Vector3(i*50,300,i*50);
+txtparent.scale = new THREE.Vector3(0.35,0.35,0.35);
+txtparent.rotation = new THREE.Vector3(0,120,0);
+
+createText();
+scene2.add(txtparent);
+		
+	}
+	
+};
 var myDesire, myAnswer,txtparent;
 var desires = {
 	prompt: function (){
