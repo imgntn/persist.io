@@ -1984,41 +1984,41 @@ $.get("http://bethere.io:7379/SADD/userNames/"+name)
 
 }
 */
-
+var c,ctx,s,tex,mat,titleQuad;
 var netWorld = {
 	
 	makeText: function(){
 		
-		for (var i=0;i<desiresArray.length/2;i+2){
+		for (var i=0;i<desiresArray.length-2;i+2){
 		
 		
-			var c = document.createElement('canvas');
-			      var ctx = c.getContext('2d');
+			 c = document.createElement('canvas');
+			       ctx = c.getContext('2d');
 			      ctx.font = '64px Arial';
-				var s = desiresArray[i];
+				 s = desiresArray[i];
 			      c.width = ctx.measureText(s).width;
 			      c.height = Math.ceil(64*1.25);
 			      ctx.font = '64px Arial';
 			      ctx.fillText(s, 0, 64);
 
-			      var tex = new THREE.Texture(c);
-			      tex.needsUpdate = true;
+			      tex = new THREE.Texture(c);
 
-			      var mat = new THREE.MeshBasicMaterial({map: tex});
-			      mat.transparent = true;
+			      mat = new THREE.MeshBasicMaterial({map: tex});
+			     // mat.transparent = true;
 
-			      var titleQuad = new THREE.Mesh(
+			      titleQuad = new THREE.Mesh(
 			        new THREE.PlaneGeometry(c.width, c.height),
 			        mat
 			      );
 			      titleQuad.doubleSided = true;
 
-
-			      scene2.add(titleQuad);
-			
-				titleQuad.position =new THREE.Vector3(i*50,200,i*50);
+				titleQuad.position = new THREE.Vector3(i*50,200,i*50);
 				titleQuad.scale = new THREE.Vector3(0.25,0.25,0.25);
 				titleQuad.rotation = new THREE.Vector3(0,120,0);
+					
+			      scene2.add(titleQuad);
+			
+			
 
 	}}};
 var myDesire, myAnswer,txtparent;
