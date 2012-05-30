@@ -1985,14 +1985,17 @@ $.get("http://bethere.io:7379/SADD/userNames/"+name)
 
 }
 */
-var c,ctx,s,tex,mat,titleQuad;
 
 getDesires();
+
+
+var c,ctx,s,tex,mat,titleQuad;
+
 var netWorld = {
 	
 	makeText: function(){
 		
-		for (var i=0;i<desiresArray.length-2;i+2){
+		for (var i=0;i<desiresArray.length-3;i+2){
 		
 		
 			 c = document.createElement('canvas');
@@ -2023,6 +2026,7 @@ var netWorld = {
 			
 
 	}}};
+	
 var myDesire, myAnswer,txtparent;
 var desires = {
 	prompt: function (){
