@@ -1988,7 +1988,10 @@ $.get("http://bethere.io:7379/SADD/userNames/"+name)
 
 
 var c,ctx,s,tex,mat,titleQuad;
-
+ c = document.createElement('canvas_netWorld');
+       ctx = c.getContext('2d');
+      ctx.font = '64px Arial';
+      c.height = Math.ceil(64*1.25);
 var netWorld = {
 	
 	makeText: function(){
@@ -1996,13 +1999,9 @@ var netWorld = {
 		for (var i=0;i<desiresArray.length-3;i+2){
 		
 		
-			 c = document.createElement('canvas');
-			       ctx = c.getContext('2d');
-			      ctx.font = '64px Arial';
+			
 				 s = desiresArray[i];
 			      c.width = ctx.measureText(s).width;
-			      c.height = Math.ceil(64*1.25);
-			      ctx.font = '64px Arial';
 			      ctx.fillText(s, 0, 64);
 
 			      tex = new THREE.Texture(c);
