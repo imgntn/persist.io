@@ -1404,6 +1404,7 @@ scene2camera.lookAt(0,0,0);
 renderManager.add('Beyond', scene2, scene2camera, function(delta, renderer)
 	{
 		groundTexture.needsUpdate=true;
+		tex.needsUpdate = true;
 	THREE.Object3D._threexDomEvent.camera(this.camera);
 		funstuff();
 		controls.object = this.camera;
@@ -1985,6 +1986,7 @@ $.get("http://bethere.io:7379/SADD/userNames/"+name)
 }
 */
 var c,ctx,s,tex,mat,titleQuad;
+
 getDesires();
 var netWorld = {
 	
@@ -2003,7 +2005,6 @@ var netWorld = {
 			      ctx.fillText(s, 0, 64);
 
 			      tex = new THREE.Texture(c);
-				tex.needsUpdate = true;
 			      mat = new THREE.MeshBasicMaterial({map: tex});
 			     // mat.transparent = true;
 
