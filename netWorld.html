@@ -67,7 +67,7 @@
 			<button onclick="$('#dialogTarget').dialog('open');">Instructions</button>
 <br>
 		<button onclick="renderManager.setCurrent('Above');controls.freeze=false;">Above</button>
-	<button onclick="desires.prompt();renderManager.setCurrent('Beyond');controls.freeze=false;controls.movementSpeed=300;plant1.position.y=-30;">Beyond</button>
+	<buttononclick="desires.prompt();renderManager.setCurrent('Beyond');controls.freeze=false;controls.movementSpeed=300;plant1.position.y=-30;">Beyond</button>
 	<div id="dialogTarget">
 		<script>
 		$('#dialogTarget').dialog({ autoOpen: false});
@@ -1404,7 +1404,6 @@ scene2camera.lookAt(0,0,0);
 renderManager.add('Beyond', scene2, scene2camera, function(delta, renderer)
 	{
 		groundTexture.needsUpdate=true;
-		tex.needsUpdate = true;
 	THREE.Object3D._threexDomEvent.camera(this.camera);
 		funstuff();
 		controls.object = this.camera;
@@ -2049,16 +2048,7 @@ var desires = {
 					txtparent.position.z = 500;
 					
 					createText();
-					scene2.add(txtparent);
-					
-			
-			
-			
-								
-				
-					
-					
-				
+					scene2.add(txtparent);		
 				text = Date();
 				txtparent = new THREE.Object3D();
 				txtparent.position =new THREE.Vector3(-1430,200,70);
