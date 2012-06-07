@@ -6,6 +6,7 @@
       body {
         margin: 0px;
         padding: 0px;
+background-color:white;
       }
 
       #container {
@@ -17,6 +18,8 @@
         margin: 0px;
         padding: 0px;
       }
+canvas
+{opacity:0.95;}
     </style>
   </head>
 
@@ -25,7 +28,7 @@
       var renderer = new THREE.WebGLRenderer({antialias: true});
       renderer.setSize(document.body.clientWidth, document.body.clientHeight);
       document.body.appendChild(renderer.domElement);
-      renderer.setClearColorHex(0xEEEEEE, 1.0);
+      renderer.setClearColorHex(0xEEEEEE, 0.5);
       renderer.clear();
       var fov = 45; // camera field-of-view in degrees
       var width = renderer.domElement.width;
@@ -38,14 +41,19 @@
       camera.position.y = 150;
       var scene = new THREE.Scene();
 
+var i;
+for (var i=0;i<36;i++){
       var c = document.createElement('canvas');
       var ctx = c.getContext('2d');
-      ctx.font = '64px Arial';
-      var s = 'Hello, world!';
-      c.width = ctx.measureText(s).width;
-      c.height = Math.ceil(64*1.25);
-      ctx.font = '64px Arial';
-      ctx.fillText(s, 0, 64);
+      ctx.font = '128px Arial';
+ctx.fillStyle='Pink';
+//      var s = 'love'+i+'love'+i+'love'+i+'love'+i+'love'+i;
+  var s = 'lovelovelovelovelove';
+      c.width = ctx.measureText(s).width*2;
+      c.height = Math.ceil(128*1.25);
+      ctx.font = '128px Arial';
+ctx.fillStyle='Pink';
+      ctx.fillText(s, 0, 128);
       
       var tex = new THREE.Texture(c);
       tex.needsUpdate = true;
@@ -58,10 +66,13 @@
         mat
       );
       titleQuad.doubleSided = true;
-
+	 titleQuad.rotation.y = -4.0*(i);
+	titleQuad.position.y = -20*(i);
+		titleQuad.position.z = -4*(i);
       scene.add(titleQuad);
 
-      titleQuad.rotation.y = 0.5;
+
+}
 
       renderer.render(scene, camera);
       var paused = false;
