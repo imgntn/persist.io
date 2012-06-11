@@ -519,7 +519,7 @@ var desiresArrayParsed=[];
 			//subscribe to a liveList channel
 					 jug.subscribe("liveList", function(data){
 					console.log("Got liveList data: " + data);
-					desiresArray[1]=data;
+					desiresArray[0]=data;
 					desiresArrayParsed=JSON.parse(desiresArray[0]);
 					    });
 	
