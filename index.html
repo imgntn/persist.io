@@ -521,6 +521,12 @@ var desiresArrayParsed=[];
 					console.log("Got liveList data: " + data);
 					desiresArray[0]=data;
 					desiresArrayParsed=JSON.parse(desiresArray[0]);
+					for(var i=0;i<desiresArrayParsed.SMEMBERS.length){
+					desireParsed = JSON.parse(desiresArrayParsed.SMEMBERS[i]);
+					desireParsedText = desireParsed.wants;
+					console.log(desireParsedText);
+						
+					};
 					    });
 	
 	//closing, refreshing, aborting, error should remove user from connected session id list
