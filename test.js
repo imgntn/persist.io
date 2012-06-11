@@ -6,7 +6,6 @@ var client = redis.createClient();
 
 
 var liveList;
- 
 
 var liveListRequests;
 	
@@ -18,6 +17,6 @@ var liveListRequests;
 		  "data": [body]
 		};
 	  };
-};
+}
 		client.publish("juggernaut", JSON.stringify(liveList));
 
