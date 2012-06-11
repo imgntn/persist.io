@@ -261,6 +261,6 @@ branchMaterial.shading = THREE.SmoothShading;
 
 var myplant = scene1Loader.createPlant1(scene2);
 localTransform();
-getDesires();
+//getDesires();
 
 	}	
