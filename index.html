@@ -508,7 +508,7 @@ console.log("Got data: " + data);
 							var desiresArray =[];
 							var myDesireTime = "";
 							var myDesireWant = "";
-
+var desiresArrayParsed=[];
 	
 //subscribe to a personal channel
 		 jug.subscribe("channel"+jug.sessionID, function(data){
@@ -520,6 +520,7 @@ console.log("Got data: " + data);
 					 jug.subscribe("liveList", function(data){
 					console.log("Got liveList data: " + data);
 					desiresArray[1]=data;
+					desiresArrayParsed=JSON.parse(desiresArray[0]);
 					    });
 	
 	//closing, refreshing, aborting, error should remove user from connected session id list
