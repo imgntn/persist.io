@@ -505,6 +505,10 @@ console.log("Got data: " + data);
 		
 		
 	
+							var desiresArray =[];
+							var myDesireTime = "";
+							var myDesireWant = "";
+
 	
 //subscribe to a personal channel
 		 jug.subscribe("channel"+jug.sessionID, function(data){
@@ -515,6 +519,7 @@ console.log("Got data: " + data);
 			//subscribe to a liveList channel
 					 jug.subscribe("liveList", function(data){
 					console.log("Got liveList data: " + data);
+					desiresArray=data;
 					    });
 	
 	//closing, refreshing, aborting, error should remove user from connected session id list
@@ -883,33 +888,7 @@ geometry = new THREE.Geometry();
 
 				}
 				
-				var desiresArray =[];
-				var myDesireTime = "";
-				var myDesireWant = "";
-var tmp, tmp1, tmp2;
-				function getDesires (){
-
-
-					tmp = $.get("http://bethere.io:7379/SMEMBERS/desires", function(data)
-
-					{
-						tmp1 = tmp.responseText;
-					 	tmp2 = JSON.parse(tmp1);
-				
-						
-							
-							for(var i=0;i<tmp2.SMEMBERS.length;i++){
-								tmp3 = JSON.parse(tmp2.SMEMBERS[i]);
-								desiresArray.push(tmp3.wants);
-								desiresArray.push(tmp3.time);
-							};
-							}
-					 );
-				
-					 
-					
-				}
-
+		
 
 // audio & audiolet
 
@@ -1984,6 +1963,7 @@ $.get("http://bethere.io:7379/SADD/userNames/"+name)
 
 }
 */
+
 var myDesire, myAnswer,txtparent;
 var desires = {
 	prompt: function (){
