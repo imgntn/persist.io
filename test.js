@@ -79,7 +79,7 @@ var jbp = $.get("http://bethere.io:7379/SMEMBERS/sessionIDs", function(data){
 	
 	jbp2 = data.responseText;
 	jbp3 = JSON.parse(jbp2);
-	for (var i=0; i = jbp3.SMEMBERS.length){
+	for (var i=0; i = jbp3.SMEMBERS.length;i++){
 		
 		jbp4 = $.get("http://bethere.io:7379/GET/"jbp3.SMEMBERS[i], function(data){
 			 jbp5 = data.responseText;
