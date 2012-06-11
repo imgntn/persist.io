@@ -76,4 +76,3 @@ client.publish("juggernaut", JSON.stringify(msg2));
 client.publish("juggernaut", JSON.stringify(msg3));
 
 
-});
