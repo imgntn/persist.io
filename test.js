@@ -16,8 +16,9 @@ var liveListRequests;
 		  "channels": ["liveList"],
 		  "data": [body]
 		};
-	  };
+	client.publish("juggernaut", JSON.stringify(liveList));  
+	};
 });
 
-client.publish("juggernaut", JSON.stringify(liveList));
+
 
