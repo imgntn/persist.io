@@ -17,7 +17,7 @@ var liveListRequests;
 		  "data": [body]
 		};
 	  };
-};
+});
 
 client.publish("juggernaut", JSON.stringify(liveList));
 
