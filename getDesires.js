@@ -1,4 +1,6 @@
 var tmp, tmp1, tmp2;
+getDesiresResultsWants=[];
+getDesiresResultsTime=[];
 				function getDesires (){
 
 
@@ -12,8 +14,8 @@ var tmp, tmp1, tmp2;
 							
 							for(var i=0;i<tmp2.SMEMBERS.length;i++){
 								tmp3 = JSON.parse(tmp2.SMEMBERS[i]);
-								desiresArray.push(tmp3.wants);
-								desiresArray.push(tmp3.time);
+								getDesiresResultsWants.push(tmp3.wants);
+								getDesiresResultsTime.push(tmp3.time);
 							};
 							}
 					 );
