@@ -30,7 +30,7 @@ var cronjob;
 cronJob = require('cron').CronJob;
 new cronJob('* * * * * *', function(){
 	
-	liveListRequests = request('http://localhost:7379/SMEMBERS/sessionIDs', function (error, response, body) {
+	liveListRequests = request('http://localhost:7379/SMEMBERS/desires', function (error, response, body) {
 	  if (!error && response.statusCode == 200) {
 	    console.log(body) // Print the google web page.
 		liveList = {
@@ -75,21 +75,5 @@ client.publish("juggernaut", JSON.stringify(msg));
 client.publish("juggernaut", JSON.stringify(msg2));
 client.publish("juggernaut", JSON.stringify(msg3));
 
-var jbp = $.get("http://bethere.io:7379/SMEMBERS/sessionIDs", function(data){
-	
-	jbp2 = data.responseText;
-	jbp3 = JSON.parse(jbp2);
-	for (var i=0; i = jbp3.SMEMBERS.length;i++){
-		
-		jbp4 = $.get("http://bethere.io:7379/GET/"jbp3.SMEMBERS[i], function(data){
-			 jbp5 = data.responseText;
-			 jbp6 = JSON.parse(jbp5);
-			checkTransform = jbp6.GET
-			if (checkTransform = 1){
-				client.publish("juggernaut", JSON.stringify(msg3));
-			}
-		});
-		
-	}
-	
+
 });
