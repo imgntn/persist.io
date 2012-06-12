@@ -20,7 +20,7 @@ background-color:white;
         padding: 0px;
       }
 canvas
-{opacity:0.95;}
+{opacity:0.85;}
     </style>
   </head>
 
@@ -54,91 +54,47 @@ var getDesiresResultsTime=[];
 						      var height = renderer.domElement.height;
 						      var aspect = width / height; // view aspect ratio
 						      var near = 1; // near clip plane
-						      var far = 10000; // far clip plane
+						      var far = 40000; // far clip plane
 						      var camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
-						      camera.position.z = 500;
-						      camera.position.y = 150;
+						      camera.position.z = -500;
+						      camera.position.y = 20000;
+						//camera.position.x = -50;
 						      var scene = new THREE.Scene();
 						scene.add(camera);
 
-						for (var i=0;i<36;i++){
-						      var c = document.createElement('canvas');
-						      var ctx = c.getContext('2d');
-						      ctx.font = '128px Arial';
-						ctx.fillStyle='Pink';
-						      //var s = 'love'+i+'love'+i+'love'+i+'love'+i+'love'+i;
-						   var s = getDesiresResultsWants[i];
-						      c.width = ctx.measureText(s).width*2;
-						      c.height = Math.ceil(128*1.25);
-						      ctx.font = '128px Arial';
-						ctx.fillStyle='Pink';
-						      ctx.fillText(s, 0, 128);
+						var controls = new THREE.FirstPersonControls(camera);
+						controls.movementSpeed = 600;
+						controls.lookSpeed = 0.040;
+						controls.constrainVertical = false;
+						origin = new THREE.Vector3(0,0,0)
+						camera.lookAt(origin);
 
-						      var tex = new THREE.Texture(c);
-						      tex.needsUpdate = true;
-
-						      var mat = new THREE.MeshBasicMaterial({map: tex});
-						      mat.transparent = true;
-
-						      var titleQuad = new THREE.Mesh(
-						        new THREE.PlaneGeometry(c.width, c.height),
-						        mat
-						      );
-						      titleQuad.doubleSided = true;
-							 titleQuad.rotation.y = -1.0*(i);
-							titleQuad.position.y = -20*(i);
-								titleQuad.position.z = -4*(i);
-						      scene.add(titleQuad);
-
-
-						}
-
-						      renderer.render(scene, camera);
-						      var paused = false;
-						      var last = new Date().getTime();
-						      var down = false;
-						      var sx = 0, sy = 0;
-						      window.onmousedown = function (ev){
-						        down = true; sx = ev.clientX; sy = ev.clientY;
-						      };
-						      window.onmouseup = function(){ down = false; };
-						      window.onmousemove = function(ev) {
-						        if (down) {
-						          var dx = ev.clientX - sx;
-						          var dy = ev.clientY - sy;
-						          titleQuad.rotation.y += dx*0.01;
-						          camera.position.y += dy;
-						          sx += dx;
-						          sy += dy;
-						        }
-						      }
+						   //   renderer.render(scene, camera);
+						    var clock = new THREE.Clock();
 						      function animate(t) {
-						        if (!paused) {
-						          last = t;
-						          renderer.clear();
-						          camera.lookAt(scene.position);
-						          renderer.render(scene, camera);
-						        }
+						    
+						        renderer.clear();
+						        
+						         renderer.render(scene, camera);
+						      controls.update(clock.getDelta());
 						        window.requestAnimationFrame(animate, renderer.domElement);
 						      };
 						      animate(new Date().getTime());
-						      onmessage = function(ev) {
-						        paused = (ev.data == 'pause');
-						      };
+					
 
 
 									for (var i=0;i<getDesiresResultsWants.length;i++){
 									      var c = document.createElement('canvas');
 									      var ctx = c.getContext('2d');
-									      ctx.font = '128px Arial';
+									      ctx.font = '256px Arial';
 									ctx.fillStyle='Pink';
 									//      var s = 'love'+i+'love'+i+'love'+i+'love'+i+'love'+i;
 									  var s = getDesiresResultsWants[i];
 									      c.width = ctx.measureText(s).width*2;
-									      c.height = Math.ceil(128*1.25);
-									      ctx.font = '128px Arial';
+									      c.height = Math.ceil(256*1.25);
+									      ctx.font = '256px Arial';
 									ctx.fillStyle='Pink';
-									      ctx.fillText(s, 0, 128);
+									      ctx.fillText(s, 0, 256);
 
 									      var tex = new THREE.Texture(c);
 									      tex.needsUpdate = true;
@@ -151,10 +107,14 @@ var getDesiresResultsTime=[];
 									        mat
 									      );
 									      titleQuad.doubleSided = true;
-										 titleQuad.rotation.y = -1.0*(i);
-										titleQuad.position.y = -20*(i);
-											titleQuad.position.z = -4*(i);
-									      scene.add(titleQuad);
+										var plusOrMinus = [-1,1][Math.random()*2|0];
+										titleQuad.position=new THREE.Vector3(500,500,500);
+										titleQuad.position.y = plusOrMinus*200*(i);
+									//	titleQuad.position.x = -40*(i);
+										titleQuad.position.z = 10*(i);
+									
+										titleQuad.position.x = plusOrMinus * 20*(i);
+									     scene.add(titleQuad);
 
 
 									}
