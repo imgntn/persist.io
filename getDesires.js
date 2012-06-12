@@ -1,6 +1,6 @@
 var tmp, tmp1, tmp2;
-getDesiresResultsWants=[];
-getDesiresResultsTime=[];
+var getDesiresResultsWants=[];
+var getDesiresResultsTime=[];
 				function getDesires (){
 
 

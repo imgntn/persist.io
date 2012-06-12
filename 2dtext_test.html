@@ -3,7 +3,6 @@
   <head>
     <script src="build/Three.js"></script>
 <script src="jquery-1.7.2.js"></script>
-<script src="getDesires.js"></script>
     <style type="text/css">
       body {
         margin: 0px;
@@ -27,150 +26,153 @@ canvas
 
   <body>
     <script>
-
-				var desiresArray =[];
-				var myDesireTime = "";
-				var myDesireWant = "";
-	var tmp, tmp1, tmp2,tmp3;
+//desires//
+var tmp,tmp2,tmp3;
+var getDesiresResultsWants=[];
+var getDesiresResultsTime=[];
 				function getDesires (){
-
-
-					tmp = $.get("http://bethere.io:7379/SMEMBERS/desires", function(data)
-
-					{
-						tmp1 = tmp.responseText;
-					 	tmp2 = JSON.parse(tmp1);
-
-
-
+			
+				tmp =$.ajax({
+					  url: "http://bethere.io:7379/SMEMBERS/desires",
+					  success: function(data) {
+					  console.log('break1');
+					 	tmp2 = JSON.parse(tmp.responseText);
+ console.log('break2');
 							for(var i=0;i<tmp2.SMEMBERS.length;i++){
 								tmp3 = JSON.parse(tmp2.SMEMBERS[i]);
-								desiresArray.push(tmp3.wants);
-								desiresArray.push(tmp3.time);
+								getDesiresResultsWants.push(tmp3.wants);
+								getDesiresResultsTime.push(tmp3.time);
 							};
-							}
-					 );
+							
+							  var renderer = new THREE.WebGLRenderer({antialias: true});
+						      renderer.setSize(document.body.clientWidth, document.body.clientHeight);
+						      document.body.appendChild(renderer.domElement);
+						      renderer.setClearColorHex(0xEEEEEE, 0.5);
+						      renderer.clear();
+						      var fov = 45; // camera field-of-view in degrees
+						      var width = renderer.domElement.width;
+						      var height = renderer.domElement.height;
+						      var aspect = width / height; // view aspect ratio
+						      var near = 1; // near clip plane
+						      var far = 10000; // far clip plane
+						      var camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
+						      camera.position.z = 500;
+						      camera.position.y = 150;
+						      var scene = new THREE.Scene();
+						scene.add(camera);
+
+						for (var i=0;i<36;i++){
+						      var c = document.createElement('canvas');
+						      var ctx = c.getContext('2d');
+						      ctx.font = '128px Arial';
+						ctx.fillStyle='Pink';
+						      //var s = 'love'+i+'love'+i+'love'+i+'love'+i+'love'+i;
+						   var s = getDesiresResultsWants[i];
+						      c.width = ctx.measureText(s).width*2;
+						      c.height = Math.ceil(128*1.25);
+						      ctx.font = '128px Arial';
+						ctx.fillStyle='Pink';
+						      ctx.fillText(s, 0, 128);
+
+						      var tex = new THREE.Texture(c);
+						      tex.needsUpdate = true;
+
+						      var mat = new THREE.MeshBasicMaterial({map: tex});
+						      mat.transparent = true;
+
+						      var titleQuad = new THREE.Mesh(
+						        new THREE.PlaneGeometry(c.width, c.height),
+						        mat
+						      );
+						      titleQuad.doubleSided = true;
+							 titleQuad.rotation.y = -1.0*(i);
+							titleQuad.position.y = -20*(i);
+								titleQuad.position.z = -4*(i);
+						      scene.add(titleQuad);
 
 
+						}
 
+						      renderer.render(scene, camera);
+						      var paused = false;
+						      var last = new Date().getTime();
+						      var down = false;
+						      var sx = 0, sy = 0;
+						      window.onmousedown = function (ev){
+						        down = true; sx = ev.clientX; sy = ev.clientY;
+						      };
+						      window.onmouseup = function(){ down = false; };
+						      window.onmousemove = function(ev) {
+						        if (down) {
+						          var dx = ev.clientX - sx;
+						          var dy = ev.clientY - sy;
+						          titleQuad.rotation.y += dx*0.01;
+						          camera.position.y += dy;
+						          sx += dx;
+						          sy += dy;
+						        }
+						      }
+						      function animate(t) {
+						        if (!paused) {
+						          last = t;
+						          renderer.clear();
+						          camera.lookAt(scene.position);
+						          renderer.render(scene, camera);
+						        }
+						        window.requestAnimationFrame(animate, renderer.domElement);
+						      };
+						      animate(new Date().getTime());
+						      onmessage = function(ev) {
+						        paused = (ev.data == 'pause');
+						      };
+
+
+									for (var i=0;i<getDesiresResultsWants.length;i++){
+									      var c = document.createElement('canvas');
+									      var ctx = c.getContext('2d');
+									      ctx.font = '128px Arial';
+									ctx.fillStyle='Pink';
+									//      var s = 'love'+i+'love'+i+'love'+i+'love'+i+'love'+i;
+									  var s = getDesiresResultsWants[i];
+									      c.width = ctx.measureText(s).width*2;
+									      c.height = Math.ceil(128*1.25);
+									      ctx.font = '128px Arial';
+									ctx.fillStyle='Pink';
+									      ctx.fillText(s, 0, 128);
+
+									      var tex = new THREE.Texture(c);
+									      tex.needsUpdate = true;
+
+									      var mat = new THREE.MeshBasicMaterial({map: tex});
+									      mat.transparent = true;
+
+									      var titleQuad = new THREE.Mesh(
+									        new THREE.PlaneGeometry(c.width, c.height),
+									        mat
+									      );
+									      titleQuad.doubleSided = true;
+										 titleQuad.rotation.y = -1.0*(i);
+										titleQuad.position.y = -20*(i);
+											titleQuad.position.z = -4*(i);
+									      scene.add(titleQuad);
+
+
+									}
+					  },
+					  error : function(request, errorType, exception) {
+					     console.log('error')//handle the error
+					  }
+					});
+					
+
+				//	tmp = $.get("http://bethere.io:7379/SMEMBERS/desires", function(data){});
+				
+					 
+					
 				}
-			getDesires();
-			
-			
-      var renderer = new THREE.WebGLRenderer({antialias: true});
-      renderer.setSize(document.body.clientWidth, document.body.clientHeight);
-      document.body.appendChild(renderer.domElement);
-      renderer.setClearColorHex(0xEEEEEE, 0.5);
-      renderer.clear();
-      var fov = 45; // camera field-of-view in degrees
-      var width = renderer.domElement.width;
-      var height = renderer.domElement.height;
-      var aspect = width / height; // view aspect ratio
-      var near = 1; // near clip plane
-      var far = 10000; // far clip plane
-      var camera = new THREE.PerspectiveCamera( fov, aspect, near, far );
-      camera.position.z = 500;
-      camera.position.y = 150;
-      var scene = new THREE.Scene();
-
-var i;
-for (var i=0;i<36;i++){
-      var c = document.createElement('canvas');
-      var ctx = c.getContext('2d');
-      ctx.font = '128px Arial';
-ctx.fillStyle='Pink';
-//      var s = 'love'+i+'love'+i+'love'+i+'love'+i+'love'+i;
-  var s = i+'_love_love_love_love_love';
-      c.width = ctx.measureText(s).width*2;
-      c.height = Math.ceil(128*1.25);
-      ctx.font = '128px Arial';
-ctx.fillStyle='Pink';
-      ctx.fillText(s, 0, 128);
-      
-      var tex = new THREE.Texture(c);
-      tex.needsUpdate = true;
-      
-      var mat = new THREE.MeshBasicMaterial({map: tex});
-      mat.transparent = true;
-
-      var titleQuad = new THREE.Mesh(
-        new THREE.PlaneGeometry(c.width, c.height),
-        mat
-      );
-      titleQuad.doubleSided = true;
-	 titleQuad.rotation.y = -1.0*(i);
-	titleQuad.position.y = -20*(i);
-		titleQuad.position.z = -4*(i);
-      scene.add(titleQuad);
-
-
-}
-
-      renderer.render(scene, camera);
-      var paused = false;
-      var last = new Date().getTime();
-      var down = false;
-      var sx = 0, sy = 0;
-      window.onmousedown = function (ev){
-        down = true; sx = ev.clientX; sy = ev.clientY;
-      };
-      window.onmouseup = function(){ down = false; };
-      window.onmousemove = function(ev) {
-        if (down) {
-          var dx = ev.clientX - sx;
-          var dy = ev.clientY - sy;
-          titleQuad.rotation.y += dx*0.01;
-          camera.position.y += dy;
-          sx += dx;
-          sy += dy;
-        }
-      }
-      function animate(t) {
-        if (!paused) {
-          last = t;
-          renderer.clear();
-          camera.lookAt(scene.position);
-          renderer.render(scene, camera);
-        }
-        window.requestAnimationFrame(animate, renderer.domElement);
-      };
-      animate(new Date().getTime());
-      onmessage = function(ev) {
-        paused = (ev.data == 'pause');
-      };
-
-			
-			for (var i=0;i<desiresArray.length;i++){
-			      var c = document.createElement('canvas');
-			      var ctx = c.getContext('2d');
-			      ctx.font = '128px Arial';
-			ctx.fillStyle='Pink';
-			//      var s = 'love'+i+'love'+i+'love'+i+'love'+i+'love'+i;
-			  var s = desiresArray[i];
-			      c.width = ctx.measureText(s).width*2;
-			      c.height = Math.ceil(128*1.25);
-			      ctx.font = '128px Arial';
-			ctx.fillStyle='Pink';
-			      ctx.fillText(s, 0, 128);
-
-			      var tex = new THREE.Texture(c);
-			      tex.needsUpdate = true;
-
-			      var mat = new THREE.MeshBasicMaterial({map: tex});
-			      mat.transparent = true;
-
-			      var titleQuad = new THREE.Mesh(
-			        new THREE.PlaneGeometry(c.width, c.height),
-			        mat
-			      );
-			      titleQuad.doubleSided = true;
-				 titleQuad.rotation.y = -1.0*(i);
-				titleQuad.position.y = -20*(i);
-					titleQuad.position.z = -4*(i);
-			      scene.add(titleQuad);
-
-
-			}
+				getDesires();
+				
+    
 			
     </script>
   </body>
