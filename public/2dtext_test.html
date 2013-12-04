@@ -35,7 +35,7 @@ var getDesiresResultsTime=[];
 				function getDesires (){
 			var clock = new THREE.Clock();
 				tmp =$.ajax({
-					  url: "http://bethere.io:7379/SMEMBERS/desires",
+					  url: "http://persist.io:7379/SMEMBERS/desires",
 					  success: function(data) {
 					  console.log('break1');
 					 	tmp2 = JSON.parse(tmp.responseText);
@@ -130,7 +130,7 @@ var getDesiresResultsTime=[];
 					});
 					
 
-				//	tmp = $.get("http://bethere.io:7379/SMEMBERS/desires", function(data){});
+				//	tmp = $.get("http://persist.io:7379/SMEMBERS/desires", function(data){});
 				
 					 
 					

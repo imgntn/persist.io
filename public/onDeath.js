@@ -2,7 +2,7 @@ function addDeathTree()
 
 {
 	
-	$.get("http://bethere.io:7379/SADD/deathTrees/"+JSON.stringify(newNetTree.position));
+	$.get("http://persist.io:7379/SADD/deathTrees/"+JSON.stringify(newNetTree.position));
 	
 }
 
@@ -17,7 +17,7 @@ var length, i, temp;
 function getDeathTrees (){
 	
  	deathTreeArrayFetch = $.ajax({
-	  url: "http://bethere.io:7379/SMEMBERS/deathTrees",
+	  url: "http://persist.io:7379/SMEMBERS/deathTrees",
 	  context: document.body,
 	dataType: "json",
 		  success: function(){

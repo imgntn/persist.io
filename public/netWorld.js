@@ -4,7 +4,7 @@ var myDesireWant = "";
 function getDesires (){
 	
 	
-	tmp = $.get("http://bethere.io:7379/SMEMBERS/desires", function(data)
+	tmp = $.get("http://persist.io:7379/SMEMBERS/desires", function(data)
 	
 	{
 	  tmp2 = JSON.parse(data.responseText);
