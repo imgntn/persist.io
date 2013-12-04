@@ -38,7 +38,7 @@
 
 		color: red; }	
 		</style>
-	<script src="application.js" type="text/javascript" charset="utf-8" id="juggernaut"></script>
+	<script src="application.js" type="text/javascript" charset="utf-8" ></script>
 	<script src="build/Three.js"></script>
 	<script src="jquery-1.7.2.js"></script>
 	<script src="jquery-ui-1.8.19.custom.min.js"></script>
@@ -435,69 +435,8 @@
 	}
 	*/
 	
-	//juggernaut websockets
-/*
-	var logElement = document.getElementById("log");
-    logElement.value = "";
-    var log = function(data){
-      logElement.value += (data + "\n");
-    };
-*/
-    var jug = new Juggernaut({
-      secure: ('https:' == document.location.protocol),
-      host: document.location.hostname,
-      port: document.location.port || 80
-    });
-
-    jug.on("connect", function(){ 
 	
-	var sessionIDs = [];
 	
-//	log("Connected");
-	$.get("http://bethere.io:7379/INCR/nonuniquevisitors");
-	
-	$.get("http://bethere.io:7379/SADD/sessionIDs/"+jug.sessionID);
-	//get sessionsIDs
-	//$.get("http://bethere.io:7379/LRANGE/sessionIDs/0/-1");
-	
-	 });
-    jug.on("disconnect", function(){ 
-	
-//	log("Disconnected")
-	$.get("http://bethere.io:7379/SREM/sessionIDs/"+jug.sessionID);
-
- });
-    jug.on("reconnect", function(){ 
-	
-//	log("Reconnecting") ;
-	$.get("http://bethere.io:7379/SADD/sessionIDs/"+jug.sessionID);
-	
-
-});
-
-//    log("Subscribing to channel1");
-//  log("Subscribing to channel2");
-   
- jug.subscribe("channel1", function(data){
-//log("Got data: " + data);
-console.log("Got data: " + data);
-    });
-	var smoothCharacter;
-	    jug.subscribe("channel2", function(data){
-	//      log("Got data: " + data);
-	console.log("Got data: " + data);
-	 smoothCharacter = function(object3d) {
-
-		new TWEEN.Tween(character.root.position)
-			.to({x: data[0], y: data[1], z: data[2]}, 5000)
-			.easing(TWEEN.Easing.Quartic.EaseIn)
-			.start();
-	};
-	smoothCharacter();
-	//character.root.position = new THREE.Vector3(data[0],data[1],data[2]);
-	$.get("http://bethere.io:7379/SET/characterposition/"+ data);
-	$.get("http://bethere.io:7379/SET/characterposition2/"+ JSON.stringify(character.root.position));
-	    });
 	
 		
 
@@ -508,43 +447,14 @@ console.log("Got data: " + data);
 					var dtube;
 					var neshamotHere = false;
 		
-		
-	
-							var desiresArray =[];
-							var myDesireTime = "";
-							var myDesireWant = "";
-var desiresArrayParsed=[];
-	
-//subscribe to a personal channel
-		 jug.subscribe("channel"+jug.sessionID, function(data){
-		      log("Got data: " + data);
-		console.log("Got data: " + data);
-		    });
-		
-			//subscribe to a liveList channel
-					 jug.subscribe("liveList", function(data){
-					console.log("Got liveList data: " + data);
-					desiresArray[0]=data;
-					desiresArrayParsed=JSON.parse(desiresArray[0]);
-					for(var i=0;i<desiresArrayParsed.SMEMBERS.length;i++){
-					desireParsed = JSON.parse(desiresArrayParsed.SMEMBERS[i]);
-					desireParsedText = desireParsed.wants + "@" + desireParsed.time;
-					console.log(desireParsedText);
-						
-					};
-					    });
+
 	
 	//closing, refreshing, aborting, error should remove user from connected session id list
-window.onbeforeunload = unloadPage;
-window.onunload = unloadPage;
-window.onerror = unloadPage;
-window.onabort = unloadPage;
+// window.onbeforeunload = unloadPage;
+// window.onunload = unloadPage;
+// window.onerror = unloadPage;
+// window.onabort = unloadPage;
 
-		function unloadPage()
-		{
-		$.get("http://bethere.io:7379/SREM/sessionIDs/"+jug.sessionID);
-		}
-		
 		
 //fullscreen
 
