@@ -2,6 +2,8 @@
 <head>
 <meta charset="UTF-8">
 	<title>bethere.io</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<meta property="og:title" content="bethere.io" />
 		<meta property="og:type" content="website" />
 		<meta property="og:url" content="http://bethere.io" />
@@ -38,7 +40,7 @@
 
 		color: red; }	
 		</style>
-	<script src="application.js" type="text/javascript" charset="utf-8" ></script>
+	// <script src="application.js" type="text/javascript" charset="utf-8" ></script>
 	<script src="build/Three.js"></script>
 	<script src="jquery-1.7.2.js"></script>
 	<script src="jquery-ui-1.8.19.custom.min.js"></script>
@@ -69,11 +71,11 @@
 <body onbeforeunload="unloadPage()">
 
 		<div id="info">
-			<button onclick="$('#dialogTarget').dialog('open');">Instructions</button>
+			<!-- <button onclick="$('#dialogTarget').dialog('open');">Instructions</button> -->
 <br>
-		<button onclick="renderManager.setCurrent('Above');controls.freeze=false;">Above</button>
+<button onclick="renderManager.setCurrent('Above');controls.freeze=false;">Above</button>
 	<button onclick="desires.prompt();renderManager.setCurrent('Beyond');controls.freeze=false;controls.movementSpeed=300;plant1.position.y=-30">Beyond</button>
-	<div id="dialogTarget">
+	<!-- <div id="dialogTarget">
 		<script>
 		$('#dialogTarget').dialog({ autoOpen: false});
 		
@@ -119,7 +121,7 @@
 
 
 		</p></center>
-		</div>
+		</div> -->
 		
 	
 			
@@ -487,7 +489,8 @@ THREEx.FullScreen.bindKey({
 	renderer,
 	SHADOW_MAP_WIDTH = 2048,
 	SHADOW_MAP_HEIGHT = 1024;
-
+	renderer = new THREE.WebGLRenderer( { clearAlpha: 1, clearColor: 0x000000 } );
+	renderer.setSize( window.innerWidth, window.innerHeight );
 	container = document.body.appendChild( container );
 	camera = new THREE.PerspectiveCamera( 40, window.innerWidth/window.innerHeight, 1, 9500 );
 	
@@ -497,8 +500,7 @@ THREEx.FullScreen.bindKey({
 	scene = new THREE.Scene();
 scene.add(camera);
 	scene.fog = new THREE.FogExp2( 0x000000, 0.0003 );
-	renderer = new THREE.WebGLRenderer( { clearAlpha: 1, clearColor: 0x000000 } );
-	renderer.setSize( window.innerWidth, window.innerHeight );
+
 	renderer.autoClear = false;
 	renderer.shadowCameraNear = 2;
 	renderer.shadowCameraFar = this.camera.far;
@@ -1001,11 +1003,9 @@ var nCharacters = 0;
 		if (keyboard.pressed(right))	{CharacterControls.moveRight = true;neshamot.position.x += 5; if(neshamotHere==true){neshamot.updateAnimation(-animDelta*2);	};
 		}
 		else{CharacterControls.moveRight=false;}
-		var attack = "control"
-		if (keyboard.pressed(attack)) {CharacterControls.attack = true;}
-		else{CharacterControls.attack=false;}
-		var jump = "shift"
-		if (keyboard.pressed(jump)) {CharacterControls.jump = true;}
+
+		var death = "space"
+		if (keyboard.pressed(death)) {CharacterControls.death = true;}
 		else{CharacterControls.jump=false;}
 				}, 250);
 		
@@ -1169,35 +1169,35 @@ var tube;
 			
 //arrows
 			
-var arrow;
-var arrowDirectionX;
-var arrowDirectionY;
-var arrowDirectionZ;
-var arrowDirectionXMinus;
-//var arrowDirectionYMinus;
-var arrowDirectionZMinus;
+// var arrow;
+// var arrowDirectionX;
+// var arrowDirectionY;
+// var arrowDirectionZ;
+// var arrowDirectionXMinus;
+// //var arrowDirectionYMinus;
+// var arrowDirectionZMinus;
 
-var arrowOrigin;
-arrowDirectionX = new THREE.Vector3(1,0,0);
-arrowDirectionY = new THREE.Vector3(0,1,0);
-arrowDirectionZ = new THREE.Vector3(0,0,1);
-arrowDirectionXMinus = new THREE.Vector3(-1,0,0);
-//arrowDirectionYMinus = new THREE.Vector3(0,-1,0);
-arrowDirectionZMinus = new THREE.Vector3(0,0,-1);
-arrowOrigin = character.root.position;
+// var arrowOrigin;
+// arrowDirectionX = new THREE.Vector3(1,0,0);
+// arrowDirectionY = new THREE.Vector3(0,1,0);
+// arrowDirectionZ = new THREE.Vector3(0,0,1);
+// arrowDirectionXMinus = new THREE.Vector3(-1,0,0);
+// //arrowDirectionYMinus = new THREE.Vector3(0,-1,0);
+// arrowDirectionZMinus = new THREE.Vector3(0,0,-1);
+// arrowOrigin = character.root.position;
 
-arrowX = new THREE.ArrowHelper(arrowDirectionX,arrowOrigin,100,0xff0000);
-arrowY = new THREE.ArrowHelper(arrowDirectionY,arrowOrigin,100,0x00ff00);
-arrowZ = new THREE.ArrowHelper(arrowDirectionZ,arrowOrigin,100,0x0000ff);
-arrowXMinus = new THREE.ArrowHelper(arrowDirectionXMinus,arrowOrigin,100,0xff00ff);
-//arrowYMinus = new THREE.ArrowHelper(arrowDirectionYMinus,arrowOrigin,100,0xffb90f);
-arrowZMinus = new THREE.ArrowHelper(arrowDirectionZMinus,arrowOrigin,100,0xff6600);
-scene.add(arrowX);
-scene.add(arrowY);
-scene.add(arrowZ);
-scene.add(arrowXMinus);
-//scene.add(arrowYMinus);
-scene.add(arrowZMinus);
+// arrowX = new THREE.ArrowHelper(arrowDirectionX,arrowOrigin,100,0xff0000);
+// arrowY = new THREE.ArrowHelper(arrowDirectionY,arrowOrigin,100,0x00ff00);
+// arrowZ = new THREE.ArrowHelper(arrowDirectionZ,arrowOrigin,100,0x0000ff);
+// arrowXMinus = new THREE.ArrowHelper(arrowDirectionXMinus,arrowOrigin,100,0xff00ff);
+// //arrowYMinus = new THREE.ArrowHelper(arrowDirectionYMinus,arrowOrigin,100,0xffb90f);
+// arrowZMinus = new THREE.ArrowHelper(arrowDirectionZMinus,arrowOrigin,100,0xff6600);
+// scene.add(arrowX);
+// scene.add(arrowY);
+// scene.add(arrowZ);
+// scene.add(arrowXMinus);
+// //scene.add(arrowYMinus);
+// scene.add(arrowZMinus);
 			
 			
 			

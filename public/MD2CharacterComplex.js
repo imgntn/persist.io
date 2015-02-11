@@ -57,7 +57,7 @@ THREE.MD2CharacterComplex = function () {
 	// internal movement control variables
 
 	this.speed = 0;
-	this.bodyOrientation = 0;
+	this.bodyOrientation = Math.PI;
 
 	this.walkSpeed = this.maxSpeed;
 	this.crouchSpeed = this.maxSpeed * 0.5;
@@ -358,49 +358,6 @@ THREE.MD2CharacterComplex = function () {
 			idleAnimation = animations[ "jump" ];
 
 		}
-		
-		
-		if ( controls.death ) {
-
-			moveAnimation = animations[ "death" ];
-			idleAnimation = animations[ "death" ];
-
-		}
-		
-			if ( controls.pain ) {
-
-				moveAnimation = animations[ "pain" ];
-				idleAnimation = animations[ "pain" ];
-
-			}
-			
-				if ( controls.wave ) {
-
-					moveAnimation = animations[ "wave" ];
-					idleAnimation = animations[ "wave" ];
-
-				}
-				
-					if ( controls.taunt ) {
-
-						moveAnimation = animations[ "taunt" ];
-						idleAnimation = animations[ "taunt" ];
-
-					}
-
-						if ( controls.flip ) {
-
-							moveAnimation = animations[ "flip" ];
-							idleAnimation = animations[ "flip" ];
-
-						}
-								if ( controls.point ) {
-
-									moveAnimation = animations[ "point" ];
-									idleAnimation = animations[ "point" ];
-
-								}
-
 
 		if ( controls.attack ) {
 
@@ -431,7 +388,7 @@ THREE.MD2CharacterComplex = function () {
 		}
 
 
-		if ( Math.abs( this.speed ) < 0.2 * this.maxSpeed && !( controls.moveLeft || controls.moveRight ) ) {
+		if ( Math.abs( this.speed ) < 0.2 * this.maxSpeed && !( controls.moveLeft || controls.moveRight || controls.moveForward || controls.moveBackward ) ) {
 
 			if ( this.activeAnimation !== idleAnimation ) {
 
@@ -443,7 +400,7 @@ THREE.MD2CharacterComplex = function () {
 
 		// set animation direction
 
-		if ( controls.moveForward ) {
+		if ( controls.moveBackward ) {
 
 			if ( this.meshBody )   {
 
@@ -461,7 +418,7 @@ THREE.MD2CharacterComplex = function () {
 
 		}
 
-		if ( controls.moveBackward ) {
+		if ( controls.moveForward ) {
 
 			if ( this.meshBody ) {
 
@@ -547,7 +504,6 @@ THREE.MD2CharacterComplex = function () {
 
 	// internal helpers
 
-
 	function loadTextures( baseUrl, textureUrls ) {
 
 		var mapping = new THREE.UVMapping();
@@ -563,11 +519,6 @@ THREE.MD2CharacterComplex = function () {
 		return textures;
 
 	};
-
-	
-
-
-
 
 	function createPart( geometry, skinMap ) {
 
