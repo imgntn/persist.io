@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<<<<<<< HEAD
+
 	<title>persist.io</title>
 	<meta property="og:title" content="persist.io" />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1892,16 +1892,22 @@ var desires = {
 	prompt: function (){
 	//var myName =	prompt("What are you called?");
 	myDesire =	prompt("What do you want from life, ultimately?");
-	myAnswer = {
-	
-	 //"called":myName ,
-	"wants":myDesire, "time":Date() }
-	//{ "firstName":"Anna" , "lastName":"Smith" }, 
-	//{ "firstName":"Peter" , "lastName":"Jones" }
 
+	var options = {
+		desire:myDesire
+	}
+
+	console.log('options is',options)
+
+	var writeDesire = $.post('/api/bears',options).done(function(data){
+		console.log('data in post is:',data)
+	})  
+	.fail(function() {
+    alert( "error" );
+ 	 })
 	
 
-	$.get("http://persist.io:7379/SADD/desires/"+JSON.stringify(myAnswer));
+	// $.get("http://persist.io:7379/SADD/desires/"+JSON.stringify(myAnswer));
 			scene2.remove(txtparent);
 				
 					text = 	"Was ihr seid, das waren wir. Was wir sind, das werdet ihr.";
