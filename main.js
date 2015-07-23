@@ -71,7 +71,6 @@ router.route('/desires')
 		var desire = new Desire(); // create a new instance of the desire model
 	
 		desire.txt = req.body.txt; // set the desire name (comes from the request)
-
 		// save the desire and check for errors
 		desire.save(function(err) {
 			if (err) {

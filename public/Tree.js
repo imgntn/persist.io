@@ -7,7 +7,7 @@ var leafimage = document.createElement( 'img' );
 leafimage.src = "leaf.png";
 
 var leafTexture = new THREE.Texture(leafimage );
-leafTexture.needsUpdate = true;
+leafTexture.needsUpdate = false;
 
 var leafGeometry = new THREE.PlaneGeometry( 15, 15,1, 1 );
 var leafMaterial = new THREE.MeshBasicMaterial( { opacity:0.85, map: leafTexture, blending: THREE.NormalBlending, depthTest: true, transparent : true} );
