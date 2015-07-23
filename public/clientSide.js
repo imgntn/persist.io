@@ -1,3 +1,11 @@
+// var iOS = /iPad|iPhone|iPod/.test( navigator.userAgent );
+// if(iOS){
+// 	$('body').css('color','white');
+// 	$('body').css('text-align','center');
+// 	$('body').css('font-size','22pt');
+// 	$('body').css('margin-top','30px');
+// 	$('body').html("<p>Sorry, this site does not currently work on iOS. Please use Chrome or Safari on the Desktop :) </p>")
+// }
 Desires.getDesires();
 
 function showControls() {
@@ -37,10 +45,13 @@ var container = document.createElement('div'),
 	renderer,
 	SHADOW_MAP_WIDTH = 2048,
 	SHADOW_MAP_HEIGHT = 1024;
-renderer = new THREE.WebGLRenderer({
+
+	
+	var renderer = Detector.webgl? new THREE.WebGLRenderer({
 	clearAlpha: 1,
 	clearColor: 0x000000
-});
+}): new THREE.CanvasRenderer()
+
 renderer.setSize(window.innerWidth, window.innerHeight);
 container = document.body.appendChild(container);
 camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 9500);

@@ -122,79 +122,6 @@ Tree = function ( materials, level, radius, entryPointIndex, maxScale ) {
 			R.normalize();
 			S.normalize();
 		
-			//build branch
-			buildNode( numCurrentPos == 0  );
-
-			//branchPoint.rotation.x = numCurrentPos * 1 * TO_RADIANS;
-			branchPoint.updateMatrix();
-
-			if ( branchMap[scope.level][ scope.entryPointIndex + numCurrentPos] ) {
-			
-				var totalBranches = branchMap[scope.level][ scope.entryPointIndex + numCurrentPos];
-				
-				var newBranchIndex = totalBranches
-				
-				while (  newBranchIndex > 0  )
-				{
-				
-					var newBranch = new Tree( branchMaterial, scope.level, scope.radius, scope.entryPointIndex + numCurrentPos-3, scope.maxScale*.9)
-					newBranch.position = branchPoint.position.clone();
-					newBranch.rotation = branchPoint.rotation.clone();
-					newBranch.rotation.z += randomTable[ totalBranchesCreated ] * TO_RADIANS;
-					scope.add( newBranch );
-					
-					//add one step in random table
-					totalBranchesCreated++
-					
-					//if random index larger than table, reset to zero
-					if( totalBranchesCreated > randomTable.length-1) totalBranchesCreated = 0
-					
-					//scope.radius *= 0.95
-					//if( scope.radius < 1 ) scope.radius = 1
-					
-					
-					newBranchIndex--
-				}
-				
-			}
-			else if( numCurrentPos > scope.branchOffset-4 ) {
-				
-				for( i=0; i<2; i++ ) {
-					var mesh = new THREE.Mesh( leafGeometry, leafMaterial );
-					mesh.doubleSided = true
-					mesh.position = branchPoint.position.clone();
-					mesh.position.x += Math.random()*50-25
-					mesh.position.y += Math.random()*50-25
-					mesh.position.z += Math.random()*50-25
-					mesh.rotation = branchPoint.rotation.clone();
-					mesh.rotation.x = 90 * TO_RADIANS;
-					mesh.rotation.y = Math.random()*90 * TO_RADIANS
-					mesh.rotation.z = Math.random()*90 * TO_RADIANS;
-					scope.add( mesh );
-					
-					var tweenTarget = mesh; 
-					var initRotY = mesh.rotation.y
-					var initRotZ = mesh.rotation.z
-					var randomTime = Math.random()*2000+200
-					mesh.tween = new TWEEN.Tween(tweenTarget.rotation)
-						.to({ z: (initRotZ+30*Math.random()) * TO_RADIANS, y: initRotY + Math.random() * 65 * TO_RADIANS }, randomTime)
-						.easing(TWEEN.Easing.Quadratic.EaseInOut)
-						.start();
-			
-					mesh.tweenBack = new TWEEN.Tween(tweenTarget.rotation, false)
-						.to({ z: initRotZ, y: initRotY }, randomTime)
-						.easing(TWEEN.Easing.Quadratic.EaseInOut);
-			
-					mesh.tween.chain(mesh.tweenBack);
-					mesh.tweenBack.chain(mesh.tween);
-					
-				}
-				
-			}
-			
-			numCurrentPos++;
-			scope.radius = scope.radius-radiusStep;
-
 			function buildNode( bFirstNode ) {
 				
 				var segmentAngle;
@@ -287,6 +214,79 @@ Tree = function ( materials, level, radius, entryPointIndex, maxScale ) {
 					intSegmentStep++;
 				}
 			}
+			//build branch
+			buildNode( numCurrentPos == 0  );
+
+			//branchPoint.rotation.x = numCurrentPos * 1 * TO_RADIANS;
+			branchPoint.updateMatrix();
+
+			if ( branchMap[scope.level][ scope.entryPointIndex + numCurrentPos] ) {
+			
+				var totalBranches = branchMap[scope.level][ scope.entryPointIndex + numCurrentPos];
+				
+				var newBranchIndex = totalBranches
+				
+				while (  newBranchIndex > 0  )
+				{
+				
+					var newBranch = new Tree( branchMaterial, scope.level, scope.radius, scope.entryPointIndex + numCurrentPos-3, scope.maxScale*.9)
+					newBranch.position = branchPoint.position.clone();
+					newBranch.rotation = branchPoint.rotation.clone();
+					newBranch.rotation.z += randomTable[ totalBranchesCreated ] * TO_RADIANS;
+					scope.add( newBranch );
+					
+					//add one step in random table
+					totalBranchesCreated++
+					
+					//if random index larger than table, reset to zero
+					if( totalBranchesCreated > randomTable.length-1) totalBranchesCreated = 0
+					
+					//scope.radius *= 0.95
+					//if( scope.radius < 1 ) scope.radius = 1
+					
+					
+					newBranchIndex--
+				}
+				
+			}
+			else if( numCurrentPos > scope.branchOffset-4 ) {
+				
+				for( i=0; i<2; i++ ) {
+					var mesh = new THREE.Mesh( leafGeometry, leafMaterial );
+					mesh.doubleSided = true
+					mesh.position = branchPoint.position.clone();
+					mesh.position.x += Math.random()*50-25
+					mesh.position.y += Math.random()*50-25
+					mesh.position.z += Math.random()*50-25
+					mesh.rotation = branchPoint.rotation.clone();
+					mesh.rotation.x = 90 * TO_RADIANS;
+					mesh.rotation.y = Math.random()*90 * TO_RADIANS
+					mesh.rotation.z = Math.random()*90 * TO_RADIANS;
+					scope.add( mesh );
+					
+					var tweenTarget = mesh; 
+					var initRotY = mesh.rotation.y
+					var initRotZ = mesh.rotation.z
+					var randomTime = Math.random()*2000+200
+					mesh.tween = new TWEEN.Tween(tweenTarget.rotation)
+						.to({ z: (initRotZ+30*Math.random()) * TO_RADIANS, y: initRotY + Math.random() * 65 * TO_RADIANS }, randomTime)
+						.easing(TWEEN.Easing.Quadratic.EaseInOut)
+						.start();
+			
+					mesh.tweenBack = new TWEEN.Tween(tweenTarget.rotation, false)
+						.to({ z: initRotZ, y: initRotY }, randomTime)
+						.easing(TWEEN.Easing.Quadratic.EaseInOut);
+			
+					mesh.tween.chain(mesh.tweenBack);
+					mesh.tweenBack.chain(mesh.tween);
+					
+				}
+				
+			}
+			
+			numCurrentPos++;
+			scope.radius = scope.radius-radiusStep;
+
 		}
 	}
 	
