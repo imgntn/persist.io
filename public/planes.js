@@ -13,9 +13,15 @@ function initPlanes() {
     scene2.add(planesContainer);
     projector = new THREE.Projector();
     var planes = new Array();
+   if(Desires.initialDesires.length<=10){
+      var numOfPlanesY = Desires.initialDesires.length;
+   }
+   else{
+     var numOfPlanesY = 10;
+   }
    
-    var numOfPlanesY = 10;
      var numOfPlanesX = listToMatrix(Desires.initialDesires,numOfPlanesY).length;
+     console.log('xy',numOfPlanesX,numOfPlanesY)
     var side = 50;
     var offset = side / 2;
     for (var x = 0; x < numOfPlanesX; x++) {
@@ -56,9 +62,9 @@ function initPlanes() {
         }
     }
     updatePlaneTexts();
-    planesContainer.position.x = -750;
+    planesContainer.position.x = -1550+(50*numOfPlanesX);
     planesContainer.position.z = -150;
-    planesContainer.position.y = 1400;
+    planesContainer.position.y = 150*numOfPlanesY;
     planesContainer.scale.x = 2;
     planesContainer.scale.y = 2;
 
