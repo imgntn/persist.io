@@ -1,17 +1,24 @@
-// var iOS = /iPad|iPhone|iPod/.test( navigator.userAgent );
-// if(iOS){
-// 	$('body').css('color','white');
-// 	$('body').css('text-align','center');
-// 	$('body').css('font-size','22pt');
-// 	$('body').css('margin-top','30px');
-// 	$('body').html("<p>Sorry, this site does not currently work on iOS. Please use Chrome or Safari on the Desktop :) </p>")
-// }
-Desires.getDesires();
+var iOS = /iPad|iPhone|iPod/.test( navigator.userAgent );
+if(iOS){
+	$('body').css('color','white');
+	$('body').css('text-align','center');
+	$('body').css('font-size','22pt');
+	$('body').css('margin-top','30px');
+	$('body').html("<p>Sorry, this site does not currently work on iOS. Please use Chrome, Safari, or Firefox on the Desktop :) </p>")
+}
+else{
+	showControls();
+	Desires.getDesires();
+}
+
+function showAbout() {
+	alertify.alert(' <div style="text-align:center;margin-bottom:15px;">2012 MFA Thesis Project in Playable Fiction<br>by <a href="http://linkedin.com/in/jamespollack">James B. Pollack</a> <br><br> "Reference Implementation for Long-Term Preservation of Interactive Software Art"<br><br> Written in Javascript using webGL. Code at <a href="https://github.com/imgntn/persist.io" target="_blank">Github</a><br><br>To see what others have done, "Go Beyond". </div>');
+}
 
 function showControls() {
 	alertify.alert('persist.io - by james b. pollack 2012', 'Keyboard Controls: <br> <br> W,A,S,D,R,F - Move Camera <br> SPACEBAR - Freeze / Unfreeze Camera   <br> Arrow Keys - Move Character<br><br>  Mouse Controls: <br><br> Left Mouse Button - Camera Forward <br> Right Mouse Button - Camera Backward ');
 }
-showControls();
+
 
 var audioPlaying = false;
 

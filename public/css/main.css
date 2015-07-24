@@ -34,7 +34,17 @@ body{
 	left:125px;
 	bottom:10px;
 }
-
+.about-button{
+	background-color:rgba(0,0,0,0.5);
+	color:orange;
+	font-size:10pt;
+	border-radius:5px;
+	border: none;
+	cursor:pointer;
+	position:absolute;
+	left:235px;
+	bottom:10px;
+}
 .hide{
 	display:none !important;
 }
