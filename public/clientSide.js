@@ -12,7 +12,7 @@ else{
 }
 
 function showAbout() {
-	alertify.alert(' <div style="text-align:center;margin-bottom:15px;">2012 MFA Thesis Project in Playable Fiction<br>by <a href="http://linkedin.com/in/jamespollack">James B. Pollack</a> <br><br> "Reference Implementation for Long-Term Preservation of Interactive Software Art"<br><br> Written in Javascript using webGL. Code at <a href="https://github.com/imgntn/persist.io" target="_blank">Github</a><br><br>To see what others have done, "Go Beyond". </div>');
+	alertify.alert(' <div style="text-align:center;margin-bottom:15px;">2012 MFA Thesis Project in Playable Fiction<br>by <a href="http://linkedin.com/in/jamespollack" target="_blank">James B. Pollack</a> <br><br> "Reference Implementation for Long-Term Preservation of Interactive Software Art"<br><br> Written in Javascript using webGL. Code at <a href="https://github.com/imgntn/persist.io" target="_blank">Github</a><br><br>To see what others have done, "Go Beyond". </div>');
 }
 
 function showControls() {
