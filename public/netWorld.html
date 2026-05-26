@@ -1,9 +1,9 @@
 <html>
 <head>
-	<title>bethere.io</title>
-	<meta property="og:title" content="bethere.io" />
+	<title>persist.io</title>
+	<meta property="og:title" content="persist.io" />
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content="http://bethere.io" />
+		<meta property="og:url" content="http://persist.io" />
 		<meta property="og:image" content="bethereOG.jpg" />
 		<meta property="og:description" content="an all-javascript virtual environment by james b. pollack" />
 		<style>
@@ -77,7 +77,7 @@
 		</script>
 		<center>
 		<p>
-		bethere.io 
+		persist.io 
 		<br>
 		by james b. pollack
 		<br>2012<br><br>
@@ -110,9 +110,9 @@
 		<br>
 		what it is:<br>
 		
-		an interactive virtual environment running on a live website without any plugins. "bethere.io" is written in javascript.  it runs in modern web browsers (currently chrome-only) on computers that support webGL.  
+		an interactive virtual environment running on a live website without any plugins. "persist.io" is written in javascript.  it runs in modern web browsers (currently chrome-only) on computers that support webGL.  
 		
-		both the software and the hardware of this piece are, at their core, collections of written instructions.  it operates on a set of stateless machines known as the cloud to emulate the manner in which a particular set of programs behaves on a certain set of electronic components. so long as we are able to simulate less powerful computers inside of more powerful ones, "bethere.io" should never suffer a technical death due to deprecation.  it comes from acknowledging its own supersession.  the code is open source, which means anyone can contribute or create a new branch and modify it to build a world of their own.  fork it on github. 
+		both the software and the hardware of this piece are, at their core, collections of written instructions.  it operates on a set of stateless machines known as the cloud to emulate the manner in which a particular set of programs behaves on a certain set of electronic components. so long as we are able to simulate less powerful computers inside of more powerful ones, "persist.io" should never suffer a technical death due to deprecation.  it comes from acknowledging its own supersession.  the code is open source, which means anyone can contribute or create a new branch and modify it to build a world of their own.  fork it on github. 
 
 
 		</p></center>
@@ -133,7 +133,7 @@
 					if (desire!=null && desire!="")
 					  {
 					  console.log("<p>Hello " + desire + "! How are you today?</p>");
-					$.get("http://bethere.io:7379/SADD/desire/"+desire)
+					$.get("http://persist.io:7379/SADD/desire/"+desire)
 					  }
 					}
 					</script>
@@ -401,7 +401,7 @@
 	
 		
 		
-		sessionArrayFetch = $.get("http://bethere.io:7379/SMEMBERS/sessionIDs")
+		sessionArrayFetch = $.get("http://persist.io:7379/SMEMBERS/sessionIDs")
 		.success(function (){
 			
 			sessionArrayParse = JSON.parse(sessionArrayFetch.responseText);
@@ -421,7 +421,7 @@
 	
 		
 		
-		sessionArrayFetch = $.get("http://bethere.io:7379/SMEMBERS/sessionIDs")
+		sessionArrayFetch = $.get("http://persist.io:7379/SMEMBERS/sessionIDs")
 		.success(function (){
 			
 			sessionArrayParse = JSON.parse(sessionArrayFetch.responseText);
@@ -451,23 +451,23 @@
 	var sessionIDs = [];
 	
 //	log("Connected");
-	$.get("http://bethere.io:7379/INCR/nonuniquevisitors");
+	$.get("http://persist.io:7379/INCR/nonuniquevisitors");
 	
-	$.get("http://bethere.io:7379/SADD/sessionIDs/"+jug.sessionID);
+	$.get("http://persist.io:7379/SADD/sessionIDs/"+jug.sessionID);
 	//get sessionsIDs
-	//$.get("http://bethere.io:7379/LRANGE/sessionIDs/0/-1");
+	//$.get("http://persist.io:7379/LRANGE/sessionIDs/0/-1");
 	
 	 });
     jug.on("disconnect", function(){ 
 	
 //	log("Disconnected")
-	$.get("http://bethere.io:7379/SREM/sessionIDs/"+jug.sessionID);
+	$.get("http://persist.io:7379/SREM/sessionIDs/"+jug.sessionID);
 
  });
     jug.on("reconnect", function(){ 
 	
 //	log("Reconnecting") ;
-	$.get("http://bethere.io:7379/SADD/sessionIDs/"+jug.sessionID);
+	$.get("http://persist.io:7379/SADD/sessionIDs/"+jug.sessionID);
 	
 
 });
@@ -492,8 +492,8 @@ console.log("Got data: " + data);
 	};
 	smoothCharacter();
 	//character.root.position = new THREE.Vector3(data[0],data[1],data[2]);
-	$.get("http://bethere.io:7379/SET/characterposition/"+ data);
-	$.get("http://bethere.io:7379/SET/characterposition2/"+ JSON.stringify(character.root.position));
+	$.get("http://persist.io:7379/SET/characterposition/"+ data);
+	$.get("http://persist.io:7379/SET/characterposition2/"+ JSON.stringify(character.root.position));
 	    });
 	
 		
@@ -527,7 +527,7 @@ window.onabort = unloadPage;
 
 		function unloadPage()
 		{
-		$.get("http://bethere.io:7379/SREM/sessionIDs/"+jug.sessionID);
+		$.get("http://persist.io:7379/SREM/sessionIDs/"+jug.sessionID);
 		}
 		
 		
@@ -892,7 +892,7 @@ var tmp, tmp1, tmp2,tmp3;
 				function getDesires (){
 
 
-					tmp = $.get("http://bethere.io:7379/SMEMBERS/desires", function(data)
+					tmp = $.get("http://persist.io:7379/SMEMBERS/desires", function(data)
 
 					{
 						tmp1 = tmp.responseText;
@@ -1978,8 +1978,8 @@ function show_prompt_name()
 var name=prompt("what do they call you?","wanderer");
 if (name!=null && name!="")
   {
-  console.log("<p>Hello " + name + "! welcome to bethere.io?</p>");
-$.get("http://bethere.io:7379/SADD/userNames/"+name)
+  console.log("<p>Hello " + name + "! welcome to persist.io?</p>");
+$.get("http://persist.io:7379/SADD/userNames/"+name)
   }
 
 
@@ -2040,7 +2040,7 @@ desires = {
 
 	
 
-	$.get("http://bethere.io:7379/SADD/desires/"+JSON.stringify(myAnswer));
+	$.get("http://persist.io:7379/SADD/desires/"+JSON.stringify(myAnswer));
 			scene2.remove(txtparent);
 				
 					text = 	"Was ihr seid, das waren wir. Was wir sind, das werdet ihr.";
