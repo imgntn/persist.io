@@ -10,12 +10,25 @@ THREE.EffectComposer = function( renderer, renderTarget ) {
 
 	if ( this.renderTarget1 === undefined ) {
 
-		this.renderTargetParameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: false };
+		this.renderTargetParameters = {
+			minFilter: THREE.LinearFilter,
+			magFilter: THREE.LinearFilter,
+			format: THREE.RGBFormat,
+			stencilBuffer: false,
+			generateMipmaps: false  // Prevent mipmap generation errors
+		};
 		this.renderTarget1 = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, this.renderTargetParameters );
 
 	}
 
-	this.renderTarget2 = this.renderTarget1.clone();
+	// Create independent render target to prevent feedback loops
+	this.renderTarget2 = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, this.renderTargetParameters || {
+		minFilter: THREE.LinearFilter,
+		magFilter: THREE.LinearFilter,
+		format: THREE.RGBFormat,
+		stencilBuffer: false,
+		generateMipmaps: false
+	});
 
 	this.writeBuffer = this.renderTarget1;
 	this.readBuffer = this.renderTarget2;
@@ -101,7 +114,8 @@ THREE.EffectComposer.prototype = {
 
 		}
 
-		this.renderTarget2 = this.renderTarget1.clone();
+		// Create independent render target instead of cloning
+		this.renderTarget2 = new THREE.WebGLRenderTarget( window.innerWidth, window.innerHeight, this.renderTargetParameters );
 
 		this.writeBuffer = this.renderTarget1;
 		this.readBuffer = this.renderTarget2;

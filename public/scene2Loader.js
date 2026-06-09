@@ -110,12 +110,14 @@ function scene2Loader() {
 
 	//ground
 	groundimage = document.createElement('img');
-	groundimage.src = "ground2.jpg";
 	groundTexture = new THREE.Texture(groundimage);
-	groundTexture.needsUpdate = true;
 	groundTexture.minFilter = THREE.LinearFilter;
 	groundTexture.magFilter = THREE.LinearFilter;
 	groundTexture.wrapS = groundTexture.wrapT = THREE.RepeatWrapping;
+	groundimage.onload = function() {
+		groundTexture.needsUpdate = true;
+	};
+	groundimage.src = "ground2.jpg";
 	groundGeometry = new THREE.PlaneGeometry(40000, 40000);
 	groundMaterial = new THREE.MeshPhongMaterial({
 		map: groundTexture,

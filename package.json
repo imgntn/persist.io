@@ -8,6 +8,7 @@
     "gulp": "^3.9.0",
     "jsonwebtoken": "^5.0.2",
     "mongoose": "^4.0.5",
-    "morgan": "^1.6.0"
+    "morgan": "^1.6.0",
+    "puppeteer": "^24.36.0"
   }
 }

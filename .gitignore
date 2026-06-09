@@ -4,6 +4,7 @@ dump.rdb
 node_modules
 npm-debug.log
 tmp
+screenshots/
 public/assets
 client/static/assets
 .settings.xml
